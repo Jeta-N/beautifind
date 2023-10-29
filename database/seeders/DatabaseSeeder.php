@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\EmployeeServiceType;
+use App\Models\PriceRange;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +15,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call([
+            AccountSeeder::class,
+            BookingSeeder::class,
+            BookingSlotSeeder::class,
+            EmployeeSeeder::class,
+            EmployeeServiceTypeSeeder::class,
+            FaqSeeder::class,
+            PortfolioImageSeeder::class,
+            PriceRangeSeeder::class,
+            PromotionSeeder::class,
+            ReviewSeeder::class,
+            SecurityQuestionSeeder::class,
+            ServiceSeeder::class,
+            ServicePriceRangeSeeder::class,
+            ServiceServiceTypeSeeder::class,
+            ServiceTypeSeeder::class,
+            UserSeeder::class,
+            SuperAdminSeeder::class,
+        ]);
     }
 }
