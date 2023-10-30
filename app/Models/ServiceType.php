@@ -25,4 +25,9 @@ class ServiceType extends Model
     {
         return $this->hasMany(EmployeeServiceType::class, 'st_id');
     }
+
+    public function booking()
+    {
+        return $this->hasMany(Booking::class, 'st_id');
+    }
 }

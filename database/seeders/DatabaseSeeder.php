@@ -17,22 +17,22 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AccountSeeder::class,
-            BookingSeeder::class,
-            BookingSlotSeeder::class,
+            UserSeeder::class,
+            PriceRangeSeeder::class,
+            ServiceTypeSeeder::class,
+            ServiceSeeder::class,
             EmployeeSeeder::class,
+            SuperAdminSeeder::class,
+            SecurityQuestionSeeder::class,
+            BookingSlotSeeder::class,
+            BookingSeeder::class,
+            ReviewSeeder::class,
             EmployeeServiceTypeSeeder::class,
+            ServiceServiceTypeSeeder::class,
+            PromotionSeeder::class,
             FaqSeeder::class,
             PortfolioImageSeeder::class,
-            PriceRangeSeeder::class,
-            PromotionSeeder::class,
-            ReviewSeeder::class,
-            SecurityQuestionSeeder::class,
-            ServiceSeeder::class,
             ServicePriceRangeSeeder::class,
-            ServiceServiceTypeSeeder::class,
-            ServiceTypeSeeder::class,
-            UserSeeder::class,
-            SuperAdminSeeder::class,
         ]);
     }
 }
