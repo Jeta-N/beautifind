@@ -16,7 +16,12 @@ return new class extends Migration
             $table->id('service_id');
             $table->string('service_name');
             $table->string('service_description');
-            $table->string('service_location');
+            $table->string('service_opening_hours');
+            $table->string('service_address');
+            $table->string('service_city');
+            $table->string('service_phone');
+            $table->string('service_email');
+            $table->string('service_instagram');
             $table->string('service_image_path');
             $table->string('service_status');
             $table->timestamps();
