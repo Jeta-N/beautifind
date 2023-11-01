@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('emp_id')->constrained('employee', 'emp_id');
             $table->foreignId('service_id')->constrained('service', 'service_id');
             $table->date('date');
-            $table->timestamp('time_start')->nullable();
-            $table->timestamp('time_end')->nullable();
+            $table->dateTime('time_start');
+            $table->dateTime('time_end');
             $table->timestamps();
         });
     }
