@@ -27,6 +27,7 @@ class User extends Model
         'user_gender',
         'user_birthdate',
         'user_phone_number',
+        'user_city',
         'user_image_path',
     ];
 
@@ -48,5 +49,10 @@ class User extends Model
     public function booking()
     {
         return $this->hasMany(Booking::class, 'user_id');
+    }
+
+    public function userServiceType()
+    {
+        return $this->hasMany(UserServiceType::class, 'user_id');
     }
 }

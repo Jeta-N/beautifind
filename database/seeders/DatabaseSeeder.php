@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
             PortfolioImageSeeder::class,
             ServicePriceRangeSeeder::class,
+            UserServiceTypeSeeder::class,
         ]);
     }
 }
