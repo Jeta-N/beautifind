@@ -29,8 +29,8 @@ class ServiceController extends Controller
                 }
             }
         }
-        arsort($service_score);
-        dd($service_score);
+        // arsort($service_score);
+        // dd($service_score);
         // $recommender = array_keys(array_slice($service_score,0,3,true));
         $recommender = array_rand($service_score,3);
         // dd($recommender);
