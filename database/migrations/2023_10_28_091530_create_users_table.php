@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('user_gender');
             $table->date('user_birthdate');
             $table->string('user_phone_number');
+            $table->string('user_city');
             $table->string('user_image_path');
             $table->timestamps();
         });
