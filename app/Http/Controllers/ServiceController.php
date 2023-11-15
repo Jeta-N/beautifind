@@ -3,12 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\ServiceServiceType;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    public function viewHomepage(){
+    public function viewHomePage(){
+        $rec_services = [];
+        if (TRUE){
+            $rec_services = $this->rec_service();
+        }
+        $services = $this->servicesByType();
+        return view('welcome')->with('rec_services',$rec_services)->with('services',$services);
+    }
+
+    private function rec_service(){
         $user = User::find(1);
         // dd($user);
         $service_score = [];
@@ -42,6 +52,17 @@ class ServiceController extends Controller
 
         // dd($rec_services);
 
-        return view('welcome')->with('rec_services',$rec_services);
+        return $rec_services;
+    }
+
+    private function servicesByType(){
+        $st = 1;
+        $sst_array = ServiceServiceType::where('st_id','=',$st)->inRandomOrder()->limit(2)->get();
+        $services = [];
+        foreach($sst_array as $sst){
+            $services[] = Service::find($sst->service_id);
+        }
+
+        return $services;
     }
 }
