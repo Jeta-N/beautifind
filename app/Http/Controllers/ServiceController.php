@@ -65,4 +65,24 @@ class ServiceController extends Controller
 
         return $services;
     }
+
+    public function viewServicesList(Request $request){
+        $services = null;
+        $service_types = [2,4];
+        // $service_types = null;
+        if($service_types == null){
+            $services = Service::all();
+        }else {
+            $services_id = ServiceServiceType::whereIn('st_id',$service_types)->select('service_id')->distinct()->get();
+            $services = Service::whereIn('service_id',$services_id)->get();
+        }
+        return view('viewServices')->with('services',$services);
+    }
+
+    public function viewServicesDetails(Request $request){
+        $service_id = $request->route('id');
+        $service = Service::find($service_id);
+
+        return view('viewServiceDetails')->with('service',$service);
+    }
 }
