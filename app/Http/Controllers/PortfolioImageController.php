@@ -2,9 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
+use App\Models\PortfolioImage;
+use App\Models\SuperAdmin;
 use Illuminate\Http\Request;
 
-class PortofolioImageController extends Controller
+class PortfolioImageController extends Controller
 {
-    //
+    public function viewPortfolios(){
+        $acc_role = 'Super Admin';
+        if ($acc_role == 'Super Admin'){
+            $user = SuperAdmin::where('account_id','=',2)->first();
+        }else{
+            $user = Employee::where('account_id','=',3)->first();
+        }
+
+        $ports = PortfolioImage::where('service_id', '=', $user->service_id)->get();
+
+        return view('viewPorts')->with('ports', $ports);
+    }
 }

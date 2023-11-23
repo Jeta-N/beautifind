@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
+use App\Models\PortfolioImage;
+use App\Models\Promotion;
 use App\Models\Service;
 use App\Models\ServiceServiceType;
 use App\Models\User;
@@ -83,6 +86,10 @@ class ServiceController extends Controller
         $service_id = $request->route('id');
         $service = Service::find($service_id);
 
-        return view('viewServiceDetails')->with('service',$service);
+        $faqs= Faq::where('service_id','=',$service_id)->get();
+        $ports = PortfolioImage::where('service_id','=',$service_id)->get();
+        $promos = Promotion::where('service_id','=',$service_id)->get();
+
+        return view('viewServiceDetails')->with('service',$service)->with('faqs',$faqs)->with('ports',$ports)->with('promos',$promos);
     }
 }

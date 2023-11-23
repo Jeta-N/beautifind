@@ -3,6 +3,9 @@
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingSlotController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\PortfolioImageController;
+use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ServiceController;
 use App\Models\Service;
 use Illuminate\Support\Facades\Route;
@@ -22,5 +25,8 @@ Route::get('/', [ServiceController::class, 'viewHomepage']);
 Route::get('/booking', [BookingController::class, 'viewBooking']);
 Route::get('/bookingslot', [BookingSlotController::class, 'viewBookingSlots']);
 Route::get('/employees', [EmployeeController::class, 'viewEmployees']);
+Route::get('/faqs', [FaqController::class, 'viewFaqs']);
+Route::get('/portfolio', [PortfolioImageController::class, 'viewPortfolios']);
+Route::get('/promotion', [PromotionController::class, 'viewPromotions']);
 Route::get('/services', [ServiceController::class, 'viewServicesList']);
 Route::get('/services/{id}', [ServiceController::class, 'viewServicesDetails']);
