@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Faq;
 use App\Models\PortfolioImage;
 use App\Models\Promotion;
+use App\Models\Review;
 use App\Models\Service;
 use App\Models\ServiceServiceType;
 use App\Models\User;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -77,7 +80,16 @@ class ServiceController extends Controller
             $services = Service::all();
         }else {
             $services_id = ServiceServiceType::whereIn('st_id',$service_types)->select('service_id')->distinct()->get();
-            $services = Service::whereIn('service_id',$services_id)->get();
+            $ratings = DB::table('review')->select('service_id',DB::raw('AVG(rating) as rating'))->groupBy('service_id');
+            // dd($ratings);
+            $services = Service::whereIn('service.service_id',$services_id)
+            ->leftJoinSub($ratings,'ratings', function (JoinClause $join){
+                $join->on('service.service_id','=','ratings.service_id');
+            })
+            ->select(DB::raw('service.*,ratings.rating'))
+            ->get();
+
+            // dd($services);
         }
         return view('viewServices')->with('services',$services);
     }
