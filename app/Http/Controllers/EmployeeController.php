@@ -19,4 +19,11 @@ class EmployeeController extends Controller
         $employees = Employee::where('service_id', '=', $user->service_id)->get();
         return view('viewEmployee')->with('employees',$employees);
     }
+
+    public function viewEmployeeProfile(){
+        $acc_id = 4;
+        $emp = Employee::where('account_id','=',$acc_id)->first();
+
+        return view('viewEmpProfile')->with('emp',$emp);
+    }
 }

@@ -74,8 +74,8 @@ class ServiceController extends Controller
 
     public function viewServicesList(Request $request){
         $services = null;
-        $service_types = [2,4];
-        // $service_types = null;
+        // $service_types = [2,4];
+        $service_types = null;
         if($service_types == null){
             $services = Service::all();
         }else {
