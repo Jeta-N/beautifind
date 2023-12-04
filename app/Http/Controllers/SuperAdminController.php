@@ -12,4 +12,11 @@ class SuperAdminController extends Controller
 
         return view('viewSuperAdmin')->with('admins', $admins);
     }
+
+    public function viewSuperAdminProfile(){
+        $acc_id = 2;
+        $admin = SuperAdmin::where('account_id','=',$acc_id)->first();
+
+        return view('viewSAProfile')->with('admin', $admin);
+    }
 }

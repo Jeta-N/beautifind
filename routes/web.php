@@ -30,6 +30,7 @@ Route::get('/bookingslot', [BookingSlotController::class, 'viewBookingSlots']);
 Route::get('/employees', [EmployeeController::class, 'viewEmployees']);
 Route::get('/emp-profile', [EmployeeController::class, 'viewEmployeeProfile']);
 Route::get('/admins', [SuperAdminController::class, 'viewSuperAdmins']);
+Route::get('/sa-profile', [SuperAdminController::class, 'viewSuperAdminProfile']);
 Route::get('/users', [UserController::class, 'viewUsers']);
 Route::get('/user-profile', [UserController::class, 'viewUserProfile']);
 Route::get('/faqs', [FaqController::class, 'viewFaqs']);
