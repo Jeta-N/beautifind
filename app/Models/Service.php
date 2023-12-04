@@ -27,13 +27,18 @@ class Service extends Model
         'service_description',
         'service_opening_hours',
         'service_address',
-        'service_city',
+        'city_id',
         'service_phone',
         'service_email',
         'service_instagram',
         'service_image_path',
         'service_status',
     ];
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
 
     public function promotion()
     {

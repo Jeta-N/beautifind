@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('service_description');
             $table->string('service_opening_hours');
             $table->string('service_address');
-            $table->string('service_city');
+            $table->foreignId('city_id')->constrained('city', 'city_id');
             $table->string('service_phone');
             $table->string('service_email');
             $table->string('service_instagram');

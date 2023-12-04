@@ -27,13 +27,18 @@ class User extends Model
         'user_gender',
         'user_birthdate',
         'user_phone_number',
-        'user_city',
+        'city_id',
         'user_image_path',
     ];
 
     public function account()
     {
         return $this->belongsTo(Account::class, 'account_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
     }
 
     public function securityQuestion()
