@@ -26,14 +26,13 @@ class ServiceController extends Controller
 
     private function rec_service(){
         $user = User::find(1);
-        // dd($user);
         $service_score = [];
         $service_types = [];
 
         foreach($user->userServiceType as $ust){
             $service_types[] = $ust->serviceType;
         }
-        // dd($service_types);
+
         foreach($service_types as $st){
             foreach($st->serviceServiceType as $sst){
                 if(isset($service_score[$sst->service_id])){
@@ -45,18 +44,13 @@ class ServiceController extends Controller
                 }
             }
         }
-        // arsort($service_score);
-        // dd($service_score);
-        // $recommender = array_keys(array_slice($service_score,0,3,true));
+
         $recommender = array_rand($service_score,3);
-        // dd($recommender);
         $rec_services = [];
 
         foreach($recommender as $rec){
             $rec_services[] = Service::find($rec);
         }
-
-        // dd($rec_services);
 
         return $rec_services;
     }
@@ -81,15 +75,12 @@ class ServiceController extends Controller
         }else {
             $services_id = ServiceServiceType::whereIn('st_id',$service_types)->select('service_id')->distinct()->get();
             $ratings = DB::table('review')->select('service_id',DB::raw('AVG(rating) as rating'))->groupBy('service_id');
-            // dd($ratings);
             $services = Service::whereIn('service.service_id',$services_id)
             ->leftJoinSub($ratings,'ratings', function (JoinClause $join){
                 $join->on('service.service_id','=','ratings.service_id');
             })
             ->select(DB::raw('service.*,ratings.rating'))
             ->get();
-
-            // dd($services);
         }
         return view('viewServices')->with('services',$services);
     }

@@ -26,9 +26,7 @@ class BookingController extends Controller
         $acc_id = 1;
         $title = 'user bookings';
         $user = User::where('account_id','=',$acc_id)->first();
-        // dd($user);
         $bookings = Booking::where('user_id','=',$user->user_id)->orderBy('booking_status','desc')->get();
-        // dd($bookings);
         return view('viewBooking')->with('bookings',$bookings)->with('title',$title);
     }
 
@@ -41,9 +39,7 @@ class BookingController extends Controller
         }else{
             $user = Employee::where('account_id','=',$acc_id)->first();
         }
-        // dd($user);
         $bookings = Booking::where('service_id','=',$user->service_id)->orderBy('booking_status','desc')->get();
-        // dd($bookings);
         return view('viewBooking')->with('bookings',$bookings)->with('title',$title);
     }
 
@@ -51,12 +47,10 @@ class BookingController extends Controller
         $acc_id = 4;
         $title = 'staff bookings';
         $user = Employee::where('account_id','=',$acc_id)->first();
-        // dd($user);
         $bookings = Booking::where('booking.service_id','=',$user->service_id)
         ->join('booking_slot','booking.bs_id','=', 'booking_slot.bs_id')
         ->where('booking_slot.emp_id','=',$user->emp_id)
         ->orderBy('booking.booking_status','desc')->get();
-        // dd($bookings);
         return view('viewBooking')->with('bookings',$bookings)->with('title',$title);
     }
 }

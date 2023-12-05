@@ -19,7 +19,6 @@ class ReviewController extends Controller
 
         $reviews = Review::where('service_id', '=', $user->service_id)->get();
         $rating = Review::where('service_id', '=', $user->service_id)->avg('rating');
-        // dd($rating);
 
         return view('viewReview')->with('reviews', $reviews)->with('rating', $rating);
     }
