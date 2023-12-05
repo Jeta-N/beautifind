@@ -31,6 +31,7 @@ class Service extends Model
         'service_phone',
         'service_email',
         'service_instagram',
+        'logo_image_path',
         'service_image_path',
         'service_status',
     ];

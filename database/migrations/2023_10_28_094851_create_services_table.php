@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('service_phone');
             $table->string('service_email');
             $table->string('service_instagram');
+            $table->string('logo_image_path');
             $table->string('service_image_path');
             $table->string('service_status');
             $table->timestamps();
