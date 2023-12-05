@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ServiceController::class, 'viewHomepage']);
+Route::get('/home', [ServiceController::class, 'viewHomepage']);
 Route::get('/booking', [BookingController::class, 'viewBooking']);
 Route::get('/bookingslot', [BookingSlotController::class, 'viewBookingSlots']);
 Route::get('/employees', [EmployeeController::class, 'viewEmployees']);
@@ -39,3 +39,15 @@ Route::get('/promotion', [PromotionController::class, 'viewPromotions']);
 Route::get('/review', [ReviewController::class, 'viewReviews']);
 Route::get('/services', [ServiceController::class, 'viewServicesList']);
 Route::get('/services/{id}', [ServiceController::class, 'viewServicesDetails']);
+
+Route::get('/', function () {
+    return view('pages.home');
+});
+
+Route::get('/search', function () {
+    return view('pages.search');
+});
+
+Route::get('/detail', function () {
+    return view('pages.detail');
+});
