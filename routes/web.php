@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +29,10 @@ Route::get('/detail', function () {
 
 Route::get('/admin', function () {
     return view('pages.admin.dashboard');
+});
+
+Route::post('/login', [AccountController::class, 'login']);
+
+Route::get('/test', function () {
+    return dd(session()->all());
 });

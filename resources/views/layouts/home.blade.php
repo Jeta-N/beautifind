@@ -16,28 +16,56 @@
                 </a>
 
 
+                @if (auth()->user())
+                    <div class="d-flex dropdown ms-auto d-md-none w-50 justify-content-end">
+                        <a class="nav-link navbar-home dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Jeta Nanda
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
 
-                {{-- Mobile View Login --}}
-                <div class="ms-auto w-50 d-flex d-md-none justify-content-end">
-                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loginModal">
-                        Login
-                    </button>
-                </div>
+                    <div class="d-md-flex dropdown ms-auto d-none">
+                        <a class="nav-link navbar-home dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Jeta Nanda
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                @else
+                    {{-- Mobile View Login --}}
+                    <div class="ms-auto w-50 d-flex d-md-none justify-content-end">
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">
+                            Login
+                        </button>
+                    </div>
 
-                <div class="d-flex dropdown ms-auto d-md-none w-50 justify-content-end">
-                    <a class="nav-link navbar-home dropdown-toggle" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Jeta Nanda
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </div>
+                    {{-- Tablet & Desktop View not yet login --}}
+                    <div class="ms-auto d-md-flex d-none">
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">
+                            Login
+                        </button>
+                    </div>
+                @endif
+
+
+
                 <form class="nav-input d-none" id="nav-search" action="/search">
                     <input type="text" class="form-control input-search border-end" placeholder="Search for Services"
                         aria-label="services">
@@ -49,26 +77,7 @@
                     </button>
                 </form>
 
-                {{-- Tablet & Desktop View not yet login --}}
-                <div class="ms-auto d-md-flex d-none">
-                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loginModal">
-                        Login
-                    </button>
-                </div>
-                <div class="d-md-flex dropdown ms-auto d-none">
-                    <a class="nav-link navbar-home dropdown-toggle" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Jeta Nanda
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </div>
+
             </div>
         </nav>
         <div class="navbar d-flex w-100 d-none" id="service-type">

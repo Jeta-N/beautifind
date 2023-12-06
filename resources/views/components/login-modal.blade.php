@@ -21,12 +21,12 @@
                         <div class="mb-3">
                             <label for="email-login" class="form-label">Email address</label>
                             <input type="email" class="form-control form-login py-2" id="email-login"
-                                placeholder="Your Email">
+                                placeholder="Your Email" name="email">
                         </div>
                         <div class="mb-3">
                             <label for="password-login" class="form-label">Password</label>
                             <input type="password" class="form-control form-login py-2" id="password-login"
-                                placeholder="Password">
+                                placeholder="Password" name="password">
                             <a href="#" class="d-block text-end mt-2">Forgot Password?</a>
                         </div>
                         <button type="submit" class="form-control btn-sign-in py-2">Sign in</button>

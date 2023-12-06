@@ -533,5 +533,4 @@
             </div>
         </div>
     </section>
-    @include('components.login-modal')
 @endsection
