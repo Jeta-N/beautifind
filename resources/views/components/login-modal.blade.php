@@ -47,42 +47,66 @@
                     </div>
 
                     <div class="d-none" id="registerForm">
-                        <div class="mb-3">
-                            <label for="fn-register" class="form-label">Full Name</label>
-                            <input type="Text" class="form-control form-login py-2" id="fn-register" placeholder="Your Name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="city" class="form-label">City</label>
-                            <select class="form-select form-login" aria-label="city">
-                                <option selected>Select your city</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email-register" class="form-label">Email address</label>
-                            <input type="email" class="form-control form-login py-2" id="email-register" placeholder="Input Your Email">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password-register" class="form-label">Create Password</label>
-                            <input type="password" class="form-control form-login py-2" id="password-register" placeholder="Min. 8 characters and include special character">
-                        </div>
+                        <form action="/register" method="POST" enctype="multipart/form-data">
+                            {{csrf_field()}}
+                            <div class="mb-3">
+                                <label for="fn-register" class="form-label">Full Name</label>
+                                <input type="Text" class="form-control form-login py-2" id="fn-register" placeholder="Your Name" name="name" value="{{old('name')}}">
+                                @error('name')
+                                <div class="col-auto">
+                                    <div class="card-text fs-6 mb-2 red-warning mt-1">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="city" class="form-label">City</label>
+                                <select class="form-select form-login" aria-label="city" name="city">
+                                    <option selected disabled hidden>Select your city</option>
+                                    <option value="1">Jakarta</option>
+                                    <option value="2">Bandung</option>
+                                    <option value="3">Surabaya</option>
+                                    <option value="4">Denpasar</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email-register" class="form-label">Email address</label>
+                                <input type="email" class="form-control form-login py-2" id="email-register" placeholder="Input Your Email" name="reg_email" value="{{old('reg_email')}}">
+                                @error('reg_email')
+                                <div class="col-auto">
+                                    <div class="card-text fs-6 mb-2 red-warning mt-1">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="password-register" class="form-label">Create Password</label>
+                                <input type="password" class="form-control form-login py-2" id="password-register" placeholder="Min. 8 characters" name="reg_password">
+                                @error('reg_password')
+                                <div class="col-auto">
+                                    <div class="card-text fs-6 mb-2 red-warning mt-1">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                                @enderror
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="password-reregister" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control form-login py-2" id="password-reregister" placeholder="Password">
-                        </div>
+                            <div class="mb-3">
+                                <label for="password-reregister" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control form-login py-2" id="password-reregister" placeholder="Password" name="reg_password_confirmation">
+                                @error('reg_password_confirmation')
+                                <div class="col-auto">
+                                    <div class="card-text fs-6 mb-2 red-warning mt-1">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                                @enderror
+                            </div>
 
-                        <button type="submit" class="form-control btn-sign-in py-2">Register</button>
+                            <button type="submit" class="form-control btn-sign-in py-2">Register</button>
+                    </form>
                     </div>
                 </div>
             </div>

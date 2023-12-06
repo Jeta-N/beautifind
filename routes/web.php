@@ -43,6 +43,7 @@ Route::get('/services', [ServiceController::class, 'viewServicesList']);
 Route::get('/services/{id}', [ServiceController::class, 'viewServicesDetails']);
 
 Route::post('/login',[AccountController::class, 'Login']);
+Route::post('/register', [UserController::class, 'Register']);
 
 Route::get('/', function () {
     return view('pages.home');

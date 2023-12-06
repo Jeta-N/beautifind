@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Auth;
 class BookingController extends Controller
 {
     public function viewBooking(Request $request){
-        if(Auth::check()){
-            dd("yes");
-        }
         $acc_role = 'Staff';
 
         if ($acc_role == 'User'){
