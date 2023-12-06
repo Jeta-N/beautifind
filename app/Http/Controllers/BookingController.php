@@ -7,10 +7,14 @@ use App\Models\Employee;
 use App\Models\SuperAdmin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
-    public function viewBooking(){
+    public function viewBooking(Request $request){
+        if(Auth::check()){
+            dd("yes");
+        }
         $acc_role = 'Staff';
 
         if ($acc_role == 'User'){

@@ -21,8 +21,7 @@
                             {{csrf_field()}}
                             <div class="mb-3">
                                 <label for="email-login" class="form-label">Email address</label>
-                                <input type="email" class="form-control form-login py-2" id="email-login"
-                                    placeholder="Your Email">
+                                <input type="email" class="form-control form-login py-2" id="email-login" name='email' placeholder="Your Email" value="{{old('email')}}">
                                 @error('email')
                                 <div class="col-auto">
                                     <div class="card-text fs-6 mb-2 red-warning mt-1">
@@ -33,8 +32,14 @@
                             </div>
                             <div class="mb-3">
                                 <label for="password-login" class="form-label">Password</label>
-                                <input type="password" class="form-control form-login py-2" id="password-login"
-                                    placeholder="Password">
+                                <input type="password" class="form-control form-login py-2" id="password-login" name='password' placeholder="Password">
+                                @error('password')
+                                <div class="col-auto">
+                                    <div class="card-text fs-6 mb-2 red-warning mt-1">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                                @enderror
                                 <a href="#" class="d-block text-end mt-2">Forgot Password?</a>
                             </div>
                             <button type="submit" class="form-control btn-sign-in py-2">Sign in</button>
@@ -44,8 +49,7 @@
                     <div class="d-none" id="registerForm">
                         <div class="mb-3">
                             <label for="fn-register" class="form-label">Full Name</label>
-                            <input type="Text" class="form-control form-login py-2" id="fn-register"
-                                placeholder="Your Name">
+                            <input type="Text" class="form-control form-login py-2" id="fn-register" placeholder="Your Name">
                         </div>
                         <div class="mb-3">
                             <label for="city" class="form-label">City</label>
@@ -66,19 +70,16 @@
                         </div>
                         <div class="mb-3">
                             <label for="email-register" class="form-label">Email address</label>
-                            <input type="email" class="form-control form-login py-2" id="email-register"
-                                placeholder="Input Your Email">
+                            <input type="email" class="form-control form-login py-2" id="email-register" placeholder="Input Your Email">
                         </div>
                         <div class="mb-3">
                             <label for="password-register" class="form-label">Create Password</label>
-                            <input type="password" class="form-control form-login py-2" id="password-register"
-                                placeholder="Min. 8 characters and include special character">
+                            <input type="password" class="form-control form-login py-2" id="password-register" placeholder="Min. 8 characters and include special character">
                         </div>
 
                         <div class="mb-3">
                             <label for="password-reregister" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control form-login py-2" id="password-reregister"
-                                placeholder="Password">
+                            <input type="password" class="form-control form-login py-2" id="password-reregister" placeholder="Password">
                         </div>
 
                         <button type="submit" class="form-control btn-sign-in py-2">Register</button>
