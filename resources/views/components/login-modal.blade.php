@@ -16,7 +16,8 @@
                         </button>
                     </div>
 
-                    <div class="d-block" id="loginForm">
+                    <form method="POST" class="d-block" id="loginForm" action="/login">
+                        @csrf
                         <div class="mb-3">
                             <label for="email-login" class="form-label">Email address</label>
                             <input type="email" class="form-control form-login py-2" id="email-login"
@@ -29,9 +30,10 @@
                             <a href="#" class="d-block text-end mt-2">Forgot Password?</a>
                         </div>
                         <button type="submit" class="form-control btn-sign-in py-2">Sign in</button>
-                    </div>
+                    </form>
 
-                    <div class="d-none" id="registerForm">
+                    <form method="POST" class="d-none" id="registerForm" action="/register">
+                        @csrf
                         <div class="mb-3">
                             <label for="fn-register" class="form-label">Full Name</label>
                             <input type="Text" class="form-control form-login py-2" id="fn-register"
@@ -72,7 +74,7 @@
                         </div>
 
                         <button type="submit" class="form-control btn-sign-in py-2">Register</button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
