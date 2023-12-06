@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingSlotController;
 use App\Http\Controllers\EmployeeController;
@@ -39,6 +40,8 @@ Route::get('/promotion', [PromotionController::class, 'viewPromotions']);
 Route::get('/review', [ReviewController::class, 'viewReviews']);
 Route::get('/services', [ServiceController::class, 'viewServicesList']);
 Route::get('/services/{id}', [ServiceController::class, 'viewServicesDetails']);
+
+Route::post('/login',[AccountController::class, 'Login']);
 
 Route::get('/', function () {
     return view('pages.home');

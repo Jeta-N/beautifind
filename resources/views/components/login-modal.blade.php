@@ -17,18 +17,28 @@
                     </div>
 
                     <div class="d-block" id="loginForm">
-                        <div class="mb-3">
-                            <label for="email-login" class="form-label">Email address</label>
-                            <input type="email" class="form-control form-login py-2" id="email-login"
-                                placeholder="Your Email">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password-login" class="form-label">Password</label>
-                            <input type="password" class="form-control form-login py-2" id="password-login"
-                                placeholder="Password">
-                            <a href="#" class="d-block text-end mt-2">Forgot Password?</a>
-                        </div>
-                        <button type="submit" class="form-control btn-sign-in py-2">Sign in</button>
+                        <form action="/login" method="POST" enctype="multipart/form-data">
+                            {{csrf_field()}}
+                            <div class="mb-3">
+                                <label for="email-login" class="form-label">Email address</label>
+                                <input type="email" class="form-control form-login py-2" id="email-login"
+                                    placeholder="Your Email">
+                                @error('email')
+                                <div class="col-auto">
+                                    <div class="card-text fs-6 mb-2 red-warning mt-1">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="password-login" class="form-label">Password</label>
+                                <input type="password" class="form-control form-login py-2" id="password-login"
+                                    placeholder="Password">
+                                <a href="#" class="d-block text-end mt-2">Forgot Password?</a>
+                            </div>
+                            <button type="submit" class="form-control btn-sign-in py-2">Sign in</button>
+                        </form>
                     </div>
 
                     <div class="d-none" id="registerForm">
