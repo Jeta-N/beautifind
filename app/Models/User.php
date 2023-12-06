@@ -27,12 +27,18 @@ class User extends Model
         'user_gender',
         'user_birthdate',
         'user_phone_number',
+        'city_id',
         'user_image_path',
     ];
 
     public function account()
     {
         return $this->belongsTo(Account::class, 'account_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
     }
 
     public function securityQuestion()
@@ -48,5 +54,10 @@ class User extends Model
     public function booking()
     {
         return $this->hasMany(Booking::class, 'user_id');
+    }
+
+    public function userServiceType()
+    {
+        return $this->hasMany(UserServiceType::class, 'user_id');
     }
 }

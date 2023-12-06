@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('review', function (Blueprint $table) {
-            $table->id('review_id');
+        Schema::create('user_service_type', function (Blueprint $table) {
+            $table->id('ust_id');
             $table->foreignId('user_id')->constrained('user', 'user_id');
-            $table->foreignId('booking_id')->constrained('booking', 'booking_id');
-            $table->foreignId('service_id')->constrained('service', 'service_id');
-            $table->double('rating');
-            $table->string('review_content');
+            $table->foreignId('st_id')->constrained('service_type', 'st_id');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('review');
+        Schema::dropIfExists('user_service_types');
     }
 };

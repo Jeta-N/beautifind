@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('user_gender');
             $table->date('user_birthdate');
             $table->string('user_phone_number');
+            $table->foreignId('city_id')->constrained('city', 'city_id');
             $table->string('user_image_path');
             $table->timestamps();
         });

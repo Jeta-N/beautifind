@@ -28,10 +28,70 @@ class ServiceServiceTypeSeeder extends Seeder
             ],
             [
                 'service_id' => 1,
+                'st_id' => 4,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 1,
                 'st_id' => 5,
                 'created_at' => now(),
                 'updated_at' => now()
-            ]
+            ],
+            [
+                'service_id' => 2,
+                'st_id' => 2,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 3,
+                'st_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 3,
+                'st_id' => 4,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 3,
+                'st_id' => 5,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 4,
+                'st_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 4,
+                'st_id' => 5,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 5,
+                'st_id' => 4,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 5,
+                'st_id' => 5,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 6,
+                'st_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
         ]);
     }
 }
