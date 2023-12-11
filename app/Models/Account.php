@@ -15,7 +15,7 @@ class Account extends Authenticatable
      * @var string
      */
     protected $table = 'account';
-
+    protected $primaryKey = 'account_id';
     /**
      * The attributes that are mass assignable.
      *
