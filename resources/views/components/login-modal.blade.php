@@ -17,8 +17,8 @@
                     </div>
 
                     <div class="d-block" id="loginForm">
-                        <form action="/login" method="POST" enctype="multipart/form-data">
-                            {{csrf_field()}}
+                        <form method="POST" class="d-block" id="loginForm" action="/login">
+                            @csrf
                             <div class="mb-3">
                                 <label for="email-login" class="form-label">Email address</label>
                                 <input type="email" class="form-control form-login py-2" id="email-login" name='email' placeholder="Your Email" value="{{old('email')}}">
@@ -47,8 +47,8 @@
                     </div>
 
                     <div class="d-none" id="registerForm">
-                        <form action="/register" method="POST" enctype="multipart/form-data">
-                            {{csrf_field()}}
+                        <form method="POST" class="d-none" id="registerForm" action="/register">
+                            @csrf
                             <div class="mb-3">
                                 <label for="fn-register" class="form-label">Full Name</label>
                                 <input type="Text" class="form-control form-login py-2" id="fn-register" placeholder="Your Name" name="name" value="{{old('name')}}">

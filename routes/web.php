@@ -57,3 +57,7 @@ Route::get('/search', function () {
 Route::get('/detail', function () {
     return view('pages.detail');
 });
+
+Route::get('/admin', function () {
+    return view('pages.admin.dashboard');
+});
