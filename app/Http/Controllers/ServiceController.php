@@ -11,13 +11,14 @@ use App\Models\ServiceServiceType;
 use App\Models\User;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
     public function viewHomePage(){
         $rec_services = [];
-        if (TRUE){
+        if (Auth::check()){
             $rec_services = $this->rec_service();
         }
         $services = $this->servicesByType();
@@ -25,7 +26,8 @@ class ServiceController extends Controller
     }
 
     private function rec_service(){
-        $user = User::find(1);
+        $acc_id = Auth::user()->account_id;
+        $user = User::where('account_id','=',$acc_id)->first();
         // dd($user);
         $service_score = [];
         $service_types = [];
@@ -77,7 +79,7 @@ class ServiceController extends Controller
         // $service_types = [2,4];
         $service_types = null;
         if($service_types == null){
-            $services = Service::all();
+            $services = Service::orderBy('service_name')->get();
         }else {
             $services_id = ServiceServiceType::whereIn('st_id',$service_types)->select('service_id')->distinct()->get();
             $ratings = DB::table('review')->select('service_id',DB::raw('AVG(rating) as rating'))->groupBy('service_id');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -15,7 +16,7 @@ class UserController extends Controller
     }
 
     public function viewUserProfile(){
-        $acc_id = 1;
+        $acc_id = Auth::user()->account_id;
         $user = User::where('account_id','=',$acc_id)->first();
 
         return view('viewUserProfile')->with('user', $user);

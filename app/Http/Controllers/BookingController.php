@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class BookingController extends Controller
 {
     public function viewBooking(Request $request){
-        $acc_role = 'Staff';
+        $acc_role = Auth::user()->account_role;
 
         if ($acc_role == 'User'){
             return $this->viewUserBooking();
@@ -24,17 +24,15 @@ class BookingController extends Controller
     }
 
     private function viewUserBooking(){
-        $acc_id = 1;
+        $acc_id = Auth::user()->account_id;
         $title = 'user bookings';
         $user = User::where('account_id','=',$acc_id)->first();
-        // dd($user);
         $bookings = Booking::where('user_id','=',$user->user_id)->orderBy('booking_status','desc')->get();
-        // dd($bookings);
         return view('viewBooking')->with('bookings',$bookings)->with('title',$title);
     }
 
     private function viewServiceBooking($acc_role){
-        $acc_id = 3;
+        $acc_id = Auth::user()->account_id;
         $title = 'service bookings';
         $user = null;
         if ($acc_role == 'Super Admin'){
@@ -49,7 +47,7 @@ class BookingController extends Controller
     }
 
     private function viewStaffBooking(){
-        $acc_id = 4;
+        $acc_id = Auth::user()->account_id;
         $title = 'staff bookings';
         $user = Employee::where('account_id','=',$acc_id)->first();
         // dd($user);

@@ -41,9 +41,10 @@ Route::get('/promotion', [PromotionController::class, 'viewPromotions']);
 Route::get('/review', [ReviewController::class, 'viewReviews']);
 Route::get('/services', [ServiceController::class, 'viewServicesList']);
 Route::get('/services/{id}', [ServiceController::class, 'viewServicesDetails']);
+Route::get('/logout', [AccountController::class, 'logout']);
 
-Route::post('/login',[AccountController::class, 'Login']);
-Route::post('/register', [UserController::class, 'Register']);
+Route::post('/login',[AccountController::class, 'login']);
+Route::post('/register', [UserController::class, 'register']);
 
 Route::get('/', function () {
     return view('pages.home');

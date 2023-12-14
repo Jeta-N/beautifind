@@ -21,11 +21,17 @@ class AccountController extends Controller
 
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect('/booking');
+            return redirect()->back();
         }else{
             dd("Failed to login");
         }
 
 
     }
+
+    public function logout(){
+        Auth::logout();
+        return redirect('/');
+    }
+
 }

@@ -35,7 +35,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="{{url('/logout')}}">Logout</a></li>
                     </ul>
                 </div>
                 <form class="nav-input d-none" id="nav-search" action="/search">
@@ -66,7 +66,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="{{url('/logout')}}">Logout</a></li>
                     </ul>
                 </div>
             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SuperAdmin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SuperAdminController extends Controller
 {
@@ -14,7 +15,7 @@ class SuperAdminController extends Controller
     }
 
     public function viewSuperAdminProfile(){
-        $acc_id = 2;
+        $acc_id = Auth::user()->account_id;
         $admin = SuperAdmin::where('account_id','=',$acc_id)->first();
 
         return view('viewSAProfile')->with('admin', $admin);

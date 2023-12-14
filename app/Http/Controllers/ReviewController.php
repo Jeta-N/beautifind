@@ -10,11 +10,12 @@ use Illuminate\Http\Request;
 class ReviewController extends Controller
 {
     public function viewReviews(){
-        $acc_role = 'Super Admin';
+        $acc_role = Auth::user()->account_role;
+        $acc_id = Auth::user()->account_id;
         if ($acc_role == 'Super Admin'){
-            $user = SuperAdmin::where('account_id','=',2)->first();
+            $user = SuperAdmin::where('account_id','=',$acc_id)->first();
         }else{
-            $user = Employee::where('account_id','=',3)->first();
+            $user = Employee::where('account_id','=',$acc_id)->first();
         }
 
         $reviews = Review::where('service_id', '=', $user->service_id)->get();
