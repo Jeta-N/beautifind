@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\Faq;
 use App\Models\SuperAdmin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FaqController extends Controller
 {
