@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Service extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     /**
      * The table associated with the model.
      *
@@ -27,13 +29,19 @@ class Service extends Model
         'service_description',
         'service_opening_hours',
         'service_address',
-        'service_city',
+        'city_id',
         'service_phone',
         'service_email',
         'service_instagram',
+        'logo_image_path',
         'service_image_path',
         'service_status',
     ];
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
 
     public function promotion()
     {

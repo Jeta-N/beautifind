@@ -30,4 +30,9 @@ class ServiceType extends Model
     {
         return $this->hasMany(Booking::class, 'st_id');
     }
+
+    public function UserServiceType()
+    {
+        return $this->hasMany(UserServiceType::class, 'st_id');
+    }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('account_role');
             $table->boolean('is_blocked');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

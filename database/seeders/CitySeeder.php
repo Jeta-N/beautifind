@@ -6,38 +6,34 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ServiceServiceTypeSeeder extends Seeder
+class CitySeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('service_service_type')->insert([
+        DB::table('city')->insert([
             [
-                'service_id' => 1,
-                'st_id' => 1,
+                'city_name' => 'Jakarta',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'service_id' => 1,
-                'st_id' => 2,
+                'city_name' => 'Bandung',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'service_id' => 1,
-                'st_id' => 4,
+                'city_name' => 'Surabaya',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'service_id' => 1,
-                'st_id' => 5,
+                'city_name' => 'Denpasar',
                 'created_at' => now(),
                 'updated_at' => now()
-            ]
+            ],
         ]);
     }
 }

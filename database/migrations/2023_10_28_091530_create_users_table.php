@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id('user_id');
             $table->foreignId('account_id')->constrained('account', 'account_id');
             $table->string('user_name');
-            $table->string('user_gender');
-            $table->date('user_birthdate');
-            $table->string('user_phone_number');
+            $table->string('user_gender')->nullable();
+            $table->date('user_birthdate')->nullable();
+            $table->string('user_phone_number')->nullable();
+            $table->foreignId('city_id')->constrained('city', 'city_id');
             $table->string('user_image_path');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

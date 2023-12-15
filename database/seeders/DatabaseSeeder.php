@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AccountSeeder::class,
+            CitySeeder::class,
             UserSeeder::class,
             PriceRangeSeeder::class,
             ServiceTypeSeeder::class,
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
             PortfolioImageSeeder::class,
             ServicePriceRangeSeeder::class,
+            UserServiceTypeSeeder::class,
         ]);
     }
 }

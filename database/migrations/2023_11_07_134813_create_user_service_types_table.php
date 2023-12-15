@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_service_type', function (Blueprint $table) {
-            $table->id('sst_id');
-            $table->foreignId('service_id')->constrained('service', 'service_id');
+        Schema::create('user_service_type', function (Blueprint $table) {
+            $table->id('ust_id');
+            $table->foreignId('user_id')->constrained('user', 'user_id');
             $table->foreignId('st_id')->constrained('service_type', 'st_id');
             $table->timestamps();
             $table->softDeletes();
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_service_type');
+        Schema::dropIfExists('user_service_types');
     }
 };
