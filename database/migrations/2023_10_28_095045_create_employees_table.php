@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('emp_phone_number');
             $table->string('emp_image_path');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

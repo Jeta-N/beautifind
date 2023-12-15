@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('city_id')->constrained('city', 'city_id');
             $table->string('user_image_path');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

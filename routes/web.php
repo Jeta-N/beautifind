@@ -42,6 +42,7 @@ Route::get('/review', [ReviewController::class, 'viewReviews']);
 Route::get('/services', [ServiceController::class, 'viewServicesList']);
 Route::get('/services/{id}', [ServiceController::class, 'viewServicesDetails']);
 Route::get('/logout', [AccountController::class, 'logout']);
+Route::get('/admin-dash', [AccountController::class, 'viewDashboard']);
 
 Route::post('/login',[AccountController::class, 'login']);
 Route::post('/register', [UserController::class, 'register']);

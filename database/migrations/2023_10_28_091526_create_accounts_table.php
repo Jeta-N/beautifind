@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('account', function (Blueprint $table) {
             $table->id('account_id');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('password');
             $table->string('account_role');
             $table->boolean('is_blocked');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
