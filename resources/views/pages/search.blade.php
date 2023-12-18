@@ -5,19 +5,19 @@
         <div class="w-100 bg-white rounded shadow-sm">
             <div class="row mx-0">
                 <div class="col p-0">
-                    <div class="search-header border-end">
-                        <i class="bi bi-funnel me-2"></i>
-                        Filter
-                    </div>
-                </div>
-                <div class="col p-0">
                     <div class="search-header border-end" data-bs-toggle="modal" data-bs-target="#sortSearchModal">
                         <i class="bi bi-list me-2"></i>
                         Sort
                     </div>
                 </div>
                 <div class="col p-0">
-                    <div class="search-header border-end">
+                    <div class="search-header border-end" data-bs-toggle="modal" data-bs-target="#typeSearchModal">
+                        <i class="bi bi-funnel me-2"></i>
+                        Type
+                    </div>
+                </div>
+                <div class="col p-0">
+                    <div class="search-header border-end" data-bs-toggle="modal" data-bs-target="#priceSearchModal">
                         <i class="bi bi-cash me-2"></i>
                         Price
                     </div>
@@ -80,4 +80,6 @@
 
     @include('components.sort-search-modal')
     @include('components.rating-search-modal')
+    @include('components.price-search-modal')
+    @include('components.type-search-modal')
 @endsection

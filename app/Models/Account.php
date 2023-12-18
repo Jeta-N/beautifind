@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 class Account extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory;
 
     /**
      * The table associated with the model.
@@ -34,16 +35,8 @@ class Account extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password'
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'password' => 'hashed',
+        'password',
+        'remember_token'
     ];
 
     public function user()

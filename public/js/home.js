@@ -23,7 +23,9 @@ const heroObserver = new IntersectionObserver(
             document.getElementsByClassName("navbar-brand")[0].classList.add("navbar-home");
             var elements = document.querySelectorAll(".nav-link");
             elements[0].classList.add("navbar-home");
-            elements[1].classList.add("navbar-home");
+            if (elements[1]) {
+                elements[1].classList.add("navbar-home");
+            }
 
             document.getElementById("service-type").classList.add("d-none");
             document.getElementById("nav-search").classList.add("d-none");
@@ -36,3 +38,60 @@ const heroObserver = new IntersectionObserver(
 );
 
 heroObserver.observe(heroElement);
+
+
+const swiper4 = new Swiper('.swiper-home', {
+    direction: 'horizontal',
+    loop: true,
+
+    breakpoints: {
+        450: {
+            slidesPerView: 2.5,
+            spaceBetween: 20
+        },
+        640: {
+            slidesPerView: 2.5,
+            spaceBetween: 20,
+        },
+        768: {
+            slidesPerView: 3.5,
+            spaceBetween: 40,
+        },
+        1024: {
+            slidesPerView: 4.5,
+            spaceBetween: 50,
+        }
+    }
+});
+
+const swiperTestimony = new Swiper('.swiper-testimony', {
+    direction: 'horizontal',
+    loop: true,
+
+    slidesPerView: 3,
+    spaceBetween: 30,
+
+    navigation: {
+        nextEl: ".testimony-next",
+        prevEl: ".testimony-prev",
+    },
+
+    breakpoints: {
+        450: {
+            slidesPerView: 2,
+            spaceBetween: 15
+        },
+        640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+        },
+        768: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+        },
+        1024: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+        }
+    }
+})

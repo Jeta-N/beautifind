@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\BookingSlotController;
 use App\Http\Controllers\EmployeeController;
@@ -48,11 +49,29 @@ Route::get('/services/{id}', [ServiceController::class, 'viewServicesDetails']);
 //     return view('pages.search');
 // });
 
-// Route::get('/detail', function () {
-//     return view('pages.detail');
-// });
+Route::get('/detail', function () {
+    return view('pages.detail');
+});
+
+Route::get('/profile', function () {
+    return view('pages.profile');
+});
 
 
-// Route::get('/admin', function () {
-//     return view('pages.admin.dashboard');
-// });
+Route::get('/admin', function () {
+    return view('pages.admin.dashboard');
+});
+
+Route::post('/login', [AccountController::class, 'login']);
+
+Route::get('/test', function () {
+    return dd(session()->all());
+});
+
+Route::get('/about', function () {
+    return view('pages.aboutus');
+});
+
+Route::get('/faq', function () {
+    return view('pages.faq');
+});
