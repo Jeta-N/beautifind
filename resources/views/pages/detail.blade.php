@@ -33,7 +33,8 @@
                                                         <span class="text-secondary">1h</span>
                                                     </div>
                                                     <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in">Register</button>
+                                                        <button type="submit" class=" btn btn-sign-in"
+                                                            data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -49,7 +50,8 @@
                                                         <span class="text-secondary">1h</span>
                                                     </div>
                                                     <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in">Register</button>
+                                                        <button type="submit" class=" btn btn-sign-in"
+                                                            data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -65,7 +67,8 @@
                                                         <span class="text-secondary">1h</span>
                                                     </div>
                                                     <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in">Register</button>
+                                                        <button type="submit" class=" btn btn-sign-in"
+                                                            data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -81,7 +84,8 @@
                                                         <span class="text-secondary">1h</span>
                                                     </div>
                                                     <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in">Register</button>
+                                                        <button type="submit" class=" btn btn-sign-in"
+                                                            data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -111,7 +115,8 @@
                                                         <span class="text-secondary">1h</span>
                                                     </div>
                                                     <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in">Register</button>
+                                                        <button type="submit" class=" btn btn-sign-in"
+                                                            data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -127,7 +132,9 @@
                                                         <span class="text-secondary">1h</span>
                                                     </div>
                                                     <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in">Register</button>
+                                                        <button type="submit" class=" btn btn-sign-in"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#bookModal">Book</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -143,7 +150,9 @@
                                                         <span class="text-secondary">1h</span>
                                                     </div>
                                                     <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in">Register</button>
+                                                        <button type="submit" class=" btn btn-sign-in"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#bookModal">Book</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,7 +168,9 @@
                                                         <span class="text-secondary">1h</span>
                                                     </div>
                                                     <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in">Register</button>
+                                                        <button type="submit" class=" btn btn-sign-in"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#bookModal">Book</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -189,7 +200,9 @@
                                                         <span class="text-secondary">1h</span>
                                                     </div>
                                                     <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in">Register</button>
+                                                        <button type="submit" class=" btn btn-sign-in"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#bookModal">Book</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -205,7 +218,9 @@
                                                         <span class="text-secondary">1h</span>
                                                     </div>
                                                     <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in">Register</button>
+                                                        <button type="submit" class=" btn btn-sign-in"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#bookModal">Book</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -221,7 +236,9 @@
                                                         <span class="text-secondary">1h</span>
                                                     </div>
                                                     <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in">Register</button>
+                                                        <button type="submit" class=" btn btn-sign-in"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#bookModal">Book</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -237,7 +254,9 @@
                                                         <span class="text-secondary">1h</span>
                                                     </div>
                                                     <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in">Register</button>
+                                                        <button type="submit" class=" btn btn-sign-in"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#bookModal">Book</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -334,4 +353,12 @@
             </div>
         </div>
     </div>
+
+    @include('components.book-modal')
+    @include('components.confirmation-book-modal')
+    @include('components.success-book-modal')
+@endsection
+
+@section('scripts')
+    <script src="./js/book.js"></script>
 @endsection

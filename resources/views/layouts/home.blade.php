@@ -16,23 +16,8 @@
                 </a>
 
 
-                @if (auth()->user())
+                @auth
                     <div class="d-flex dropdown ms-auto d-md-none w-50 justify-content-end">
-                        <a class="nav-link navbar-home dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Jeta Nanda
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="d-md-flex dropdown ms-auto d-none">
                         <a class="nav-link navbar-home dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Jeta Nanda
@@ -54,17 +39,7 @@
                             Login
                         </button>
                     </div>
-
-                    {{-- Tablet & Desktop View not yet login --}}
-                    <div class="ms-auto d-md-flex d-none">
-                        <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                            data-bs-target="#loginModal">
-                            Login
-                        </button>
-                    </div>
-                @endif
-
-
+                @endauth
 
                 <form class="nav-input d-none" id="nav-search" action="/search">
                     <input type="text" class="form-control input-search border-end" placeholder="Search for Services"
@@ -77,6 +52,30 @@
                     </button>
                 </form>
 
+                @auth
+                <div class="d-md-flex dropdown ms-auto d-none">
+                    <a class="nav-link navbar-home dropdown-toggle" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Jeta Nanda
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
+                @else
+                {{-- Tablet & Desktop View not yet login --}}
+                <div class="ms-auto d-md-flex d-none">
+                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">
+                        Login
+                    </button>
+                </div>
+                @endauth
 
             </div>
         </nav>

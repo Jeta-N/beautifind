@@ -26,6 +26,10 @@ Route::get('/detail', function () {
     return view('pages.detail');
 });
 
+Route::get('/profile', function () {
+    return view('pages.profile');
+});
+
 
 Route::get('/admin', function () {
     return view('pages.admin.dashboard');
@@ -35,4 +39,12 @@ Route::post('/login', [AccountController::class, 'login']);
 
 Route::get('/test', function () {
     return dd(session()->all());
+});
+
+Route::get('/about', function () {
+    return view('pages.aboutus');
+});
+
+Route::get('/faq', function () {
+    return view('pages.faq');
 });

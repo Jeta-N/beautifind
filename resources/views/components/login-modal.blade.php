@@ -72,6 +72,74 @@
                             <input type="password" class="form-control form-login py-2" id="password-reregister"
                                 placeholder="Password">
                         </div>
+                        <div class="mb-3">
+                            <p>I'm looking for ....</p>
+                            <div class="row row-cols-3 mx-0">
+                                <div class="form-check col mb-3">
+                                    <input class="form-check-input" type="checkbox" name="typePreferences"
+                                        id="typePreferences1">
+                                    <label class="form-check-label" for="typePreferences1">
+                                        Hair Salon
+                                    </label>
+                                </div>
+                                <div class="form-check col mb-3">
+                                    <input class="form-check-input" type="checkbox" name="typePreferences"
+                                        id="typePreferences2">
+                                    <label class="form-check-label" for="typePreferences2">
+                                        Nail Salon
+                                    </label>
+                                </div>
+                                <div class="form-check col mb-3">
+                                    <input class="form-check-input" type="checkbox" name="typePreferences"
+                                        id="typePreferences3">
+                                    <label class="form-check-label" for="typePreferences3">
+                                        Brow & Lashes
+                                    </label>
+                                </div>
+                                <div class="form-check col mb-3">
+                                    <input class="form-check-input" type="checkbox" name="typePreferences"
+                                        id="typePreferences4">
+                                    <label class="form-check-label" for="typePreferences4">
+                                        Barbershop
+                                    </label>
+                                </div>
+                                <div class="form-check col mb-3">
+                                    <input class="form-check-input" type="checkbox" name="typePreferences"
+                                        id="typePreferences5">
+                                    <label class="form-check-label" for="typePreferences5">
+                                        Barbershop
+                                    </label>
+                                </div>
+                                <div class="form-check col mb-3">
+                                    <input class="form-check-input" type="checkbox" name="typePreferences"
+                                        id="typePreferences6">
+                                    <label class="form-check-label" for="typePreferences6">
+                                        Barbershop
+                                    </label>
+                                </div>
+                                <div class="form-check col mb-3">
+                                    <input class="form-check-input" type="checkbox" name="typePreferences"
+                                        id="typePreferences7">
+                                    <label class="form-check-label" for="typePreferences7">
+                                        Wellness & Spa
+                                    </label>
+                                </div>
+                                <div class="form-check col mb-3">
+                                    <input class="form-check-input" type="checkbox" name="typePreferences"
+                                        id="typePreferences8">
+                                    <label class="form-check-label" for="typePreferences8">
+                                        Wellness & Spa
+                                    </label>
+                                </div>
+                                <div class="form-check col mb-3">
+                                    <input class="form-check-input" type="checkbox" name="typePreferences"
+                                        id="typePreferences9">
+                                    <label class="form-check-label" for="typePreferences9">
+                                        Wellness & Spa
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
                         <button type="submit" class="form-control btn-sign-in py-2">Register</button>
                     </form>
