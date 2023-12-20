@@ -135,6 +135,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    var priceParams = urlParams.getAll('price[]');
+    if (priceParams.length > 0) {
+        var checkboxes = document.querySelectorAll('input[name="price[]"]');
+        checkboxes.forEach(function (checkbox) {
+            if (priceParams.includes(checkbox.value)) {
+                checkbox.checked = true;
+            }
+        });
+    }
+
     var sortParams = urlParams.get('sort-by');
     if (sortParams) {
         var sortSelect = document.querySelectorAll('input[name="sort-by"]');

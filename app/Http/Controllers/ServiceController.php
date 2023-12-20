@@ -55,7 +55,7 @@ class ServiceController extends Controller
             }
         }
         $random = 3;
-        if (count($service_score) < 3){
+        if (count($service_score) < 3) {
             $random = count($service_score);
         }
         $recommender = array_rand($service_score, $random);
@@ -86,32 +86,57 @@ class ServiceController extends Controller
         $filterType = $request->input('type', []);
         $filterRating = $request->input('rating', []);
         $filterPrice = $request->input('price', []);
-        $sortBy = $request->input('sort-by', []);
+        $sortBy = $request->input('sort-by');
 
-        $service_types = null;
-        if ($service_types == null) {
-            $query = Service::orderBy('service_name');
-        } else {
-            $serviceTypeIds = ServiceServiceType::whereIn('st_id', $service_types)->distinct()->pluck('service_id');
-            $query = Service::whereIn('service_id', $serviceTypeIds);
-        }
+        $query = Service::query();
 
-        if ($searchName != null) {
+        if ($searchName) {
             $query->where('service_name', 'LIKE', '%' . $searchName . '%');
         }
 
-        if ($filterType != null && $filterType != []) {
-            $query->whereIn('service_id', function ($query) use ($filterType) {
-                $query->select('service_id')
-                    ->from('service_service_type')
-                    ->whereIn('st_id', $filterType);
+        if ($filterType && count($filterType) > 0) {
+            $query->whereHas('serviceServiceType', function ($subquery) use ($filterType) {
+                $subquery->whereIn('st_id', $filterType);
             });
         }
 
-        $services = $query
-            ->withAvg('review', 'rating') // Eager load average rating
-            ->get();
+        if ($filterPrice && count($filterPrice) > 0) {
+            $query->whereHas('servicePriceRange', function ($subquery) use ($filterPrice) {
+                $subquery->whereIn('pr_id', $filterPrice);
+            });
+        }
 
+        // Handle sorting
+        switch ($sortBy) {
+            case 1:
+                $query->orderBy('service_name');
+                break;
+            case 2:
+                $query->orderByDesc('service_name');
+                break;
+            case 3:
+                //sort by price ascending
+                break;
+            case 4:
+                //sort by price desc
+                break;
+            case 5:
+                //sort by rating asc
+                break;
+            case 6:
+                //sort by rating desc
+                break;
+            default:
+                $query->orderBy('service_name');
+        }
+
+
+        $query->withAvg('review', 'rating');
+
+        if ($filterRating && $filterType != []) {
+            $query->having('review_avg_rating', '>', $filterRating);
+        }
+        $services = $query->get();
 
         return view('pages.search')->with('services', $services);
     }
