@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('service_id')->constrained('service', 'service_id');
             $table->foreignId('pr_id')->constrained('price_range', 'pr_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

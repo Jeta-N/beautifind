@@ -12,7 +12,7 @@
                         beauty adventure awaits whenever you decide to return.
                     </p>
                     <p>Until then, take care and stay beautiful!💅💄</p>
-                    <button class="profile-logout-btn w-100">Log Out</button>
+                    <a class="profile-logout-btn w-100" href="/logout">Log Out</a>
                 </div>
             </div>
         </div>

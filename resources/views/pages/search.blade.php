@@ -30,7 +30,10 @@
                 </div>
             </div>
         </div>
-        <div class="card mt-3 p-3 border-0 shadow-sm">
+        @foreach ($services as $service )
+            {{ $service }}
+        @endforeach
+        <div class="card my-3 p-3 border-0 shadow-sm">
             <div class="row g-0">
                 <div class="col-md-3 d-flex justify-content-center">
                     <img src="{{ asset('storage/asset/images/dummy-salon.png') }}" class="w-100" alt="product-image">
@@ -82,4 +85,8 @@
     @include('components.rating-search-modal')
     @include('components.price-search-modal')
     @include('components.type-search-modal')
+@endsection
+
+@section('scripts')
+<script src="./js/search.js"></script>
 @endsection

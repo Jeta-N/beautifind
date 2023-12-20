@@ -37,107 +37,45 @@
                         <div class="mb-3">
                             <label for="fn-register" class="form-label">Full Name</label>
                             <input type="Text" class="form-control form-login py-2" id="fn-register"
-                                placeholder="Your Name">
+                                placeholder="Your Name" name="name">
                         </div>
                         <div class="mb-3">
                             <label for="city" class="form-label">City</label>
-                            <select class="form-select form-login" aria-label="city">
+                            <select class="form-select form-login" aria-label="city" name="city">
                                 <option selected>Select your city</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
-                                <option value="3">Three</option>
+                                @foreach ($cities as $city )
+                                <option value="{{ $loop->iteration }}">{{ $city->city_name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="email-register" class="form-label">Email address</label>
                             <input type="email" class="form-control form-login py-2" id="email-register"
-                                placeholder="Input Your Email">
+                                placeholder="Input Your Email" name="reg_email">
                         </div>
                         <div class="mb-3">
                             <label for="password-register" class="form-label">Create Password</label>
                             <input type="password" class="form-control form-login py-2" id="password-register"
-                                placeholder="Min. 8 characters and include special character">
+                                placeholder="Min. 8 characters and include special character" name="reg_password">
                         </div>
 
                         <div class="mb-3">
                             <label for="password-reregister" class="form-label">Confirm Password</label>
                             <input type="password" class="form-control form-login py-2" id="password-reregister"
-                                placeholder="Password">
+                                placeholder="Password" name="reg_password_confirmation">
                         </div>
                         <div class="mb-3">
                             <p>I'm looking for ....</p>
                             <div class="row row-cols-3 mx-0">
+                                @foreach ($serviceTypes as $serviceType)
                                 <div class="form-check col mb-3">
-                                    <input class="form-check-input" type="checkbox" name="typePreferences"
-                                        id="typePreferences1">
-                                    <label class="form-check-label" for="typePreferences1">
-                                        Hair Salon
+                                    <input class="form-check-input" type="checkbox" name="typePreferences[]"
+                                        id="typePreferences{{ $loop->iteration }}" value="{{ $loop->iteration }}">
+                                    <label class="form-check-label" for="typePreferences{{ $loop->iteration }}">
+                                        {{ $serviceType->st_name }}
                                     </label>
                                 </div>
-                                <div class="form-check col mb-3">
-                                    <input class="form-check-input" type="checkbox" name="typePreferences"
-                                        id="typePreferences2">
-                                    <label class="form-check-label" for="typePreferences2">
-                                        Nail Salon
-                                    </label>
-                                </div>
-                                <div class="form-check col mb-3">
-                                    <input class="form-check-input" type="checkbox" name="typePreferences"
-                                        id="typePreferences3">
-                                    <label class="form-check-label" for="typePreferences3">
-                                        Brow & Lashes
-                                    </label>
-                                </div>
-                                <div class="form-check col mb-3">
-                                    <input class="form-check-input" type="checkbox" name="typePreferences"
-                                        id="typePreferences4">
-                                    <label class="form-check-label" for="typePreferences4">
-                                        Barbershop
-                                    </label>
-                                </div>
-                                <div class="form-check col mb-3">
-                                    <input class="form-check-input" type="checkbox" name="typePreferences"
-                                        id="typePreferences5">
-                                    <label class="form-check-label" for="typePreferences5">
-                                        Barbershop
-                                    </label>
-                                </div>
-                                <div class="form-check col mb-3">
-                                    <input class="form-check-input" type="checkbox" name="typePreferences"
-                                        id="typePreferences6">
-                                    <label class="form-check-label" for="typePreferences6">
-                                        Barbershop
-                                    </label>
-                                </div>
-                                <div class="form-check col mb-3">
-                                    <input class="form-check-input" type="checkbox" name="typePreferences"
-                                        id="typePreferences7">
-                                    <label class="form-check-label" for="typePreferences7">
-                                        Wellness & Spa
-                                    </label>
-                                </div>
-                                <div class="form-check col mb-3">
-                                    <input class="form-check-input" type="checkbox" name="typePreferences"
-                                        id="typePreferences8">
-                                    <label class="form-check-label" for="typePreferences8">
-                                        Wellness & Spa
-                                    </label>
-                                </div>
-                                <div class="form-check col mb-3">
-                                    <input class="form-check-input" type="checkbox" name="typePreferences"
-                                        id="typePreferences9">
-                                    <label class="form-check-label" for="typePreferences9">
-                                        Wellness & Spa
-                                    </label>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
 

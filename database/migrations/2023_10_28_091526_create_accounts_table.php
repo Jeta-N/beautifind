@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('is_blocked');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

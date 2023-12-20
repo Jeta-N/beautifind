@@ -412,6 +412,12 @@ body
     background: #8E8B7E;
 }
 
+.profile-logout-btn
+{
+    text-decoration: none;
+    display: block
+}
+
 /* Profile */
 .rectangle-active
 {

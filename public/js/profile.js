@@ -1,3 +1,24 @@
+document.addEventListener('DOMContentLoaded', function () {
+    function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+    // Get the 'activeTab' parameter from the URL
+    const activeTab = getQueryParam('activeTab');
+
+    if (activeTab === 'myOrder') {
+        toggleActiveTab('myOrder');
+        myOrder.classList.add('bg-secondary-subtle');
+    } else if (activeTab === 'editPreferences') {
+        toggleActiveTab('editPreferences');
+        editPreferences.classList.add('bg-secondary-subtle');
+    } else {
+        // Default to making the "Personal Data" tab active
+        toggleActiveTab('personalData');
+        personalData.classList.add('bg-secondary-subtle');
+    }
+});
+
 var personalData = document.getElementById('personalData');
 personalData.addEventListener('click', function () {
     toggleActiveTab('personalData');
@@ -31,6 +52,8 @@ function toggleActiveTab(tabName) {
     if (tabActive) {
         tabActive.style.display = 'block';
     }
+
+    history.pushState({}, '', '?activeTab=' + tabName);
 }
 
 

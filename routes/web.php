@@ -12,6 +12,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserController;
 use App\Models\Service;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,14 +41,11 @@ Route::get('/promotion', [PromotionController::class, 'viewPromotions']);
 Route::get('/review', [ReviewController::class, 'viewReviews']);
 Route::get('/services', [ServiceController::class, 'viewServicesList']);
 Route::get('/services/{id}', [ServiceController::class, 'viewServicesDetails']);
+Route::get('/logout', [AccountController::class, 'logout']);
+Route::get('/admin-dashboard', [AccountController::class, 'viewDashboard']);
 
-// Route::get('/', function () {
-//     return view('pages.home');
-// });
-
-// Route::get('/search', function () {
-//     return view('pages.search');
-// });
+Route::post('/login', [AccountController::class, 'login']);
+Route::post('/register', [UserController::class, 'register']);
 
 Route::get('/detail', function () {
     return view('pages.detail');
@@ -56,18 +54,6 @@ Route::get('/detail', function () {
 Route::get('/profile', function () {
     return view('pages.profile');
 });
-
-
-Route::get('/admin', function () {
-    return view('pages.admin.dashboard');
-});
-
-Route::post('/login', [AccountController::class, 'login']);
-
-Route::get('/test', function () {
-    return dd(session()->all());
-});
-
 Route::get('/about', function () {
     return view('pages.aboutus');
 });

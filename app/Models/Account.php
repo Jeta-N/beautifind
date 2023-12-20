@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
 class Account extends Authenticatable
 {
-    use HasApiTokens, HasFactory;
+    use HasFactory;
+    use SoftDeletes;
 
     /**
      * The table associated with the model.
@@ -16,6 +18,7 @@ class Account extends Authenticatable
      * @var string
      */
     protected $table = 'account';
+    protected $primaryKey = 'account_id';
 
     /**
      * The attributes that are mass assignable.

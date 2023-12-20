@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('st_id')->constrained('service_type', 'st_id');
             $table->double('price');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

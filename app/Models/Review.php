@@ -27,6 +27,7 @@ class Review extends Model
         'user_id',
         'booking_id',
         'rating',
+        'service_id',
         'review_content',
     ];
 
@@ -38,5 +39,10 @@ class Review extends Model
     public function booking()
     {
         return $this->belongsTo(Booking::class, 'booking_id');
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id');
     }
 }
