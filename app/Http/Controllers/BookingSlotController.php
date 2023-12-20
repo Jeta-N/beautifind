@@ -22,4 +22,11 @@ class BookingSlotController extends Controller
         $booking_slots = BookingSlot::where('service_id', '=', $user->service_id)->get();
         return view('viewBookingSlot')->with('booking_slots',$booking_slots);
     }
+
+    public function createBookingSlot(Request $request){
+        $this->validate($request, [
+            'emp_id' =>'required',
+            'time_start' =>'required'
+        ]);
+    }
 }
