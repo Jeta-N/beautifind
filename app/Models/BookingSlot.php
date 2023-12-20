@@ -28,6 +28,7 @@ class BookingSlot extends Model
         'date',
         'time_start',
         'time_end',
+        'is_available',
     ];
 
     public function employee()

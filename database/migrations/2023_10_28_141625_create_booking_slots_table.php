@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('time_start');
             $table->time('time_end');
+            $table->boolean('is_available');
             $table->timestamps();
         });
     }

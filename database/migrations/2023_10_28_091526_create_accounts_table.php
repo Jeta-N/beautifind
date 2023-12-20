@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('password');
             $table->string('account_role');
             $table->boolean('is_blocked');
-            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });

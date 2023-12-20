@@ -21,9 +21,9 @@ class ServiceController extends Controller
     public function viewHomePage()
     {
         $rec_services = [];
-        // if (Auth::check()) {
-        //     $rec_services = $this->rec_service();
-        // }
+        if (Auth::check()) {
+            $rec_services = $this->rec_service();
+        }
         // $services = $this->servicesByType();
         return view('pages.home', [
             // 'rec_services' => $rec_services,
@@ -54,8 +54,11 @@ class ServiceController extends Controller
                 }
             }
         }
-
-        $recommender = array_rand($service_score, 3);
+        $random = 3;
+        if (count($service_score) < 3){
+            $random = count($service_score);
+        }
+        $recommender = array_rand($service_score, $random);
         $rec_services = [];
 
         foreach ($recommender as $rec) {
