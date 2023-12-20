@@ -26,6 +26,9 @@ class ServiceSeeder extends Seeder
                 'logo_image_path' => 'salonlogo.jpg',
                 'service_image_path' => 'salonprofile.jpg',
                 'service_status' => 'Active',
+                'has_faq' => true,
+                'has_portfolio' => true,
+                'has_promo' => true,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -41,6 +44,9 @@ class ServiceSeeder extends Seeder
                 'logo_image_path' => 'salonlogo.jpg',
                 'service_image_path' => 'salonprofile.jpg',
                 'service_status' => 'Active',
+                'has_faq' => false,
+                'has_portfolio' => false,
+                'has_promo' => false,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -56,6 +62,9 @@ class ServiceSeeder extends Seeder
                 'logo_image_path' => 'salonlogo.jpg',
                 'service_image_path' => 'salonprofile.jpg',
                 'service_status' => 'Active',
+                'has_faq' => false,
+                'has_portfolio' => false,
+                'has_promo' => false,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -71,6 +80,9 @@ class ServiceSeeder extends Seeder
                 'logo_image_path' => 'salonlogo.jpg',
                 'service_image_path' => 'salonprofile.jpg',
                 'service_status' => 'Active',
+                'has_faq' => false,
+                'has_portfolio' => false,
+                'has_promo' => false,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -86,6 +98,9 @@ class ServiceSeeder extends Seeder
                 'logo_image_path' => 'salonlogo.jpg',
                 'service_image_path' => 'salonprofile.jpg',
                 'service_status' => 'Active',
+                'has_faq' => false,
+                'has_portfolio' => false,
+                'has_promo' => false,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -101,6 +116,9 @@ class ServiceSeeder extends Seeder
                 'logo_image_path' => 'salonlogo.jpg',
                 'service_image_path' => 'salonprofile.jpg',
                 'service_status' => 'Active',
+                'has_faq' => false,
+                'has_portfolio' => false,
+                'has_promo' => false,
                 'created_at' => now(),
                 'updated_at' => now()
             ]

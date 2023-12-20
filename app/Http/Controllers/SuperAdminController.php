@@ -31,24 +31,20 @@ class SuperAdminController extends Controller
             'password_confirmation' => "required"
         ]);
 
-        Account::insert([
+        Account::create([
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'account_role' =>"Super Admin",
-            'is_blocked' => false,
-            'created_at' => now(),
-            'updated_at' => now()
+            'is_blocked' => false
         ]);
 
         $acc = Account::where('email', '=', $request->email)->first();
 
-        SuperAdmin::insert([
+        SuperAdmin::create([
             'account_id' => $acc->account_id,
             'service_id' => $request->service,
             'sa_name' => $request->name,
-            'sa_image_path' => "saprofile.jpg",
-            'created_at' => now(),
-            'updated_at' => now()
+            'sa_image_path' => "saprofile.jpg"
         ]);
 
         return redirect('/admin-dash');

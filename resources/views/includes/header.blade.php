@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md">
     <div class="container d-flex justify-content-between w-100">
-        <a class="navbar-brand" href="#"> <img src="{{ asset('storage/asset/images/logo.png') }}" alt=""></a>
+        <a class="navbar-brand" href="/"> <img src="{{ asset('storage/asset/images/logo.png') }}" alt=""></a>
 
         {{-- Mobile View Login --}}
         <div class="ms-auto w-50 d-flex d-md-none justify-content-end">
@@ -16,13 +16,13 @@
                 Jeta Nanda
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item py-2" href="#">My Profile</a></li>
-                <li><a class="dropdown-item py-2" href="#">View My Orders</a></li>
-                <li><a class="dropdown-item py-2" href="#">Edit My Preferences</a></li>
+                <li><a class="dropdown-item py-2" href="/profile?activeTab=personalData">My Profile</a></li>
+                <li><a class="dropdown-item py-2" href="/profile?activeTab=myOrder">View My Orders</a></li>
+                <li><a class="dropdown-item py-2" href="/profile?activeTab=editPreferences">Edit My Preferences</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#">Log Out</a></li>
+                <li><a class="dropdown-item" href="/logout">Log Out</a></li>
             </ul>
         </div>
         <form class="nav-input" action="/search">
@@ -50,13 +50,13 @@
                 Jeta Nanda
             </a>
             <ul class="dropdown-menu p-3">
-                <li><a class="dropdown-item py-2" href="#">My Profile</a></li>
-                <li><a class="dropdown-item py-2" href="#">View My Orders</a></li>
-                <li><a class="dropdown-item py-2" href="#">Edit My Preferences</a></li>
+                <li><a class="dropdown-item py-2" href="/profile?activeTab=personalData">My Profile</a></li>
+                        <li><a class="dropdown-item py-2" href="/profile?activeTab=myOrder">View My Orders</a></li>
+                        <li><a class="dropdown-item py-2" href="/profile?activeTab=editPreferences">Edit My Preferences</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#">Log Out</a></li>
+                <li><a class="dropdown-item" href="/logout">Log Out</a></li>
             </ul>
         </div>
 

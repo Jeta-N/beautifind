@@ -7,32 +7,37 @@
             <div class="modal-body">
                 <div class="container">
                     <h2 id="ratingSearchModalHeader" class="py-3">Rating</h2>
-                    <div class="row row-cols-2 mx-0">
-                        <div class="form-check col mb-3">
-                            <input class="form-check-input" type="checkbox" name="ratingCheckBox" id="ratingCheckBox1">
-                            <label class="form-check-label" for="ratingCheckBox1">
-                                4+ Superb
-                            </label>
+                    <form action="" id="ratingFilter">
+                        <div class="row row-cols-2 mx-0">
+                            <div class="form-check col mb-3">
+                                <input class="form-check-input" type="checkbox" name="rating[]" id="ratingCheckBox1" value="1">
+                                <label class="form-check-label" for="ratingCheckBox1">
+                                    4+ Superb
+                                </label>
+                            </div>
+                            <div class="form-check col mb-3">
+                                <input class="form-check-input" type="checkbox" name="rating[]" id="ratingCheckBox2" value="2">
+                                <label class="form-check-label" for="ratingCheckBox2">
+                                    3+ Very Good
+                                </label>
+                            </div>
+                            <div class="form-check col mb-3">
+                                <input class="form-check-input" type="checkbox" name="rating[]" id="ratingCheckBox3" value="3">
+                                <label class="form-check-label" for="ratingCheckBox3">
+                                    2+ Good
+                                </label>
+                            </div>
+                            <div class="form-check col mb-3">
+                                <input class="form-check-input" type="checkbox" name="rating[]" id="ratingCheckBox4" value="4">
+                                <label class="form-check-label" for="ratingCheckBox4">
+                                    1+ Pleasant
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-check col mb-3">
-                            <input class="form-check-input" type="checkbox" name="ratingCheckBox" id="ratingCheckBox2">
-                            <label class="form-check-label" for="ratingCheckBox2">
-                                3+ Very Good
-                            </label>
+                        <div class="text-end">
+                            <button class="profile-save-btn" type="submit">Save</button>
                         </div>
-                        <div class="form-check col mb-3">
-                            <input class="form-check-input" type="checkbox" name="ratingCheckBox" id="ratingCheckBox3">
-                            <label class="form-check-label" for="ratingCheckBox3">
-                                2+ Good
-                            </label>
-                        </div>
-                        <div class="form-check col mb-3">
-                            <input class="form-check-input" type="checkbox" name="ratingCheckBox" id="ratingCheckBox4">
-                            <label class="form-check-label" for="ratingCheckBox4">
-                                1+ Pleasant
-                            </label>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

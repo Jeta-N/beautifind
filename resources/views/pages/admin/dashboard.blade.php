@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-md-8 mt-2 mt-md-0 d-flex align-content-center justify-content-center flex-column">
                             <div>
-                                <h5 class="card-title text-center">{{$user_count}}</h5>
+                                <h5 class="card-title text-center">15</h5>
                                 <hr>
                                 <h5 class="card-title text-center">Total Users</h5>
                             </div>
@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-md-8 mt-2 mt-md-0 d-flex align-content-center justify-content-center flex-column">
                             <div>
-                                <h5 class="card-title text-center">{{$service_count}}</h5>
+                                <h5 class="card-title text-center">5</h5>
                                 <hr>
                                 <h5 class="card-title text-center">Total Services</h5>
                             </div>
@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-md-8 mt-2 mt-md-0 d-flex align-content-center justify-content-center flex-column">
                             <div>
-                                <h5 class="card-title text-center">{{$booking_count}}</h5>
+                                <h5 class="card-title text-center">10</h5>
                                 <hr>
                                 <h5 class="card-title text-center">Total Books</h5>
                             </div>
@@ -63,7 +63,7 @@
                         </div>
                         <div class="col-md-8 mt-2 mt-md-0 d-flex align-content-center justify-content-center flex-column">
                             <div>
-                                <h5 class="card-title text-center">{{$review_count}}</h5>
+                                <h5 class="card-title text-center"></h5>
                                 <hr>
                                 <h5 class="card-title text-center">Review</h5>
                             </div>

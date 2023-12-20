@@ -68,6 +68,16 @@ body
     color: #FFBD00;
 }
 
+.padding-x-175rem
+{
+    padding: 0 1.75rem;
+}
+
+.cursor-pointer
+{
+    cursor: pointer;
+}
+
 /* Login */
 .btn-sign-in,
 .btn-sign-in:focus
@@ -226,6 +236,7 @@ body
 }
 
 .bi-arrow-left-circle,
+.bi-arrow-right-circle,
 .bi-arrow-right-circle-fill
 {
     color: #8E8B7E;
@@ -261,6 +272,11 @@ body
     background: #5E5946;
     box-shadow: none;
     outline: none;
+}
+
+.btn-check:checked+.price-pill
+{
+    background: #F4EFEC;
 }
 
 /* Detail */
@@ -339,6 +355,145 @@ body
 {
     width: 50%;
 }
+
+/* Book */
+.btn-time-book
+{
+    color: #7D7D7D;
+    border: 1px solid #7D7D7D;
+}
+
+.btn-time-book:hover,
+.btn-time-book:focus,
+.btn-time-book:active,
+.btn-time-book:first-child:active
+{
+    color: #8E8B7E;
+    border: 1px solid #8E8B7E;
+}
+
+.btn-time-book.active,
+.btn-time-book.active:active
+{
+    background-color: #8E8B7E;
+    color: #fff;
+}
+
+.time-book-next,
+.time-book-prev
+{
+    transform: translateY(-3px);
+}
+
+.confirmation-book-btn-cancel,
+.confirmation-book-btn-book,
+.profile-cancel-btn,
+.profile-save-btn,
+.profile-logout-btn
+{
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    text-align: center;
+    border: none;
+    color: white;
+    min-width: 152px;
+}
+
+.confirmation-book-btn-book,
+.profile-save-btn,
+.profile-logout-btn
+{
+    background: #5E5946;
+}
+
+.confirmation-book-btn-cancel,
+.profile-cancel-btn
+{
+    background: #8E8B7E;
+}
+
+.profile-logout-btn
+{
+    text-decoration: none;
+    display: block
+}
+
+/* Profile */
+.rectangle-active
+{
+    border-radius: 10px;
+    height: 5px;
+    width: 100%;
+    background: #5E5946;
+}
+
+.status-btn
+{
+    border-color: #C3C3C3;
+}
+
+.status-btn:hover
+{
+    border-color: #000;
+}
+
+.status-btn.active
+{
+    background: #F4EFEC;
+    border-color: #5E5946;
+}
+
+.logo-container-my-order
+{
+    width: 10%;
+}
+
+.logo-my-order
+{
+    width: 100%;
+    object-fit: contain;
+    aspect-ratio: 1/1;
+}
+
+.my-order-status-pill
+{
+    height: fit-content;
+}
+
+.my-order-status-pill.success
+{
+    color: #60CD60;
+    background: #EBF9EB;
+}
+
+.my-order-status-pill.on-progress
+{
+    color: #FFBD00;
+    background: #FEF8E8;
+}
+
+.my-order-status-pill.cancelled
+{
+    color: #F35D5E;
+    background: #FDEBEB;
+}
+
+.review-href
+{
+    color: #5E5946;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.bg-faq
+{
+    background: #F4EFEC;
+    margin-top: -50px;
+    padding-top: 75px;
+    padding-bottom: 24px;
+}
+
+
 
 /* Footer */
 .bg-footer

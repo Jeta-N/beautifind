@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('logo_image_path');
             $table->string('service_image_path');
             $table->string('service_status');
+            $table->boolean('has_faq');
+            $table->boolean('has_portfolio');
+            $table->boolean('has_promo');
             $table->timestamps();
             $table->softDeletes();
         });

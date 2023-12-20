@@ -23,4 +23,25 @@ class FaqController extends Controller
 
         return view('viewFaq')->with('faqs', $faqs);
     }
+
+    public function createFAQ(Request $request){
+        $this->validate($request, [
+            'question' => 'required | min:5 | max:100',
+            'answer' => 'required | min:5 | max:255'
+        ]);
+
+        $acc_role = Auth::user()->account_role;
+        $acc_id = Auth::user()->account_id;
+        if ($acc_role == 'Super Admin'){
+            $emp = SuperAdmin::where('account_id','=',$acc_id)->first();
+        }else{
+            $emp = Employee::where('account_id','=',$acc_id)->first();
+        }
+
+        Faq::create([
+            'service_id' => $emp->service_id,
+            'faq_question' => $request->question,
+            'faq_answer' => $request->answer
+        ]);
+    }
 }

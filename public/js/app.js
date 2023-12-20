@@ -1,62 +1,11 @@
 const swiper = new Swiper('.swiper', {
     // Optional parameters
     direction: 'horizontal',
-    loop: true,
-
     // slidesPerView: 4.5,
     // spaceBetween: 30,
 
-    breakpoints: {
-        450: {
-            slidesPerView: 2.5,
-            spaceBetween: 20
-        },
-        640: {
-            slidesPerView: 2.5,
-            spaceBetween: 20,
-        },
-        768: {
-            slidesPerView: 3.5,
-            spaceBetween: 40,
-        },
-        1024: {
-            slidesPerView: 4.5,
-            spaceBetween: 50,
-        }
-    }
 });
 
-const swiperTestimony = new Swiper('.swiper-testimony', {
-    direction: 'horizontal',
-    loop: true,
-
-    slidesPerView: 3,
-    spaceBetween: 30,
-
-    navigation: {
-        nextEl: ".testimony-next",
-        prevEl: ".testimony-prev",
-    },
-
-    breakpoints: {
-        450: {
-            slidesPerView: 2,
-            spaceBetween: 15
-        },
-        640: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-        },
-        768: {
-            slidesPerView: 3,
-            spaceBetween: 30,
-        },
-        1024: {
-            slidesPerView: 3,
-            spaceBetween: 30,
-        }
-    }
-})
 
 // Login & Register toggle
 var formTitle = document.getElementById('loginModalHeader');

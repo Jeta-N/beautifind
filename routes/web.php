@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', [ServiceController::class, 'viewHomepage']);
+Route::get('/', [ServiceController::class, 'viewHomepage']);
 Route::get('/booking', [BookingController::class, 'viewBooking']);
 Route::get('/bookingslot', [BookingSlotController::class, 'viewBookingSlots']);
 Route::get('/employees', [EmployeeController::class, 'viewEmployees']);
@@ -42,23 +42,22 @@ Route::get('/review', [ReviewController::class, 'viewReviews']);
 Route::get('/services', [ServiceController::class, 'viewServicesList']);
 Route::get('/services/{id}', [ServiceController::class, 'viewServicesDetails']);
 Route::get('/logout', [AccountController::class, 'logout']);
-Route::get('/admin-dash', [AccountController::class, 'viewDashboard']);
+Route::get('/admin-dashboard', [AccountController::class, 'viewDashboard']);
 
-Route::post('/login',[AccountController::class, 'login']);
+Route::post('/login', [AccountController::class, 'login']);
 Route::post('/register', [UserController::class, 'register']);
-
-Route::get('/', function () {
-    return view('pages.home');
-});
-
-Route::get('/search', function () {
-    return view('pages.search');
-});
 
 Route::get('/detail', function () {
     return view('pages.detail');
 });
 
-Route::get('/admin', function () {
-    return view('pages.admin.dashboard');
+Route::get('/profile', function () {
+    return view('pages.profile');
+});
+Route::get('/about', function () {
+    return view('pages.aboutus');
+});
+
+Route::get('/faq', function () {
+    return view('pages.faq');
 });

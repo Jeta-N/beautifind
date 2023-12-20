@@ -26,7 +26,22 @@ class BookingSlotController extends Controller
     public function createBookingSlot(Request $request){
         $this->validate($request, [
             'emp_id' =>'required',
-            'time_start' =>'required'
+            'date' => 'required',
+            'time_start' =>'required',
+            'time_end' =>'required',
         ]);
+
+        $emp = Employee::find($request->emp_id);
+
+        BookingSlot::create([
+            'emp_id' => $request->emp_id,
+            'service_id' => $emp->service_id,
+            'date' => $request->date,
+            'time_start' => $request->time_start,
+            'time_end' => $request->time_end,
+            'is_available' => true
+        ]);
+
+        return redirect('/bookingslot');
     }
 }

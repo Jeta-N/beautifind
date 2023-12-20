@@ -73,16 +73,18 @@ class BookingController extends Controller
         $est = EmployeeServiceType::where('emp_id', '=', $slot->emp_id)->where('st_id', '=', $request->st_id)->first();
         $price = $est->price;
 
-        Booking::insert([
+        Booking::create([
             'user_id' => $user_id,
             'st_id' => $request->st_id,
             'bs_id' => $request->bs_id,
             'service_id' => $service_id,
             'price' => $price,
-            'booking_status' => 'Upcoming',
-            'created_at' => now(),
-            'updated_at' => now()
+            'booking_status' => 'Upcoming'
         ]);
+
+        $slot = BookingSlot::find($request->bs_id);
+        $slot->is_available = false;
+        $slot->save();
 
         return redirect('/booking');
     }
