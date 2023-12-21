@@ -85,7 +85,6 @@ class ServiceController extends Controller
         $searchName = $request->input('service-name');
         $filterType = $request->input('type', []);
         $filterRating = $request->input('rating', []);
-        $filterPrice = $request->input('price', []);
         $sortBy = $request->input('sort-by');
 
         $query = Service::query();
@@ -97,12 +96,6 @@ class ServiceController extends Controller
         if ($filterType && count($filterType) > 0) {
             $query->whereHas('serviceServiceType', function ($subquery) use ($filterType) {
                 $subquery->whereIn('st_id', $filterType);
-            });
-        }
-
-        if ($filterPrice && count($filterPrice) > 0) {
-            $query->whereHas('servicePriceRange', function ($subquery) use ($filterPrice) {
-                $subquery->whereIn('pr_id', $filterPrice);
             });
         }
 
@@ -133,13 +126,7 @@ class ServiceController extends Controller
         $query->with('city');
         $query->with('serviceServiceType');
         $query->with('serviceServiceType.serviceType');
-        $query->with(['servicePriceRange' => function ($query) {
-            $query->select('service_id', DB::raw('MIN(pr_id) as min_price_range'))
-                ->groupBy('service_id');
-        }]);
         $query->withAvg('review', 'rating');
-
-
 
         if ($filterRating && $filterType != []) {
             $query->having('review_avg_rating', '>', $filterRating);
@@ -158,9 +145,9 @@ class ServiceController extends Controller
             'promotion',
             'employee',
             'serviceServiceType',
+            'serviceServiceType.serviceType',
             'serviceServiceType.serviceType.employeeServiceType',
             'serviceServiceType.serviceType.employeeServiceType.employee',
-            'serviceServiceType.serviceType'
         ])->find($service_id);
 
         return view('pages.detail', [

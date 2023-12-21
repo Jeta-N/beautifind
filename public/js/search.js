@@ -73,30 +73,6 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = url;
     });
 
-    var priceFilter = document.getElementById('priceFilter');
-    priceFilter.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        // Get the current URL and existing parameters
-        var currentURL = window.location.href;
-        var urlParams = new URLSearchParams(window.location.search);
-
-        // Remove existing 'type[]' parameter
-        urlParams.delete('price[]');
-
-        // Get checked checkboxes and add them to the URLSearchParams
-        var formData = new FormData(priceFilter);
-        formData.getAll('price[]').forEach(function (value) {
-            urlParams.append('price[]', value);
-        });
-
-        // Construct the URL with updated parameters
-        var url = currentURL.split('?')[0] + '?' + urlParams.toString();
-
-        // Redirect to the constructed URL
-        window.location.href = url;
-    });
-
     // Usage example
     typeFilter.addEventListener('submit', function (event) {
         handleFormSubmission(event, this);
@@ -106,10 +82,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     ratingFilter.addEventListener('submit', function (event) {
-        handleFormSubmission(event, this);
-    });
-
-    priceFilter.addEventListener('submit', function (event) {
         handleFormSubmission(event, this);
     });
 
@@ -130,16 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var checkboxes = document.querySelectorAll('input[name="rating[]"]');
         checkboxes.forEach(function (checkbox) {
             if (ratingParams.includes(checkbox.value)) {
-                checkbox.checked = true;
-            }
-        });
-    }
-
-    var priceParams = urlParams.getAll('price[]');
-    if (priceParams.length > 0) {
-        var checkboxes = document.querySelectorAll('input[name="price[]"]');
-        checkboxes.forEach(function (checkbox) {
-            if (priceParams.includes(checkbox.value)) {
                 checkbox.checked = true;
             }
         });
