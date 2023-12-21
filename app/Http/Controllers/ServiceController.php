@@ -24,10 +24,10 @@ class ServiceController extends Controller
         if (Auth::check()) {
             $rec_services = $this->rec_service();
         }
-        // $services = $this->servicesByType();
+        $services = $this->servicesByType();
         return view('pages.home', [
-            // 'rec_services' => $rec_services,
-            // 'services' => $services,
+            'rec_services' => $rec_services,
+            'services' => $services,
         ]);
     }
 
@@ -129,9 +129,17 @@ class ServiceController extends Controller
             default:
                 $query->orderBy('service_name');
         }
-
-
+        $query->withCount('review');
+        $query->with('city');
+        $query->with('serviceServiceType');
+        $query->with('serviceServiceType.serviceType');
+        $query->with(['servicePriceRange' => function ($query) {
+            $query->select('service_id', DB::raw('MIN(pr_id) as min_price_range'))
+                ->groupBy('service_id');
+        }]);
         $query->withAvg('review', 'rating');
+
+
 
         if ($filterRating && $filterType != []) {
             $query->having('review_avg_rating', '>', $filterRating);
@@ -144,12 +152,19 @@ class ServiceController extends Controller
     public function viewServicesDetails(Request $request)
     {
         $service_id = $request->route('id');
-        $service = Service::find($service_id);
+        $service = Service::with([
+            'faq',
+            'portfolioImage',
+            'promotion',
+            'employee',
+            'serviceServiceType',
+            'serviceServiceType.serviceType.employeeServiceType',
+            'serviceServiceType.serviceType.employeeServiceType.employee',
+            'serviceServiceType.serviceType'
+        ])->find($service_id);
 
-        $faqs = Faq::where('service_id', '=', $service_id)->get();
-        $ports = PortfolioImage::where('service_id', '=', $service_id)->get();
-        $promos = Promotion::where('service_id', '=', $service_id)->get();
-
-        return view('viewServiceDetails')->with('service', $service)->with('faqs', $faqs)->with('ports', $ports)->with('promos', $promos);
+        return view('pages.detail', [
+            'services' => $service
+        ]);
     }
 }
