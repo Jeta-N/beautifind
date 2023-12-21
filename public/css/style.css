@@ -272,6 +272,10 @@ body
     background: #5E5946;
     box-shadow: none;
     outline: none;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-check:checked+.price-pill

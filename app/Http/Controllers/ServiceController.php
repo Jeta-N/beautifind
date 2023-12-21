@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\City;
 use App\Models\Faq;
 use App\Models\PortfolioImage;
 use App\Models\Promotion;
@@ -56,7 +55,7 @@ class ServiceController extends Controller
             }
         }
         $random = 3;
-        if (count($service_score) < 3){
+        if (count($service_score) < 3) {
             $random = count($service_score);
         }
         $recommender = array_rand($service_score, $random);
@@ -81,7 +80,8 @@ class ServiceController extends Controller
         return $services;
     }
 
-    public function viewServicesList(Request $request){
+    public function viewServicesList(Request $request)
+    {
         $searchName = $request->input('service-name');
         $filterType = $request->input('type', []);
         $filterRating = $request->input('rating', []);
@@ -167,5 +167,4 @@ class ServiceController extends Controller
             'services' => $service
         ]);
     }
-
 }
