@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\City;
+use App\Models\ServiceType;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,5 +22,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        view()->composer(['pages.home', 'pages.detail', 'pages.search', 'pages.profile', 'pages.aboutus', 'pages.faq'], function ($view) {
+            $serviceType = ServiceType::all();
+            $city = City::all();
+            $sharedData = [
+                'serviceTypes' => $serviceType,
+                'cities' => $city
+            ];
+
+            $view->with($sharedData);
+        });
     }
 }
