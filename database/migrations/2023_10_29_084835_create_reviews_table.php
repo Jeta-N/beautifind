@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('booking_id')->constrained('booking', 'booking_id');
             $table->foreignId('service_id')->constrained('service', 'service_id');
             $table->double('rating');
-            $table->string('review_content');
+            $table->string('review_content')->nullable();
             $table->timestamps();
         });
     }

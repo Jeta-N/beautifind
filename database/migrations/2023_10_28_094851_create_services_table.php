@@ -15,13 +15,13 @@ return new class extends Migration
         Schema::create('service', function (Blueprint $table) {
             $table->id('service_id');
             $table->string('service_name');
-            $table->string('service_description');
-            $table->string('service_opening_hours');
-            $table->string('service_address');
+            $table->string('service_description')->nullable();
+            $table->string('service_opening_hours')->nullable();
+            $table->string('service_address')->nullable();
             $table->foreignId('city_id')->constrained('city', 'city_id');
-            $table->string('service_phone');
-            $table->string('service_email');
-            $table->string('service_instagram');
+            $table->string('service_phone')->nullable();
+            $table->string('service_email')->nullable();
+            $table->string('service_instagram')->nullable();
             $table->string('logo_image_path');
             $table->string('service_image_path');
             $table->string('service_status');

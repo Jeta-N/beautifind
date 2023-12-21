@@ -25,12 +25,10 @@ class ServiceController extends Controller
         if (Auth::check()) {
             $rec_services = $this->rec_service();
         }
-        // $cities = City::all();
-        // $services = $this->servicesByType();
+        $services = $this->servicesByType();
         return view('pages.home', [
-            // 'rec_services' => $rec_services,
-            // 'services' => $services,
-            // 'cities' => $cities
+            'rec_services' => $rec_services,
+            'services' => $services,
         ]);
     }
 
@@ -83,38 +81,70 @@ class ServiceController extends Controller
         return $services;
     }
 
-    public function viewServicesList(Request $request)
-    {
+    public function viewServicesList(Request $request){
         $searchName = $request->input('service-name');
         $filterType = $request->input('type', []);
         $filterRating = $request->input('rating', []);
         $filterPrice = $request->input('price', []);
-        $sortBy = $request->input('sort-by', []);
+        $sortBy = $request->input('sort-by');
 
-        $service_types = null;
-        if ($service_types == null) {
-            $query = Service::orderBy('service_name');
-        } else {
-            $serviceTypeIds = ServiceServiceType::whereIn('st_id', $service_types)->distinct()->pluck('service_id');
-            $query = Service::whereIn('service_id', $serviceTypeIds);
-        }
+        $query = Service::query();
 
-        if ($searchName != null) {
+        if ($searchName) {
             $query->where('service_name', 'LIKE', '%' . $searchName . '%');
         }
 
-        if ($filterType != null && $filterType != []) {
-            $query->whereIn('service_id', function ($query) use ($filterType) {
-                $query->select('service_id')
-                    ->from('service_service_type')
-                    ->whereIn('st_id', $filterType);
+        if ($filterType && count($filterType) > 0) {
+            $query->whereHas('serviceServiceType', function ($subquery) use ($filterType) {
+                $subquery->whereIn('st_id', $filterType);
             });
         }
 
-        $services = $query
-            ->withAvg('review', 'rating') // Eager load average rating
-            ->get();
+        if ($filterPrice && count($filterPrice) > 0) {
+            $query->whereHas('servicePriceRange', function ($subquery) use ($filterPrice) {
+                $subquery->whereIn('pr_id', $filterPrice);
+            });
+        }
 
+        // Handle sorting
+        switch ($sortBy) {
+            case 1:
+                $query->orderBy('service_name');
+                break;
+            case 2:
+                $query->orderByDesc('service_name');
+                break;
+            case 3:
+                //sort by price ascending
+                break;
+            case 4:
+                //sort by price desc
+                break;
+            case 5:
+                //sort by rating asc
+                break;
+            case 6:
+                //sort by rating desc
+                break;
+            default:
+                $query->orderBy('service_name');
+        }
+        $query->withCount('review');
+        $query->with('city');
+        $query->with('serviceServiceType');
+        $query->with('serviceServiceType.serviceType');
+        $query->with(['servicePriceRange' => function ($query) {
+            $query->select('service_id', DB::raw('MIN(pr_id) as min_price_range'))
+                ->groupBy('service_id');
+        }]);
+        $query->withAvg('review', 'rating');
+
+
+
+        if ($filterRating && $filterType != []) {
+            $query->having('review_avg_rating', '>', $filterRating);
+        }
+        $services = $query->get();
 
         return view('pages.search')->with('services', $services);
     }
@@ -122,12 +152,20 @@ class ServiceController extends Controller
     public function viewServicesDetails(Request $request)
     {
         $service_id = $request->route('id');
-        $service = Service::find($service_id);
+        $service = Service::with([
+            'faq',
+            'portfolioImage',
+            'promotion',
+            'employee',
+            'serviceServiceType',
+            'serviceServiceType.serviceType.employeeServiceType',
+            'serviceServiceType.serviceType.employeeServiceType.employee',
+            'serviceServiceType.serviceType'
+        ])->find($service_id);
 
-        $faqs = Faq::where('service_id', '=', $service_id)->get();
-        $ports = PortfolioImage::where('service_id', '=', $service_id)->get();
-        $promos = Promotion::where('service_id', '=', $service_id)->get();
-
-        return view('viewServiceDetails')->with('service', $service)->with('faqs', $faqs)->with('ports', $ports)->with('promos', $promos);
+        return view('pages.detail', [
+            'services' => $service
+        ]);
     }
+
 }
