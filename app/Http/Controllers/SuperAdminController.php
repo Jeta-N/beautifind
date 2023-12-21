@@ -22,7 +22,7 @@ class SuperAdminController extends Controller
         return view('viewSAProfile')->with('admin', $admin);
     }
 
-    public function register(Request $request){
+    public function createSuperAdmin(Request $request){
         $this->validate($request, [
             'name' =>'required | max:25',
             'service' =>'required',
@@ -47,6 +47,6 @@ class SuperAdminController extends Controller
             'sa_image_path' => "saprofile.jpg"
         ]);
 
-        return redirect('/admin-dash');
+        return redirect('/admin-dashboard');
     }
 }

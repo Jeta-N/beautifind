@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Faq;
 use App\Models\PortfolioImage;
 use App\Models\Promotion;
@@ -24,10 +25,12 @@ class ServiceController extends Controller
         if (Auth::check()) {
             $rec_services = $this->rec_service();
         }
+        // $cities = City::all();
         // $services = $this->servicesByType();
         return view('pages.home', [
             // 'rec_services' => $rec_services,
             // 'services' => $services,
+            // 'cities' => $cities
         ]);
     }
 
