@@ -25,7 +25,49 @@ class ServicePriceRangeSeeder extends Seeder
                 'pr_id' => 3,
                 'created_at' => now(),
                 'updated_at' => now()
-            ]
+            ],
+            [
+                'service_id' => 2,
+                'pr_id' => 5,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 3,
+                'pr_id' => 4,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 5,
+                'pr_id' => 2,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 6,
+                'pr_id' => 3,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 3,
+                'pr_id' => 5,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 2,
+                'pr_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 4,
+                'pr_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
         ]);
     }
 }
