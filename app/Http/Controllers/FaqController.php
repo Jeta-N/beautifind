@@ -44,4 +44,11 @@ class FaqController extends Controller
             'faq_answer' => $request->answer
         ]);
     }
+
+    public function deleteFAQ(Request $request){
+        $faq = Faq::find($request->faq_id);
+        $faq->delete();
+
+        return redirect()->back();
+    }
 }

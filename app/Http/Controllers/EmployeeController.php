@@ -74,4 +74,15 @@ class EmployeeController extends Controller
 
         return redirect('/');
     }
+
+    public function deleteBookingSlot(Request $request){
+        $emp = Employee::find($request->emp_id);
+        foreach($emp->employeeServiceType as $est){
+            $est->delete();
+        }
+
+        $emp->delete();
+
+        return redirect()->back();
+    }
 }

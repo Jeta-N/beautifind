@@ -50,4 +50,11 @@ class PortfolioImageController extends Controller
             'portfolio_title' => $request->title
         ]);
     }
+
+    public function deletePortfolio(Request $request){
+        $port = PortfolioImage::find($request->pi_id);
+        $port->delete();
+
+        return redirect()->back();
+    }
 }

@@ -52,4 +52,11 @@ class PromotionController extends Controller
             'promo_description' => $request->desc,
         ]);
     }
+
+    public function deletePromotion(Request $request){
+        $promo = Promotion::find($request->promotion_id);
+        $promo->delete();
+
+        return redirect()->back();
+    }
 }
