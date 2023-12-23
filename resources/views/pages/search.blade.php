@@ -38,15 +38,15 @@
                             </div>
                             <div class="card-text mt-3">
                                 <span
-                                    class="p-2 border-light-subtle border card-salon-rating rounded">{{ $service->review_avg_rating == null ? '-' : $service->review_avg_rating }}</span>
+                                    class="p-2 border-light-subtle border card-salon-rating rounded">{{ $service->rating == null ? '-' : $service->rating }}</span>
                                 <span><strong>
-                                        @if ($service->review_avg_rating > 4)
-                                            SuperB
-                                        @elseif($service->review_avg_rating > 3)
+                                        @if ($service->rating > 4)
+                                            Superb
+                                        @elseif($service->rating > 3)
                                             Very Good
-                                        @elseif($service->review_avg_rating > 2)
+                                        @elseif($service->rating > 2)
                                             Good
-                                        @elseif($service->review_avg_rating > 1)
+                                        @elseif($service->rating > 1)
                                             Pleasant
                                         @else
                                             Not Rated
@@ -89,7 +89,7 @@
                                         Rp. 100,000
                                     @else
                                         < Rp. 100,000 @endif --}}
-
+                                    {{$service->min_price}}
                                 </h4>
                             </div>
                         </div>

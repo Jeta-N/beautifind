@@ -44,4 +44,15 @@ class BookingSlotController extends Controller
 
         return redirect('/bookingslot');
     }
+
+    public function deleteBookingSlot(Request $request){
+        $slot = BookingSlot::find($request->bs_id);
+        if($slot->is_available){
+            $slot->delete();
+        }else{
+            return redirect()->back()->with('error', 'Booking Slot is reserved');
+        }
+
+        return redirect('/bookingslot');
+    }
 }

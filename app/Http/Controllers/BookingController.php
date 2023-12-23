@@ -88,4 +88,18 @@ class BookingController extends Controller
 
         return redirect('/booking');
     }
+
+    public function updateBookingStatus(Request $request){
+        $booking = Booking::find($request->booking_id);
+        $booking->status = $request->status;
+        $booking->save();
+
+        if($request->status == 'Cancelled'){
+            $slot = BookingSlot::find($booking->bs_id);
+            $slot->is_available = true;
+            $slot->save();
+        }
+
+        return redirect('/booking');
+    }
 }
