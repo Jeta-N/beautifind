@@ -25,7 +25,8 @@
                         <ul class="dropdown-menu p-3">
                             <li><a class="dropdown-item py-2" href="/profile?activeTab=personalData">My Profile</a></li>
                             <li><a class="dropdown-item py-2" href="/profile?activeTab=myOrder">View My Orders</a></li>
-                            <li><a class="dropdown-item py-2" href="/profile?activeTab=editPreferences">Edit My Preferences</a></li>
+                            <li><a class="dropdown-item py-2" href="/profile?activeTab=editPreferences">Edit My
+                                    Preferences</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -35,14 +36,13 @@
                 @else
                     {{-- Mobile View Login --}}
                     <div class="ms-auto w-50 d-flex d-md-none justify-content-end">
-                        <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                            data-bs-target="#loginModal">
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loginModal">
                             Login
                         </button>
                     </div>
                 @endauth
 
-                <form class="nav-input d-none" id="nav-search" action="/search">
+                <form class="nav-input d-none" id="nav-search" action="/services">
                     <input type="text" class="form-control input-search border-end" placeholder="Search for Services"
                         aria-label="services">
                     <input type="text" class="form-control input-location border-end" placeholder="Where?"
@@ -54,29 +54,29 @@
                 </form>
 
                 @auth
-                <div class="d-md-flex dropdown ms-auto d-none">
-                    <a class="nav-link navbar-home dropdown-toggle" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ Auth::user()->user->user_name }}
-                    </a>
-                    <ul class="dropdown-menu p-3">
-                        <li><a class="dropdown-item py-2" href="/profile?activeTab=personalData">My Profile</a></li>
-                        <li><a class="dropdown-item py-2" href="/profile?activeTab=myOrder">View My Orders</a></li>
-                        <li><a class="dropdown-item py-2" href="/profile?activeTab=editPreferences">Edit My Preferences</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="/logout">Log Out</a></li>
-                    </ul>
-                </div>
+                    <div class="d-md-flex dropdown ms-auto d-none">
+                        <a class="nav-link navbar-home dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ Auth::user()->user->user_name }}
+                        </a>
+                        <ul class="dropdown-menu p-3">
+                            <li><a class="dropdown-item py-2" href="/profile?activeTab=personalData">My Profile</a></li>
+                            <li><a class="dropdown-item py-2" href="/profile?activeTab=myOrder">View My Orders</a></li>
+                            <li><a class="dropdown-item py-2" href="/profile?activeTab=editPreferences">Edit My
+                                    Preferences</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+                        </ul>
+                    </div>
                 @else
-                {{-- Tablet & Desktop View not yet login --}}
-                <div class="ms-auto d-md-flex d-none">
-                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                        data-bs-target="#loginModal">
-                        Login
-                    </button>
-                </div>
+                    {{-- Tablet & Desktop View not yet login --}}
+                    <div class="ms-auto d-md-flex d-none">
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            Login
+                        </button>
+                    </div>
                 @endauth
 
             </div>
@@ -133,8 +133,9 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="./js/app.js"></script>
-    <script src="./js/home.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/home.js"></script>
 </body>
 
 </html>

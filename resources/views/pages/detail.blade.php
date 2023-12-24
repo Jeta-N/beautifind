@@ -2,363 +2,286 @@
 
 @section('content')
     <div class="container">
+        {{ $services }}
         <div class="row pt-3">
             {{-- Left Part --}}
             <div class="col-8">
                 <img src="{{ asset('storage/asset/images/dummy-salon-detail.png') }}" alt="" class="img-fluid">
-                <h3 class="px-3">Johnny Andrean Salon</h3>
-                <p class="px-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro nostrum natus minima impedit
-                    at expedita!
+                <h3 class="px-3 mt-2">{{ $services->service_name }}</h3>
+                <p class="px-3 mb-0">{{ $services->service_description }}
                 </p>
 
                 {{-- Accordion --}}
-                <div class="accordion accordion-flush px-3" id="detailAccordion">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#firstAccordion" aria-expanded="false" aria-controls="firstAccordion">
-                                <strong>Hair Cut</strong>
-                            </button>
-                        </h2>
-                        <div id="firstAccordion" class="accordion-collapse collapse" data-bs-parent="#detailAccordion">
-                            <div class="accordion-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <span>Ariana Grander</span>
-                                            <div class="ms-auto">
+                <div class="accordion accordion-flush px-3 pt-4" id="detailAccordion">
+                    @if ($serviceTypesAvailable->isEmpty())
+                        <h3>Services</h3>
+                        <p class="fs-4 mb-0">Currently no service available</p>
+                    @endif
+                    @foreach ($serviceTypesAvailable as $serviceType)
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#Accordion{{ $loop->iteration }}" aria-expanded="false"
+                                    aria-controls="Accordion{{ $loop->iteration }}">
+                                    <strong>{{ $serviceType->st_name }}</strong>
+                                </button>
+                            </h2>
+                            <div id="Accordion{{ $loop->iteration }}" class="accordion-collapse collapse"
+                                data-bs-parent="#detailAccordion">
+                                <div class="accordion-body">
+                                    <ul class="list-group list-group-flush">
+                                        @foreach ($serviceType->employeeServiceType as $employeeServiceType)
+                                            <li class="list-group-item">
                                                 <div class="d-flex flex-row align-items-center">
-                                                    <div class="flex-col text-end">
-                                                        <span>Rp.120,000</span><br>
-                                                        <span class="text-secondary">1h</span>
-                                                    </div>
-                                                    <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in"
-                                                            data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
+                                                    <span>{{ $employeeServiceType->employee->emp_name }}</span>
+                                                    <div class="ms-auto">
+                                                        <div class="d-flex flex-row align-items-center">
+                                                            <div class="flex-col text-end">
+                                                                <span>Rp.{{ number_format($employeeServiceType->price, 0, ',') }}</span><br>
+                                                                <span class="text-secondary">
+                                                                    @foreach ($services->serviceServiceType as $serviceDuration)
+                                                                        @if ($serviceDuration->st_id == $serviceType->st_id)
+                                                                            {{ $serviceDuration->duration }}
+                                                                        @break
+                                                                    @endif
+                                                                @endforeach
+                                                                Min
+                                                            </span>
+                                                        </div>
+                                                        <div class="p-3">
+                                                            <button type="submit" class=" btn btn-sign-in"
+                                                                data-bs-toggle="modal"
+                                                                @auth data-bs-target="#bookModal"
+                                                                @else
+                                                                data-bs-target="#loginModal" @endauth>Book</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <span>Ariana Grander</span>
-                                            <div class="ms-auto">
-                                                <div class="d-flex flex-row align-items-center">
-                                                    <div class="flex-col text-end">
-                                                        <span>Rp.120,000</span><br>
-                                                        <span class="text-secondary">1h</span>
-                                                    </div>
-                                                    <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in"
-                                                            data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <span>Ariana Grander</span>
-                                            <div class="ms-auto">
-                                                <div class="d-flex flex-row align-items-center">
-                                                    <div class="flex-col text-end">
-                                                        <span>Rp.120,000</span><br>
-                                                        <span class="text-secondary">1h</span>
-                                                    </div>
-                                                    <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in"
-                                                            data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <span>Ariana Grander</span>
-                                            <div class="ms-auto">
-                                                <div class="d-flex flex-row align-items-center">
-                                                    <div class="flex-col text-end">
-                                                        <span>Rp.120,000</span><br>
-                                                        <span class="text-secondary">1h</span>
-                                                    </div>
-                                                    <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in"
-                                                            data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                        @include('components.book-modal')
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#secondAccordion" aria-expanded="false" aria-controls="secondAccordion">
-                                <strong>Hair Cut</strong>
-                            </button>
-                        </h2>
-                        <div id="secondAccordion" class="accordion-collapse collapse" data-bs-parent="#detailAccordion">
-                            <div class="accordion-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <span>Ariana Grander</span>
-                                            <div class="ms-auto">
-                                                <div class="d-flex flex-row align-items-center">
-                                                    <div class="flex-col text-end">
-                                                        <span>Rp.120,000</span><br>
-                                                        <span class="text-secondary">1h</span>
-                                                    </div>
-                                                    <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in"
-                                                            data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <span>Ariana Grander</span>
-                                            <div class="ms-auto">
-                                                <div class="d-flex flex-row align-items-center">
-                                                    <div class="flex-col text-end">
-                                                        <span>Rp.120,000</span><br>
-                                                        <span class="text-secondary">1h</span>
-                                                    </div>
-                                                    <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#bookModal">Book</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <span>Ariana Grander</span>
-                                            <div class="ms-auto">
-                                                <div class="d-flex flex-row align-items-center">
-                                                    <div class="flex-col text-end">
-                                                        <span>Rp.120,000</span><br>
-                                                        <span class="text-secondary">1h</span>
-                                                    </div>
-                                                    <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#bookModal">Book</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <span>Ariana Grander</span>
-                                            <div class="ms-auto">
-                                                <div class="d-flex flex-row align-items-center">
-                                                    <div class="flex-col text-end">
-                                                        <span>Rp.120,000</span><br>
-                                                        <span class="text-secondary">1h</span>
-                                                    </div>
-                                                    <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#bookModal">Book</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#thirdAccordion" aria-expanded="false" aria-controls="thirdAccordion">
-                                <strong>Hair Cut</strong>
-                            </button>
-                        </h2>
-                        <div id="thirdAccordion" class="accordion-collapse collapse" data-bs-parent="#detailAccordion">
-                            <div class="accordion-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <span>Ariana Grander</span>
-                                            <div class="ms-auto">
-                                                <div class="d-flex flex-row align-items-center">
-                                                    <div class="flex-col text-end">
-                                                        <span>Rp.120,000</span><br>
-                                                        <span class="text-secondary">1h</span>
-                                                    </div>
-                                                    <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#bookModal">Book</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <span>Ariana Grander</span>
-                                            <div class="ms-auto">
-                                                <div class="d-flex flex-row align-items-center">
-                                                    <div class="flex-col text-end">
-                                                        <span>Rp.120,000</span><br>
-                                                        <span class="text-secondary">1h</span>
-                                                    </div>
-                                                    <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#bookModal">Book</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <span>Ariana Grander</span>
-                                            <div class="ms-auto">
-                                                <div class="d-flex flex-row align-items-center">
-                                                    <div class="flex-col text-end">
-                                                        <span>Rp.120,000</span><br>
-                                                        <span class="text-secondary">1h</span>
-                                                    </div>
-                                                    <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#bookModal">Book</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <span>Ariana Grander</span>
-                                            <div class="ms-auto">
-                                                <div class="d-flex flex-row align-items-center">
-                                                    <div class="flex-col text-end">
-                                                        <span>Rp.120,000</span><br>
-                                                        <span class="text-secondary">1h</span>
-                                                    </div>
-                                                    <div class="p-3">
-                                                        <button type="submit" class=" btn btn-sign-in"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#bookModal">Book</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Reviews --}}
-                <div class="px-3 pt-4">
-                    <p class="fs-4">Review</p>
-                    <div class="row pe-3">
-                        <p class="col-9">At BeautiFind, we prioritize trust, verifying each review for authenticity. Our
-                            advanced
-                            verification
-                            process confirms users' genuine experiences, ensuring reliable insights into beauty services.
-                            Count
-                            on us for a trustworthy community where informed decisions meet genuine experiences.</p>
-                        <div class="col-3 border rounded align-items-center d-flex flex-column justify-content-center">
-                            <p class="mb-0">4.9/5</p>
-                            <p class="mb-0"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i></p>
-                            <p class="text-secondary mb-0">(Based on 110 reviews)</p>
-                        </div>
-                    </div>
-
-                    <div class="row pe-3 my-5 review-container">
-                        <div class="col-8">
-                            <span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i></span>
-                            <p class="mb-0 text-uppercase">Male Haircut</p>
-                            <p class="mb-0">by Stylist 1</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, at?</p>
-                        </div>
-                        <div class="col-4 text-end pe-0">
-                            <p class="text-secondary">John Appleseed &#x2022; Nov 10, 2023</p>
-                        </div>
-                    </div>
-                    <div class="row pe-3 my-5 review-container">
-                        <div class="col-8">
-                            <span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i></span>
-                            <p class="mb-0 text-uppercase">Male Haircut</p>
-                            <p class="mb-0">by Stylist 1</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, at?</p>
-                        </div>
-                        <div class="col-4 text-end pe-0">
-                            <p class="text-secondary">John Appleseed &#x2022; Nov 10, 2023</p>
-                        </div>
-                    </div>
-                    <div class="row pe-3 my-5 review-container">
-                        <div class="col-8">
-                            <span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i></span>
-                            <p class="mb-0 text-uppercase">Male Haircut</p>
-                            <p class="mb-0">by Stylist 1</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, at?</p>
-                        </div>
-                        <div class="col-4 text-end pe-0">
-                            <p class="text-secondary">John Appleseed &#x2022; Nov 10, 2023</p>
-                        </div>
-                    </div>
-
-                </div>
+                @endforeach
             </div>
-            {{-- Right Part --}}
-            <div class="col-4 sticky-top detail-info rounded">
-                <div class="rounded border border-top-0">
-                    <div class="salon-logo">
-                        <img src="{{ asset('storage/asset/images/dummy-salon-logo.png') }}" alt="">
+
+            {{-- Portofolio --}}
+            @if ($services->portfolioImage->isNotEmpty())
+                <div class="px-3 pt-4">
+                    <h3>Portofolio</h3>
+                    @if ($services->portfolioImage->count() > 3)
+                        <div class="swiper swiper-portfolio pt-2">
+                            <div class="swiper-wrapper portfolio-img-container">
+                                @foreach ($services->portfolioImage as $portfolio)
+                                    <div class="swiper-slide">
+                                        {{-- <img src="{{ asset($portfolio->image_path) }}" alt="portfolio image"
+                                                class="img-fluid"> --}}
+                                        <img src="{{ asset('storage/asset/images/dummy-salon-detail.png ') }}"
+                                            alt="portfolio image" class="img-fluid">
+                                        <div class="overlay-portfolio-title">
+                                            {{ $portfolio->portfolio_title }}
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                            <!-- If we need navigation buttons -->
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                    @else
+                        <div class="row">
+                            @foreach ($services->portfolioImage as $portfolio)
+                                <div class="col-4">
+                                    <div class="position-relative">
+                                        <img src="{{ asset('storage/asset/images/dummy-salon-detail.png ') }}"
+                                            alt="portfolio image" class="img-fluid">
+                                        {{-- <img src="{{ asset($portfolio->image_path) }}" alt="portfolio image"
+                                            class="img-fluid"> --}}
+                                        <div class="overlay-portfolio-title">
+                                            {{ $portfolio->portfolio_title }}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            @endif
+
+            {{-- Promo --}}
+            @if ($services->promotion->isNotEmpty())
+                <div class="px-3 pt-4">
+                    <h3>Promotion</h3>
+                    @if ($services->promotion->count() > 3)
+                        <div class="swiper swiper-portfolio pt-2">
+                            <div class="swiper-wrapper portfolio-img-container">
+                                @foreach ($services->promotion as $promotion)
+                                    <div class="swiper-slide">
+                                        <div class="card">
+                                            <img src="{{ asset('storage/asset/images/dummy-salon-detail.png ') }}"
+                                                class="card-img-top" alt="promo image">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ $promotion->promo_title }}</h5>
+                                                <p class="card-text">{{ $promotion->promo_description }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                            <!-- If we need navigation buttons -->
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                    @else
+                        <div class="row">
+                            @foreach ($services->promotion as $promotion)
+                                <div class="col-4">
+                                    <div class="card">
+                                        <img src="{{ asset('storage/asset/images/dummy-salon-detail.png ') }}"
+                                            class="card-img-top" alt="promo image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $promotion->promo_title }}</h5>
+                                            <p class="card-text">{{ $promotion->promo_description }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            @endif
+
+            {{-- FAQ --}}
+            @if ($services->faq->isNotEmpty())
+                <div class="px-3 pt-4">
+                    <h3>Frequently Asked Question</h3>
+                    <div class="accordion" id="faqAccordion">
+                        @foreach ($services->faq as $faq)
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse{{ $loop->iteration }}" aria-expanded="true"
+                                        aria-controls="collapse{{ $loop->iteration }}">
+                                        <p class="mb-0"><strong>Q: </strong>{{ $faq->faq_question }}</p>
+
+                                    </button>
+                                </h2>
+                                <div id="collapse{{ $loop->iteration }}" class="accordion-collapse collapse"
+                                    data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p class="mb-0"><strong>A: </strong>{{ $faq->faq_answer }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                    <div class="p-3 border-top">
-                        <p><strong>About Us</strong></p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt cum nihil, veniam repudiandae
-                            voluptas, perferendis mollitia doloribus et aliquam unde, at laudantium illum. Iste, aspernatur.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, nulla, omnis repudiandae
-                            temporibus optio dicta dignissimos, nihil officiis quos numquam minima. Vel est cum libero.
-                        </p>
-                        <p><strong>Contact & Business Hours</strong></p>
-                        <p><i class="bi bi-telephone me-1"></i>+62 871-1234-1234</p>
-                        <p><i class="bi bi-envelope-at me-1"></i>johnnyandrean@gmail.com</p>
-                        <p><i class="bi bi-calendar4 me-1"></i>Monday - Sunday</p>
-                        <p><i class="bi bi-clock me-1"></i>09:00 - 22:00</p>
-                        <hr>
+                </div>
+            @endif
+
+            {{-- Reviews --}}
+            <div class="px-3 pt-4">
+                <h3>Review</h3>
+                <div class="row pe-3">
+                    <p class="col-9">At BeautiFind, we prioritize trust, verifying each review for authenticity.
+                        Our
+                        advanced
+                        verification
+                        process confirms users' genuine experiences, ensuring reliable insights into beauty
+                        services.
+                        Count
+                        on us for a trustworthy community where informed decisions meet genuine experiences.</p>
+                    <div class="col-3 border rounded align-items-center d-flex flex-column justify-content-center">
+                        <p class="mb-0">
+                            {{ $services->review_avg_rating == null ? '-' : $services->review_avg_rating }}/5</p>
+
+                        @if ($services->review_avg_rating != null)
+                            <p class="mb-0">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if ($services->review_avg_rating < $i)
+                                        @if (is_float($services->review_avg_rating) && round($services->review_avg_rating) == $i)
+                                            <i class="bi bi-star-half"></i>
+                                        @else
+                                            <i class="bi bi-star"></i>
+                                        @endif
+                                    @else
+                                        <i class="bi bi-star-fill"></i>
+                                    @endif
+                                @endfor
+                            </p>
+                        @endif
+                        <p class="text-secondary mb-0">(Based on {{ $services->review_count }} reviews)</p>
                     </div>
+                </div>
+
+                @if ($reviews->isEmpty())
+                    <p class="fs-4">Currently no review</p>
+                @endif
+                @foreach ($reviews as $review)
+                    <div class="row pe-3 my-5 review-container">
+                        <div class="col-8">
+                            @if ($review->rating != null)
+                                <span>
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($review->rating < $i)
+                                            @if (is_float($review->rating) && round($review->rating) == $i)
+                                                <i class="bi bi-star-half"></i>
+                                            @else
+                                                <i class="bi bi-star"></i>
+                                            @endif
+                                        @else
+                                            <i class="bi bi-star-fill"></i>
+                                        @endif
+                                    @endfor
+                                    {{ $review->rating }}
+                                </span>
+                            @endif
+                            <p class="mb-0 text-uppercase">{{ $review->booking->serviceType->st_name }}</p>
+                            <p class="mb-0">by {{ $review->booking->bookingSlot->employee->emp_name }}</p>
+                            <p>{{ $review->review_content }}</p>
+                        </div>
+                        <div class="col-4 text-end pe-0">
+                            <p class="text-secondary">{{ $review->user->user_name }} &#x2022;
+                                {{ \Carbon\Carbon::parse($review->created_at)->format('M d, Y') }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- Right Part --}}
+        <div class="col-4 sticky-top detail-info rounded">
+            <div class="rounded border border-top-0">
+                <div class="salon-logo">
+                    <img src="{{ asset('storage/asset/images/dummy-salon-logo.png') }}" alt="">
+                    {{-- <img src="{{ asset($services->logo_image_path) }}" alt="logo salon"> --}}
+                </div>
+                <div class="p-3 border-top">
+                    <p><strong>About Us</strong></p>
+                    <p>{{ $services->service_description }}
+                    </p>
+                    <hr>
+                    <p><strong>Contact & Business Hours</strong></p>
+                    <p><i class="bi bi-geo-alt me-1"></i>{{ $services->service_address }}</p>
+                    <p><i class="bi bi-telephone me-1"></i>{{ $services->service_phone }}</p>
+                    <p><i class="bi bi-instagram me-1"></i>{{ $services->service_instagram }}</p>
+                    <p><i class="bi bi-envelope-at me-1"></i>{{ $services->service_email }}</p>
+                    <p><i class="bi bi-clock me-1"></i>{{ $services->service_opening_hours }}</p>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    @include('components.book-modal')
-    @include('components.confirmation-book-modal')
-    @include('components.success-book-modal')
+@include('components.confirmation-book-modal')
+@include('components.success-book-modal')
 @endsection
 
 @section('scripts')
-    <script src="./js/book.js"></script>
+<script src="../js/detail.js"></script>
+<script src="../js/book.js"></script>
 @endsection

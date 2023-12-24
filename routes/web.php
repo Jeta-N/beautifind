@@ -40,7 +40,7 @@ Route::get('/portfolio', [PortfolioImageController::class, 'viewPortfolios']);
 Route::get('/promotion', [PromotionController::class, 'viewPromotions']);
 Route::get('/review', [ReviewController::class, 'viewReviews']);
 Route::get('/services', [ServiceController::class, 'viewServicesList']);
-Route::get('/services/{id}', [ServiceController::class, 'viewServicesDetails']);
+Route::get('/service/{id}', [ServiceController::class, 'viewServicesDetails']);
 Route::get('/logout', [AccountController::class, 'logout']);
 Route::get('/admin-dashboard', [AccountController::class, 'viewDashboard']);
 
@@ -61,3 +61,5 @@ Route::get('/about', function () {
 Route::get('/faq', function () {
     return view('pages.faq');
 });
+
+Route::post('/get-time-slots', [BookingSlotController::class, 'getBookingSlots']);

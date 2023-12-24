@@ -43,8 +43,8 @@
                             <label for="city" class="form-label">City</label>
                             <select class="form-select form-login" aria-label="city" name="city">
                                 <option selected>Select your city</option>
-                                @foreach ($cities as $city )
-                                <option value="{{ $loop->iteration }}">{{ $city->city_name }}</option>
+                                @foreach ($cities as $city)
+                                    <option value="{{ $loop->iteration }}">{{ $city->city_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -68,13 +68,13 @@
                             <p>I'm looking for ....</p>
                             <div class="row row-cols-3 mx-0">
                                 @foreach ($serviceTypes as $serviceType)
-                                <div class="form-check col mb-3">
-                                    <input class="form-check-input" type="checkbox" name="typePreferences[]"
-                                        id="typePreferences{{ $loop->iteration }}" value="{{ $loop->iteration }}">
-                                    <label class="form-check-label" for="typePreferences{{ $loop->iteration }}">
-                                        {{ $serviceType->st_name }}
-                                    </label>
-                                </div>
+                                    <div class="form-check col mb-3">
+                                        <input class="form-check-input" type="checkbox" name="typePreferences[]"
+                                            id="typePreferences{{ $loop->iteration }}" value="{{ $loop->iteration }}">
+                                        <label class="form-check-label" for="typePreferences{{ $loop->iteration }}">
+                                            {{ $serviceType->st_name }}
+                                        </label>
+                                    </div>
                                 @endforeach
                             </div>
                         </div>

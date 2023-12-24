@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Faq;
-use App\Models\PortfolioImage;
-use App\Models\Promotion;
 use App\Models\Review;
 use App\Models\Service;
 use App\Models\ServiceServiceType;
 use App\Models\ServiceType;
 use App\Models\User;
-use DeepCopy\Filter\Filter;
-use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -84,8 +78,10 @@ class ServiceController extends Controller
     {
         $searchName = $request->input('service-name');
         $filterType = $request->input('type', []);
-        $filterRating = $request->input('rating', []);
+        $filterRating = $request->input('rating');
+        $filterCity = $request->input('city', []);
         $sortBy = $request->input('sort-by');
+
 
         $query = Service::query();
 
@@ -96,6 +92,12 @@ class ServiceController extends Controller
         if ($filterType && count($filterType) > 0) {
             $query->whereHas('serviceServiceType', function ($subquery) use ($filterType) {
                 $subquery->whereIn('st_id', $filterType);
+            });
+        }
+
+        if ($filterCity && count($filterCity) > 0) {
+            $query->whereHas('city', function ($subquery) use ($filterCity) {
+                $subquery->whereIn('city_id', $filterCity);
             });
         }
 
@@ -128,8 +130,8 @@ class ServiceController extends Controller
         $query->with('serviceServiceType.serviceType');
         $query->withAvg('review', 'rating');
 
-        if ($filterRating && $filterType != []) {
-            $query->having('review_avg_rating', '>', $filterRating);
+        if ($filterRating && $filterRating != []) {
+            $query->having('review_avg_rating', '>', $filterRating[0]);
         }
         $services = $query->get();
 
@@ -139,19 +141,38 @@ class ServiceController extends Controller
     public function viewServicesDetails(Request $request)
     {
         $service_id = $request->route('id');
+
+        $serviceTypeIds = ServiceServiceType::where('service_id', $service_id)->pluck('st_id')->toArray();
+
+        $serviceTypesWithEmployees = ServiceType::whereIn('st_id', $serviceTypeIds)
+            ->whereHas('employeeServiceType.employee', function ($query) use ($service_id) {
+                $query->where('service_id', $service_id);
+            })
+            ->with(['employeeServiceType.employee'])
+            ->get();
+
+        $reviews =  Review::where('service_id', $service_id)
+            ->with('user')
+            ->with('booking')
+            ->with('booking.serviceType')
+            ->with('booking.bookingSlot')
+            ->with('booking.bookingSlot.employee')
+            ->get();
+
         $service = Service::with([
             'faq',
             'portfolioImage',
             'promotion',
-            'employee',
-            'serviceServiceType',
-            'serviceServiceType.serviceType',
-            'serviceServiceType.serviceType.employeeServiceType',
-            'serviceServiceType.serviceType.employeeServiceType.employee',
-        ])->find($service_id);
+            'serviceServiceType'
+        ])
+            ->withAvg('review', 'rating')
+            ->withCount('review')
+            ->find($service_id);
 
         return view('pages.detail', [
-            'services' => $service
+            'services' => $service,
+            'serviceTypesAvailable' => $serviceTypesWithEmployees,
+            'reviews' => $reviews
         ]);
     }
 }
