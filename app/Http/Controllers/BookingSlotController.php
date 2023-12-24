@@ -22,4 +22,37 @@ class BookingSlotController extends Controller
         $booking_slots = BookingSlot::where('service_id', '=', $user->service_id)->get();
         return view('viewBookingSlot')->with('booking_slots',$booking_slots);
     }
+
+    public function createBookingSlot(Request $request){
+        $this->validate($request, [
+            'emp_id' =>'required',
+            'date' => 'required',
+            'time_start' =>'required',
+            'time_end' =>'required',
+        ]);
+
+        $emp = Employee::find($request->emp_id);
+
+        BookingSlot::create([
+            'emp_id' => $request->emp_id,
+            'service_id' => $emp->service_id,
+            'date' => $request->date,
+            'time_start' => $request->time_start,
+            'time_end' => $request->time_end,
+            'is_available' => true
+        ]);
+
+        return redirect('/bookingslot');
+    }
+
+    public function deleteBookingSlot(Request $request){
+        $slot = BookingSlot::find($request->bs_id);
+        if($slot->is_available){
+            $slot->delete();
+        }else{
+            return redirect()->back()->with('error', 'Booking Slot is reserved');
+        }
+
+        return redirect('/bookingslot');
+    }
 }

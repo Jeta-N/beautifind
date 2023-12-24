@@ -36,6 +36,9 @@ class Service extends Model
         'logo_image_path',
         'service_image_path',
         'service_status',
+        'has_faq',
+        'has_portfolio',
+        'has_promo'
     ];
 
     public function city()

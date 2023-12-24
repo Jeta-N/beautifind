@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\Booking;
 use App\Models\Review;
 use App\Models\Service;
@@ -46,5 +47,29 @@ class AccountController extends Controller
         $review_count = Review::count();
         // dd($review_count);
         return view('pages.admin.dashboard')->with('user_count', $user_count)->with('service_count', $service_count)->with('booking_count', $booking_count)->with('review_count', $review_count);
+    }
+
+    public function blockAccount(Request $request)
+    {
+        $acc = Account::find($request->acc_id);
+        $acc->is_blocked = true;
+        $acc->save();
+
+        return redirect()->back();
+    }
+
+    public function changePassword(Request $request)
+    {
+        $this->validate($request, [
+            'old_password' => 'required |current_password | min:5 | max:20',
+            'new_password' => 'required | min:8',
+            'new_password_confirmation' => 'required'
+        ]);
+
+        $acc = Account::find(Auth::user()->acc_id);
+        $acc->password = bcrypt($request->new_password);
+        $acc->save();
+
+        return redirect('/');
     }
 }

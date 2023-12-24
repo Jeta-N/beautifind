@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\BookingSlot;
 use App\Models\Employee;
+use App\Models\EmployeeServiceType;
 use App\Models\SuperAdmin;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -53,5 +55,47 @@ class BookingController extends Controller
         ->where('booking_slot.emp_id','=',$user->emp_id)
         ->orderBy('booking.booking_status','desc')->get();
         return view('viewBooking')->with('bookings',$bookings)->with('title',$title);
+    }
+
+    public function createBooking(Request $request){
+        $user_id = Auth::user()->user_id;
+        $this->validate($request, [
+            'st_id' =>'required',
+            'bs_id' =>'required'
+        ]);
+
+        $slot = BookingSlot::find($request->bs_id);
+        $service_id = $slot->service_id;
+        $est = EmployeeServiceType::where('emp_id', '=', $slot->emp_id)->where('st_id', '=', $request->st_id)->first();
+        $price = $est->price;
+
+        Booking::create([
+            'user_id' => $user_id,
+            'st_id' => $request->st_id,
+            'bs_id' => $request->bs_id,
+            'service_id' => $service_id,
+            'price' => $price,
+            'booking_status' => 'Upcoming'
+        ]);
+
+        $slot = BookingSlot::find($request->bs_id);
+        $slot->is_available = false;
+        $slot->save();
+
+        return redirect('/booking');
+    }
+
+    public function updateBookingStatus(Request $request){
+        $booking = Booking::find($request->booking_id);
+        $booking->status = $request->status;
+        $booking->save();
+
+        if($request->status == 'Cancelled'){
+            $slot = BookingSlot::find($booking->bs_id);
+            $slot->is_available = true;
+            $slot->save();
+        }
+
+        return redirect('/booking');
     }
 }

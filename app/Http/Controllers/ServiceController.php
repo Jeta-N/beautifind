@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
+use App\Models\Faq;
+use App\Models\PortfolioImage;
+use App\Models\Promotion;
 use App\Models\Review;
 use App\Models\Service;
 use App\Models\ServiceServiceType;
 use App\Models\ServiceType;
 use App\Models\User;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -62,7 +68,7 @@ class ServiceController extends Controller
         return $rec_services;
     }
 
-    private function servicesByType()
+    public function servicesByType()
     {
         $st = 1;
         $sst_array = ServiceServiceType::where('st_id', '=', $st)->inRandomOrder()->limit(2)->get();
@@ -101,6 +107,20 @@ class ServiceController extends Controller
             });
         }
 
+        $ratings = DB::table('review')->select('service_id', DB::raw('AVG(rating) as rating'))->groupBy('service_id');
+        $query->leftJoinSub($ratings, 'ratings', function (JoinClause $join) {
+            $join->on('service.service_id', '=', 'ratings.service_id');
+        })
+            ->select(DB::raw('service.*,ratings.rating as rating'));
+
+        $emps = Employee::query();
+        $emps->select('emp_id', 'service_id');
+        $prices = $emps->join('employee_service_type', 'employee_service_type.emp_id', '=', 'employee.emp_id')->select('service_id', DB::raw('MIN(price) as min_price'))->groupBy('employee.service_id');
+        $query->leftJoinSub($prices, 'prices', function (JoinClause $join) {
+            $join->on('service.service_id', '=', 'prices.service_id');
+        })
+            ->select(DB::raw('service.*,prices.min_price as min_price'));
+
         // Handle sorting
         switch ($sortBy) {
             case 1:
@@ -111,15 +131,19 @@ class ServiceController extends Controller
                 break;
             case 3:
                 //sort by price ascending
+                $query->orderBy('min_price');
                 break;
             case 4:
                 //sort by price desc
+                $query->orderByDesc('min_price');
                 break;
             case 5:
                 //sort by rating asc
+                $query->orderBy('rating');
                 break;
             case 6:
                 //sort by rating desc
+                $query->orderByDesc('rating');
                 break;
             default:
                 $query->orderBy('service_name');
@@ -131,7 +155,7 @@ class ServiceController extends Controller
         $query->withAvg('review', 'rating');
 
         if ($filterRating && $filterRating != []) {
-            $query->having('review_avg_rating', '>', $filterRating[0]);
+            $query->having('review_avg_rating', '>', $filterRating);
         }
         $services = $query->get();
 
