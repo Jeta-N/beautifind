@@ -94,6 +94,12 @@ body
     background-color: #2e2b22;
 }
 
+.confirmation-book-btn-book:disabled
+{
+    background-color: var(--bs-secondary-bg);
+    opacity: 1;
+}
+
 /* Navbar */
 
 .form-control:focus,

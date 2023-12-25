@@ -13,65 +13,65 @@ use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
-    public function viewBooking(Request $request){
+    public function viewBooking(Request $request)
+    {
         $acc_role = Auth::user()->account_role;
 
-        if ($acc_role == 'User'){
+        if ($acc_role == 'User') {
             return $this->viewUserBooking();
-        }else if ($acc_role == 'Super Admin' || $acc_role == 'Manager'){
+        } else if ($acc_role == 'Super Admin' || $acc_role == 'Manager') {
             return $this->viewServiceBooking($acc_role);
-        }else if ($acc_role == 'Staff'){
+        } else if ($acc_role == 'Staff') {
             return $this->viewStaffBooking();
         }
     }
 
-    private function viewUserBooking(){
+    private function viewUserBooking()
+    {
         $acc_id = Auth::user()->account_id;
         $title = 'user bookings';
-        $user = User::where('account_id','=',$acc_id)->first();
-        $bookings = Booking::where('user_id','=',$user->user_id)->orderBy('booking_status','desc')->get();
-        return view('viewBooking')->with('bookings',$bookings)->with('title',$title);
+        $user = User::where('account_id', '=', $acc_id)->first();
+        $bookings = Booking::where('user_id', '=', $user->user_id)->orderBy('booking_status', 'desc')->get();
+        return view('viewBooking')->with('bookings', $bookings)->with('title', $title);
     }
 
-    private function viewServiceBooking($acc_role){
+    private function viewServiceBooking($acc_role)
+    {
         $acc_id = Auth::user()->account_id;
         $title = 'service bookings';
         $user = null;
-        if ($acc_role == 'Super Admin'){
-            $user = SuperAdmin::where('account_id','=',$acc_id)->first();
-        }else{
-            $user = Employee::where('account_id','=',$acc_id)->first();
+        if ($acc_role == 'Super Admin') {
+            $user = SuperAdmin::where('account_id', '=', $acc_id)->first();
+        } else {
+            $user = Employee::where('account_id', '=', $acc_id)->first();
         }
-        $bookings = Booking::where('service_id','=',$user->service_id)->orderBy('booking_status','desc')->get();
-        return view('viewBooking')->with('bookings',$bookings)->with('title',$title);
+        $bookings = Booking::where('service_id', '=', $user->service_id)->orderBy('booking_status', 'desc')->get();
+        return view('viewBooking')->with('bookings', $bookings)->with('title', $title);
     }
 
-    private function viewStaffBooking(){
+    private function viewStaffBooking()
+    {
         $acc_id = Auth::user()->account_id;
         $title = 'staff bookings';
-        $user = Employee::where('account_id','=',$acc_id)->first();
-        $bookings = Booking::where('booking.service_id','=',$user->service_id)
-        ->join('booking_slot','booking.bs_id','=', 'booking_slot.bs_id')
-        ->where('booking_slot.emp_id','=',$user->emp_id)
-        ->orderBy('booking.booking_status','desc')->get();
-        return view('viewBooking')->with('bookings',$bookings)->with('title',$title);
+        $user = Employee::where('account_id', '=', $acc_id)->first();
+        $bookings = Booking::where('booking.service_id', '=', $user->service_id)
+            ->join('booking_slot', 'booking.bs_id', '=', 'booking_slot.bs_id')
+            ->where('booking_slot.emp_id', '=', $user->emp_id)
+            ->orderBy('booking.booking_status', 'desc')->get();
+        return view('viewBooking')->with('bookings', $bookings)->with('title', $title);
     }
 
-    public function createBooking(Request $request){
-        $user_id = Auth::user()->user_id;
-        $this->validate($request, [
-            'st_id' =>'required',
-            'bs_id' =>'required'
-        ]);
-
+    public function createBooking(Request $request)
+    {
+        $user = User::where('account_id', '=', Auth::user()->account_id)->first();
         $slot = BookingSlot::find($request->bs_id);
         $service_id = $slot->service_id;
-        $est = EmployeeServiceType::where('emp_id', '=', $slot->emp_id)->where('st_id', '=', $request->st_id)->first();
+        $est = EmployeeServiceType::where('emp_id', '=', $slot->emp_id)->where('st_id', '=', $request->id)->first();
         $price = $est->price;
 
         Booking::create([
-            'user_id' => $user_id,
-            'st_id' => $request->st_id,
+            'user_id' => $user->user_id,
+            'st_id' => $request->id,
             'bs_id' => $request->bs_id,
             'service_id' => $service_id,
             'price' => $price,
@@ -82,15 +82,16 @@ class BookingController extends Controller
         $slot->is_available = false;
         $slot->save();
 
-        return redirect('/booking');
+        return redirect()->back()->with('successBook', 'success');
     }
 
-    public function updateBookingStatus(Request $request){
+    public function updateBookingStatus(Request $request)
+    {
         $booking = Booking::find($request->booking_id);
         $booking->status = $request->status;
         $booking->save();
 
-        if($request->status == 'Cancelled'){
+        if ($request->status == 'Cancelled') {
             $slot = BookingSlot::find($booking->bs_id);
             $slot->is_available = true;
             $slot->save();

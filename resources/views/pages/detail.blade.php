@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container">
-        {{ $services }}
         <div class="row pt-3">
             {{-- Left Part --}}
             <div class="col-8">
@@ -51,7 +50,7 @@
                                                         <div class="p-3">
                                                             <button type="submit" class=" btn btn-sign-in"
                                                                 data-bs-toggle="modal"
-                                                                @auth data-bs-target="#bookModal"
+                                                                @auth data-bs-target="#bookModal{{ $employeeServiceType->est_id }}"
                                                                 @else
                                                                 data-bs-target="#loginModal" @endauth>Book</button>
                                                         </div>
@@ -277,8 +276,10 @@
     </div>
 </div>
 
-@include('components.confirmation-book-modal')
-@include('components.success-book-modal')
+@if (session('successBook'))
+    @include('components.success-book-modal')
+@endif
+
 @endsection
 
 @section('scripts')

@@ -10,25 +10,27 @@ use Illuminate\Support\Facades\Auth;
 
 class BookingSlotController extends Controller
 {
-    public function viewBookingSlots(){
+    public function viewBookingSlots()
+    {
         $acc_role = Auth::user()->account_role;
         $acc_id = Auth::user()->account_id;
-        if ($acc_role == 'Super Admin'){
-            $user = SuperAdmin::where('account_id','=',$acc_id)->first();
-        }else{
-            $user = Employee::where('account_id','=',$acc_id)->first();
+        if ($acc_role == 'Super Admin') {
+            $user = SuperAdmin::where('account_id', '=', $acc_id)->first();
+        } else {
+            $user = Employee::where('account_id', '=', $acc_id)->first();
         }
 
         $booking_slots = BookingSlot::where('service_id', '=', $user->service_id)->get();
-        return view('viewBookingSlot')->with('booking_slots',$booking_slots);
+        return view('viewBookingSlot')->with('booking_slots', $booking_slots);
     }
 
-    public function createBookingSlot(Request $request){
+    public function createBookingSlot(Request $request)
+    {
         $this->validate($request, [
-            'emp_id' =>'required',
+            'emp_id' => 'required',
             'date' => 'required',
-            'time_start' =>'required',
-            'time_end' =>'required',
+            'time_start' => 'required',
+            'time_end' => 'required',
         ]);
 
         $emp = Employee::find($request->emp_id);
@@ -45,14 +47,27 @@ class BookingSlotController extends Controller
         return redirect('/bookingslot');
     }
 
-    public function deleteBookingSlot(Request $request){
+    public function deleteBookingSlot(Request $request)
+    {
         $slot = BookingSlot::find($request->bs_id);
-        if($slot->is_available){
+        if ($slot->is_available) {
             $slot->delete();
-        }else{
+        } else {
             return redirect()->back()->with('error', 'Booking Slot is reserved');
         }
 
         return redirect('/bookingslot');
+    }
+
+    public function getBookingSlots(Request $request)
+    {
+        $date = $request->date;
+        $employeeId = $request->employeeId;
+        $booking_slots = BookingSlot::where('service_id', '=', $request->serviceId)
+            ->where('emp_id', '=', $employeeId)
+            ->where('date', '=', $date)
+            ->where('is_available', '=', true)
+            ->get();
+        return response()->json($booking_slots);
     }
 }

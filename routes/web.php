@@ -63,3 +63,4 @@ Route::get('/faq', function () {
 });
 
 Route::post('/get-time-slots', [BookingSlotController::class, 'getBookingSlots']);
+Route::post('/book/{id}', [BookingController::class, 'createBooking']);
