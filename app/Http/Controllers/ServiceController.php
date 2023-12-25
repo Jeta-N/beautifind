@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\Employee;
 use App\Models\Faq;
 use App\Models\PortfolioImage;
@@ -171,5 +172,46 @@ class ServiceController extends Controller
         return view('pages.detail', [
             'services' => $service
         ]);
+    }
+
+    public function deleteService(Request $request){
+        $service = Review::find($request->service_id);
+        $service->delete();
+
+        foreach($service->employee as $emp){
+            foreach($emp->employeeServiceType as $est){
+                $est->delete();
+            }
+            $emp->delete();
+        }
+
+        foreach($service->faq as $faq){
+            $faq->delete();
+        }
+
+        foreach($service->portfolioImage as $pi){
+            $pi->delete();
+        }
+
+        foreach($service->promotion as $promo){
+            $promo->delete();
+        }
+
+        foreach($service->serviceServiceType as $sst){
+            $sst->delete();
+        }
+
+        foreach($service->bookingSlot as $bs){
+            if ($bs->is_available){
+                $bs->delete();
+            }
+        }
+
+        $bookings = Booking::where('service_id', '=', $service->service_id)->get();
+        foreach($bookings->review as $review){
+            $review->delete();
+        }
+
+        return redirect()->back();
     }
 }

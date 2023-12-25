@@ -49,4 +49,13 @@ class SuperAdminController extends Controller
 
         return redirect('/admin-dashboard');
     }
+
+    public function deleteSuperAdmin(Request $request){
+        $sa = SuperAdmin::find($request->sa_id);
+        $acc = Account::find($sa->acc_id);
+        $sa->delete();
+        $acc->delete();
+
+        return redirect()->back();
+    }
 }

@@ -28,7 +28,7 @@ class ReviewController extends Controller
         return view('viewReview')->with('reviews', $reviews)->with('rating', $rating);
     }
 
-    public function createFAQ(Request $request){
+    public function createReview(Request $request){
         $this->validate($request, [
             'rating' => 'required',
             'content' => 'min:5 | max:255'
@@ -46,4 +46,12 @@ class ReviewController extends Controller
             'review_content' => $request->content
         ]);
     }
+
+    public function deletePromotion(Request $request){
+        $review = Review::find($request->review_id);
+        $review->delete();
+
+        return redirect()->back();
+    }
+
 }

@@ -64,4 +64,16 @@ class UserController extends Controller
 
         return redirect('/');
     }
+
+    public function deleteUser(Request $request){
+        $user = User::find($request->user_id);
+        $acc = Account::find($user->acc_id);
+        foreach($user->userServiceType as $ust){
+            $ust->delete();
+        }
+        $user->delete();
+        $acc->delete();
+
+        return redirect()->back();
+    }
 }
