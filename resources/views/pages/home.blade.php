@@ -70,9 +70,9 @@
                         </div>
                     </div>
                 @else
-                    <div class="row">
-                        <div class="col d-flex align-items-stretch flex-column">
-                            @foreach ($rec_services as $service)
+                    <div class="row pt-2">
+                        @foreach ($rec_services as $service)
+                            <div class="col d-flex align-items-stretch">
                                 <div class="card h-100">
                                     <img src="..." class="card-img-top" alt="...">
                                     <div class="card-body d-flex flex-column align-items-center">
@@ -82,8 +82,8 @@
                                             Detail</a>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
                     </div>
                 @endif
         </section>

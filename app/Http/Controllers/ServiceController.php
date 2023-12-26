@@ -66,7 +66,7 @@ class ServiceController extends Controller
             }
         }
         $random = 3;
-        if (count($service_score) < 3) {
+        if (count($service_score) < 5) {
             $random = count($service_score);
         }
         $recommender = array_rand($service_score, $random);

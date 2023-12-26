@@ -121,7 +121,7 @@
                                         <input class="form-check-input @error('typePreferences') is-invalid  @enderror"
                                             type="checkbox" name="typePreferences[]"
                                             id="typePreferences{{ $loop->iteration }}"
-                                            value="{{ $loop->iteration }}" required>
+                                            value="{{ $loop->iteration }}">
                                         <label class="form-check-label" for="typePreferences{{ $loop->iteration }}">
                                             {{ $serviceType->st_name }}
                                         </label>

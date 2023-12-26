@@ -14,7 +14,7 @@
                 <div class="accordion accordion-flush px-3 pt-4" id="detailAccordion">
                     @if ($serviceTypesAvailable->isEmpty())
                         <h3>Services</h3>
-                        <p class="fs-4 mb-0">Currently no service available</p>
+                        <p class="lead mb-0">Currently no booking slots available</p>
                     @endif
                     @foreach ($serviceTypesAvailable as $serviceType)
                         <div class="accordion-item">
@@ -218,7 +218,7 @@
                 </div>
 
                 @if ($reviews->isEmpty())
-                    <p class="fs-4">Currently no review</p>
+                    <p class="lead">Currently no review</p>
                 @endif
                 @foreach ($reviews as $review)
                     <div class="row pe-3 my-5 review-container">
@@ -259,7 +259,7 @@
                     <img src="{{ asset('storage/asset/images/dummy-salon-logo.png') }}" alt="">
                     {{-- <img src="{{ asset($services->logo_image_path) }}" alt="logo salon"> --}}
                 </div>
-                <div class="p-3 border-top">
+                <div class="p-3 border-top border-bottom">
                     <p><strong>About Us</strong></p>
                     <p>{{ $services->service_description }}
                     </p>
@@ -270,6 +270,14 @@
                     <p><i class="bi bi-instagram me-1"></i>{{ $services->service_instagram }}</p>
                     <p><i class="bi bi-envelope-at me-1"></i>{{ $services->service_email }}</p>
                     <p><i class="bi bi-clock me-1"></i>{{ $services->service_opening_hours }} WIB</p>
+                </div>
+                <div class="p-3">
+                    @foreach ($services->serviceServiceType as $serviceType)
+                        <span class="px-2">{{ $serviceType->serviceType->st_name }}</span>
+                        @if (!$loop->last)
+                            &#8226; {{-- bullet --}}
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>
