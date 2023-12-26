@@ -29,7 +29,7 @@ class AccountController extends Controller
             $request->session()->regenerate();
             return redirect()->back();
         } else {
-            dd("Failed to login");
+            return redirect()->back()->with('failedLogin', 'failed login');
         }
     }
 

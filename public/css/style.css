@@ -80,6 +80,11 @@ body
     cursor: pointer;
 }
 
+.vh-50
+{
+    min-height: 50vh;
+}
+
 /* Login */
 .btn-sign-in,
 .btn-sign-in:hover
@@ -98,6 +103,17 @@ body
 {
     background-color: var(--bs-secondary-bg);
     opacity: 1;
+}
+
+.alert-login
+{
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;
+    z-index: 9999;
 }
 
 /* Navbar */
@@ -149,7 +165,7 @@ body
     margin: 3px;
     grid-template-areas:
         "search search"
-        "location datetime"
+        "location location"
         "btn-search btn-search";
     width: 100%;
 }
@@ -180,16 +196,22 @@ body
     grid-area: datetime;
 }
 
-.nav-search
+.nav-search,
+.home-search
 {
-    border: none;
     background: #E8F2FE;
     color: #0075FF;
     width: fit-content;
+}
+
+.nav-search
+{
+    border: none;
     grid-area: btn-search;
 }
 
-.nav-search:focus
+.nav-search:focus,
+.home-search:focus
 {
     color: black;
     background-color: #d8eaff;
@@ -530,7 +552,6 @@ body
 }
 
 
-
 /* Footer */
 .bg-footer
 {
@@ -581,11 +602,11 @@ body
     .nav-input
     {
         display: grid;
-        grid-template-columns: 3fr 2fr 2fr 1fr;
+        grid-template-columns: 3fr 2fr 1fr;
         gap: 0;
         margin: 0;
         grid-template-areas:
-            "search location datetime btn-search";
+            "search location btn-search";
         width: 60%;
     }
 

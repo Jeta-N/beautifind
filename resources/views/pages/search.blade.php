@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-    <div class="container pt-3">
+    <div class="container pt-3 @if ($services->isEmpty()) vh-50 @endif">
         <div class="w-100 bg-white rounded shadow-sm">
             <div class="row mx-0">
                 <div class="col p-0">
@@ -30,6 +30,13 @@
                 </div>
             </div>
         </div>
+
+        @if ($services->isEmpty())
+            <div class="text-center mt-5">
+                <h1 class="display-6">No Service Found</h1>
+                <p class="lead">Try to change your search criteria</p>
+            </div>
+        @endif
         @foreach ($services as $service)
             <div class="card my-3 p-3 border-0 shadow-sm">
                 <div class="row g-0">

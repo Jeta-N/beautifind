@@ -11,8 +11,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserController;
-use App\Models\Service;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,7 +33,7 @@ Route::get('/emp-profile', [EmployeeController::class, 'viewEmployeeProfile']);
 Route::get('/admins', [SuperAdminController::class, 'viewSuperAdmins']);
 Route::get('/sa-profile', [SuperAdminController::class, 'viewSuperAdminProfile']);
 Route::get('/users', [UserController::class, 'viewUsers']);
-Route::get('/user-profile', [UserController::class, 'viewUserProfile']);
+Route::get('/profile', [UserController::class, 'viewUserProfile']);
 Route::get('/faqs', [FaqController::class, 'viewFaqs']);
 Route::get('/portfolio', [PortfolioImageController::class, 'viewPortfolios']);
 Route::get('/promotion', [PromotionController::class, 'viewPromotions']);
@@ -51,9 +50,6 @@ Route::get('/detail', function () {
     return view('pages.detail');
 });
 
-Route::get('/profile', function () {
-    return view('pages.profile');
-});
 Route::get('/about', function () {
     return view('pages.aboutus');
 });
@@ -64,3 +60,15 @@ Route::get('/faq', function () {
 
 Route::post('/get-time-slots', [BookingSlotController::class, 'getBookingSlots']);
 Route::post('/book/{id}', [BookingController::class, 'createBooking']);
+
+Route::post('/edit-profile', [UserController::class, 'editProfile']);
+Route::post('/change-password', [UserController::class, 'changePassword']);
+
+Route::get('/user-booking', [BookingController::class, 'viewUserBooking']);
+
+Route::post('/edit-preferences', [UserController::class, 'editPreferences']);
+
+Route::get('/review/{id}', [ReviewController::class, 'viewReviewForm']);
+Route::post('/create-review/{id}', [ReviewController::class, 'createReview']);
+
+Route::post('/cancel-book/{id}', [BookingController::class, 'cancelBooking']);

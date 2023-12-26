@@ -68,7 +68,7 @@
             </div>
 
             {{-- Portofolio --}}
-            @if ($services->portfolioImage->isNotEmpty())
+            @if ($services->portfolioImage->isNotEmpty() && $services->has_portfolio)
                 <div class="px-3 pt-4">
                     <h3>Portofolio</h3>
                     @if ($services->portfolioImage->count() > 3)
@@ -112,7 +112,7 @@
             @endif
 
             {{-- Promo --}}
-            @if ($services->promotion->isNotEmpty())
+            @if ($services->promotion->isNotEmpty() && $services->has_promo)
                 <div class="px-3 pt-4">
                     <h3>Promotion</h3>
                     @if ($services->promotion->count() > 3)
@@ -156,7 +156,7 @@
             @endif
 
             {{-- FAQ --}}
-            @if ($services->faq->isNotEmpty())
+            @if ($services->faq->isNotEmpty() && $services->has_faq)
                 <div class="px-3 pt-4">
                     <h3>Frequently Asked Question</h3>
                     <div class="accordion" id="faqAccordion">
@@ -173,7 +173,7 @@
                                 <div id="collapse{{ $loop->iteration }}" class="accordion-collapse collapse"
                                     data-bs-parent="#faqAccordion">
                                     <div class="accordion-body">
-                                        <p class="mb-0"><strong>A: </strong>{{ $faq->faq_answer }}</p>
+                                        <p class="mb-0 py-1"><strong>A: </strong>{{ $faq->faq_answer }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -222,7 +222,7 @@
                 @endif
                 @foreach ($reviews as $review)
                     <div class="row pe-3 my-5 review-container">
-                        <div class="col-8">
+                        <div class="col-7">
                             @if ($review->rating != null)
                                 <span>
                                     @for ($i = 1; $i <= 5; $i++)
@@ -243,9 +243,9 @@
                             <p class="mb-0">by {{ $review->booking->bookingSlot->employee->emp_name }}</p>
                             <p>{{ $review->review_content }}</p>
                         </div>
-                        <div class="col-4 text-end pe-0">
+                        <div class="col-5 text-end pe-0">
                             <p class="text-secondary">{{ $review->user->user_name }} &#x2022;
-                                {{ \Carbon\Carbon::parse($review->created_at)->format('M d, Y') }}</p>
+                                {{ \Carbon\Carbon::parse($review->created_at)->format('j F Y') }}</p>
                         </div>
                     </div>
                 @endforeach
@@ -269,7 +269,7 @@
                     <p><i class="bi bi-telephone me-1"></i>{{ $services->service_phone }}</p>
                     <p><i class="bi bi-instagram me-1"></i>{{ $services->service_instagram }}</p>
                     <p><i class="bi bi-envelope-at me-1"></i>{{ $services->service_email }}</p>
-                    <p><i class="bi bi-clock me-1"></i>{{ $services->service_opening_hours }}</p>
+                    <p><i class="bi bi-clock me-1"></i>{{ $services->service_opening_hours }} WIB</p>
                 </div>
             </div>
         </div>

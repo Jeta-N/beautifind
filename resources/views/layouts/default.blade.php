@@ -12,6 +12,25 @@
     </header>
 
     <main>
+        @error('password')
+            <div class="alert alert-danger alert-dismissible fade show alert-login" role="alert">
+                Failed to login. Please check your email and password.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @enderror
+        @if (session('failedLogin'))
+            <div class="alert alert-danger alert-dismissible fade show alert-login" role="alert">
+                Failed to login. Please check your email and password.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session('failedRegister'))
+            <div class="alert alert-danger alert-dismissible fade show alert-login" role="alert">
+                Failed to Register. Please check again the form.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         @yield('content')
         @include('components.login-modal')
     </main>

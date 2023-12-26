@@ -40,7 +40,7 @@ function fetchTimeSlots(id, employeeId, estId) {
             response.data.forEach(timeSlot => {
                 swiperWrapper.innerHTML += `
                 <div class="swiper-slide">
-                    <button class="py-1 px-3 btn btn-time-book" type="button" id="timeSlotBtn${timeSlot.bs_id}" value="${timeSlot.bs_id}" onclick="bookTimeInfo('${timeSlot.time_start.substring(0, 5)}', ${employeeId}, ${timeSlot.bs_id})">${timeSlot.time_start.substring(0, 5)}</button>
+                    <button class="py-1 px-3 btn btn-time-book" type="button" id="timeSlotBtn${timeSlot.bs_id}" value="${timeSlot.bs_id}" onclick="bookTimeInfo('${timeSlot.time_start.substring(0, 5)}', ${employeeId}, ${timeSlot.bs_id})">${timeSlot.time_start.substring(0, 5)} WIB</button>
                 </div>
                 `;
             });
@@ -48,7 +48,7 @@ function fetchTimeSlots(id, employeeId, estId) {
             bookTime.innerHTML = ''
             response.data.forEach(timeSlot => {
                 bookTime.innerHTML += `
-                    <button class="py-1 px-3 btn btn-time-book" type="button" id="timeSlotBtn${timeSlot.bs_id}" value="${timeSlot.bs_id}" onclick="bookTimeInfo('${timeSlot.time_start.substring(0, 5)}', ${estId}, ${timeSlot.bs_id})">${timeSlot.time_start.substring(0, 5)}</button>
+                    <button class="py-1 px-3 btn btn-time-book" type="button" id="timeSlotBtn${timeSlot.bs_id}" value="${timeSlot.bs_id}" onclick="bookTimeInfo('${timeSlot.time_start.substring(0, 5)}', ${estId}, ${timeSlot.bs_id})">${timeSlot.time_start.substring(0, 5)} WIB</button>
                 `;
             });
         } else {
@@ -75,7 +75,7 @@ function bookTimeInfo(time, estId, timeSlotId) {
             month: "long",
             year: "numeric"
         })} <br>
-    Time: ${time}
+    Time: ${time} WIB
     `
 
     const continueBookBtn = document.getElementById(`continueBookBtn${estId}`);

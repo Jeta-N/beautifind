@@ -22,7 +22,9 @@ const heroObserver = new IntersectionObserver(
             document.querySelectorAll(".navbar.navbar-expand-md")[0].classList.add("navbar-home");
             document.getElementsByClassName("navbar-brand")[0].classList.add("navbar-home");
             var elements = document.querySelectorAll(".nav-link");
-            elements[0].classList.add("navbar-home");
+            if (elements[0]) {
+                elements[0].classList.add("navbar-home");
+            }
             if (elements[1]) {
                 elements[1].classList.add("navbar-home");
             }

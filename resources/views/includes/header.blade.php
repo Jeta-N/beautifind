@@ -30,11 +30,14 @@
 
 
         <form class="nav-input" action="/services">
-            <input type="text" class="form-control input-search border-end" placeholder="Search for Services"
-                aria-label="services">
-            <input type="text" class="form-control input-location border-end" placeholder="Where?"
-                aria-label="location">
-            <input type="text" class="form-control input-datetime" placeholder="When?" aria-label="location">
+            <input type="text" class="form-control input-search border-end" placeholder="Search for Services Name"
+                aria-label="services" name="service-name">
+            <select class="form-select input-location border-end" aria-label="city" name="city[]">
+                <option value="">Where?</option>
+                @foreach ($cities as $city)
+                    <option value="{{ $loop->iteration }}">{{ $city->city_name }}</option>
+                @endforeach
+            </select>
             <button type="submit" class="nav-search form-control rounded-end-2">
                 Search
             </button>
@@ -69,37 +72,17 @@
 </nav>
 <div class="navbar d-flex w-100">
     <div class="container d-flex flex-row">
+        @foreach ($serviceTypes as $serviceType)
+            @if ($loop->iteration < 9)
+                <div class="nav-service-type">
+                    <a href="/services?type%5B%5D={{ $serviceType->st_id }}" class="text-decoration-none text-dark">
+                        {{ $serviceType->st_name }}</a>
+                </div>
+            @endif
+        @endforeach
         <div class="nav-service-type">
-            Hair Salon
-        </div>
-        <div class="nav-service-type">
-            Barbershop
-        </div>
-        <div class="nav-service-type">
-            Nail Salon
-        </div>
-        <div class="nav-service-type">
-            Skin Care
-        </div>
-        <div class="nav-service-type">
-            Skin Care
-        </div>
-        <div class="nav-service-type">
-            Skin Care
-        </div>
-        <div class="nav-service-type dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                More....
-            </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Test</a></li>
-                <li><a class="dropdown-item" href="#">Test</a></li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
+            <a href="/services" class="text-decoration-none text-dark">
+                Other</a>
         </div>
     </div>
 </div>

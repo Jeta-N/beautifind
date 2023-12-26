@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Employee;
 use App\Models\Faq;
 use App\Models\PortfolioImage;
@@ -24,10 +25,20 @@ class ServiceController extends Controller
         if (Auth::check()) {
             $rec_services = $this->rec_service();
         }
-        $services = $this->servicesByType();
+        $cityIds = City::all()->pluck('city_id');
+        $serviceCounts = [];
+
+        foreach ($cityIds as $cityId) {
+            $count = Service::where('city_id', $cityId)->count();
+            $serviceCounts[$cityId] = $count;
+        }
+
+        $reviews = Review::all()->sortByDesc('review_id')->take(9);
+
         return view('pages.home', [
             'rec_services' => $rec_services,
-            'services' => $services,
+            'serviceCounts' => $serviceCounts,
+            'reviews' => $reviews
         ]);
     }
 
@@ -68,18 +79,6 @@ class ServiceController extends Controller
         return $rec_services;
     }
 
-    public function servicesByType()
-    {
-        $st = 1;
-        $sst_array = ServiceServiceType::where('st_id', '=', $st)->inRandomOrder()->limit(2)->get();
-        $services = [];
-        foreach ($sst_array as $sst) {
-            $services[] = Service::find($sst->service_id);
-        }
-
-        return $services;
-    }
-
     public function viewServicesList(Request $request)
     {
         $searchName = $request->input('service-name');
@@ -95,13 +94,13 @@ class ServiceController extends Controller
             $query->where('service_name', 'LIKE', '%' . $searchName . '%');
         }
 
-        if ($filterType && count($filterType) > 0) {
+        if ($filterType && !is_null($filterType[0])) {
             $query->whereHas('serviceServiceType', function ($subquery) use ($filterType) {
                 $subquery->whereIn('st_id', $filterType);
             });
         }
 
-        if ($filterCity && count($filterCity) > 0) {
+        if ($filterCity && !is_null($filterCity[0])) {
             $query->whereHas('city', function ($subquery) use ($filterCity) {
                 $subquery->whereIn('city_id', $filterCity);
             });
