@@ -174,6 +174,13 @@ class ServiceController extends Controller
         ]);
     }
 
+
+    public function createService(Request $request){
+        $this->validate($request, [
+            'service_name' => 'required | min:5',
+        ]);
+    }
+
     public function deleteService(Request $request){
         $service = Review::find($request->service_id);
         $service->delete();
