@@ -20,13 +20,26 @@
                         @csrf
                         <div class="mb-3">
                             <label for="email-login" class="form-label">Email address</label>
-                            <input type="email" class="form-control form-login py-2" id="email-login"
-                                placeholder="Your Email" name="email">
+                            <input type="email"
+                                class="form-control form-login py-2  @error('email') is-invalid  @enderror"
+                                id="email-login" placeholder="Your Email" name="email" value="{{ old('email') }}"
+                                required>
+                            @error('email')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="password-login" class="form-label">Password</label>
-                            <input type="password" class="form-control form-login py-2" id="password-login"
-                                placeholder="Password" name="password">
+                            <input type="password"
+                                class="form-control form-login py-2 @error('password') is-invalid  @enderror"
+                                id="password-login" placeholder="Password" name="password" required>
+                            @error('password')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                             <a href="#" class="d-block text-end mt-2">Forgot Password?</a>
                         </div>
                         <button type="submit" class="form-control btn-sign-in py-2">Sign in</button>
@@ -36,47 +49,90 @@
                         @csrf
                         <div class="mb-3">
                             <label for="fn-register" class="form-label">Full Name</label>
-                            <input type="Text" class="form-control form-login py-2" id="fn-register"
-                                placeholder="Your Name" name="name">
+                            <input type="Text"
+                                class="form-control form-login py-2 @error('name') is-invalid  @enderror"
+                                id="fn-register" placeholder="Your Name" name="name" value="{{ old('name') }}"
+                                required>
+                            @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="city" class="form-label">City</label>
-                            <select class="form-select form-login" aria-label="city" name="city">
-                                <option selected>Select your city</option>
-                                @foreach ($cities as $city )
-                                <option value="{{ $loop->iteration }}">{{ $city->city_name }}</option>
+                            <select class="form-select form-login @error('city') is-invalid  @enderror"
+                                aria-label="city" name="city" required>
+                                <option value="">Select your city</option>
+                                @foreach ($cities as $city)
+                                    <option value="{{ $loop->iteration }}"
+                                        @if ($loop->iteration == old('city')) selected @endif>
+                                        {{ $city->city_name }}</option>
                                 @endforeach
                             </select>
+                            @error('city')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="email-register" class="form-label">Email address</label>
-                            <input type="email" class="form-control form-login py-2" id="email-register"
-                                placeholder="Input Your Email" name="reg_email">
+                            <input type="email"
+                                class="form-control form-login py-2 @error('reg_email') is-invalid  @enderror"
+                                id="email-register" placeholder="Input Your Email" name="reg_email"
+                                value="{{ old('reg_email') }}" required>
+                            @error('reg_email')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="password-register" class="form-label">Create Password</label>
-                            <input type="password" class="form-control form-login py-2" id="password-register"
-                                placeholder="Min. 8 characters and include special character" name="reg_password">
+                            <input type="password"
+                                class="form-control form-login py-2 @error('reg_password') is-invalid  @enderror"
+                                id="password-register" placeholder="Min. 8 characters and include special character"
+                                name="reg_password" required>
+                            @error('reg_password')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="password-reregister" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control form-login py-2" id="password-reregister"
-                                placeholder="Password" name="reg_password_confirmation">
+                            <input type="password"
+                                class="form-control form-login py-2 @error('reg_password_confirmation') is-invalid  @enderror"
+                                id="password-reregister" placeholder="Password" name="reg_password_confirmation"
+                                required>
+                            @error('reg_password_confirmation')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <p>I'm looking for ....</p>
                             <div class="row row-cols-3 mx-0">
                                 @foreach ($serviceTypes as $serviceType)
-                                <div class="form-check col mb-3">
-                                    <input class="form-check-input" type="checkbox" name="typePreferences[]"
-                                        id="typePreferences{{ $loop->iteration }}" value="{{ $loop->iteration }}">
-                                    <label class="form-check-label" for="typePreferences{{ $loop->iteration }}">
-                                        {{ $serviceType->st_name }}
-                                    </label>
-                                </div>
+                                    <div class="form-check col mb-3">
+                                        <input class="form-check-input @error('typePreferences') is-invalid  @enderror"
+                                            type="checkbox" name="typePreferences[]"
+                                            id="typePreferences{{ $loop->iteration }}"
+                                            value="{{ $loop->iteration }}">
+                                        <label class="form-check-label" for="typePreferences{{ $loop->iteration }}">
+                                            {{ $serviceType->st_name }}
+                                        </label>
+                                    </div>
                                 @endforeach
                             </div>
+                            @error('typePreferences')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <button type="submit" class="form-control btn-sign-in py-2">Register</button>

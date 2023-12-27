@@ -5,7 +5,7 @@
         <div class="row py-3">
             <div class="col-3 ">
                 <div class="border rounded p-4">
-                    <h3 class="p-1">Jeta Nanda</h3>
+                    <h3 class="p-1">{{ $user->user_name }}</h3>
                     <hr>
                     <p class="cursor-pointer profile-tab bg-secondary-subtle p-1 rounded" id="personalData">My
                         Profile</p>

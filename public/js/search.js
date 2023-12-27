@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
     var typeFilter = document.getElementById('typeFilter');
-
     // Event listener for form submission
     typeFilter.addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission
@@ -57,13 +56,11 @@ document.addEventListener('DOMContentLoaded', function () {
         var currentURL = window.location.href;
         var urlParams = new URLSearchParams(window.location.search);
 
-        // Remove existing 'type[]' parameter
-        urlParams.delete('rating[]');
+        urlParams.delete('rating');
 
-        // Get checked checkboxes and add them to the URLSearchParams
         var formData = new FormData(ratingFilter);
-        formData.getAll('rating[]').forEach(function (value) {
-            urlParams.append('rating[]', value);
+        formData.getAll('rating').forEach(function (value) {
+            urlParams.append('rating', value);
         });
 
         // Construct the URL with updated parameters
@@ -73,21 +70,33 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = url;
     });
 
-    // Usage example
-    typeFilter.addEventListener('submit', function (event) {
-        handleFormSubmission(event, this);
-    });
-    sortService.addEventListener('submit', function (event) {
-        handleFormSubmission(event, this);
+    var cityFilter = document.getElementById('cityFilter');
+    cityFilter.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Get the current URL and existing parameters
+        var currentURL = window.location.href;
+        var urlParams = new URLSearchParams(window.location.search);
+
+        // Remove existing 'city[]' parameter
+        urlParams.delete('city[]');
+
+        // Get checked checkboxes and add them to the URLSearchParams
+        var formData = new FormData(cityFilter);
+        formData.getAll('city[]').forEach(function (value) {
+            urlParams.append('city[]', value);
+        });
+
+        // Construct the URL with updated parameters
+        var url = currentURL.split('?')[0] + '?' + urlParams.toString();
+
+        // Redirect to the constructed URL
+        window.location.href = url;
     });
 
-    ratingFilter.addEventListener('submit', function (event) {
-        handleFormSubmission(event, this);
-    });
-
+    // Default Check
     var urlParams = new URLSearchParams(window.location.search);
     var typeParams = urlParams.getAll('type[]');
-
     if (typeParams.length > 0) {
         var checkboxes = document.querySelectorAll('input[name="type[]"]');
         checkboxes.forEach(function (checkbox) {
@@ -97,12 +106,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    var ratingParams = urlParams.getAll('rating[]');
-    if (ratingParams.length > 0) {
-        var checkboxes = document.querySelectorAll('input[name="rating[]"]');
-        checkboxes.forEach(function (checkbox) {
-            if (ratingParams.includes(checkbox.value)) {
-                checkbox.checked = true;
+    var ratingParams = urlParams.get('rating');
+    if (ratingParams) {
+        var radios = document.querySelectorAll('input[name="rating"]');
+        radios.forEach(function (radio) {
+            if (ratingParams.includes(radio.value)) {
+                radio.checked = true;
             }
         });
     }
@@ -116,6 +125,24 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
     }
+
+    var cityParams = urlParams.getAll('city[]');
+    if (cityParams.length > 0) {
+        var checkboxes = document.querySelectorAll('input[name="city[]"]');
+        checkboxes.forEach(function (checkbox) {
+            if (cityParams.includes(checkbox.value)) {
+                checkbox.checked = true;
+            }
+        });
+    }
 });
 
-
+//Clear Filter
+function clearFilter(param) {
+    var currentURL = window.location.href;
+    var urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams)
+    urlParams.delete(param);
+    var url = currentURL.split('?')[0] + '?' + urlParams.toString();
+    window.location.href = url;
+}

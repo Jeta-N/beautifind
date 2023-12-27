@@ -10,32 +10,38 @@
                     <form action="" id="ratingFilter">
                         <div class="row row-cols-2 mx-0">
                             <div class="form-check col mb-3">
-                                <input class="form-check-input" type="checkbox" name="rating[]" id="ratingCheckBox1" value="4">
-                                <label class="form-check-label" for="ratingCheckBox1">
+                                <input class="form-check-input" type="radio" name="rating" id="ratingRadio1"
+                                    value="4">
+                                <label class="form-check-label" for="ratingRadio1">
                                     4+ Superb
                                 </label>
                             </div>
                             <div class="form-check col mb-3">
-                                <input class="form-check-input" type="checkbox" name="rating[]" id="ratingCheckBox2" value="3">
-                                <label class="form-check-label" for="ratingCheckBox2">
+                                <input class="form-check-input" type="radio" name="rating" id="ratingRadio2"
+                                    value="3">
+                                <label class="form-check-label" for="ratingRadio2">
                                     3+ Very Good
                                 </label>
                             </div>
                             <div class="form-check col mb-3">
-                                <input class="form-check-input" type="checkbox" name="rating[]" id="ratingCheckBox3" value="2">
-                                <label class="form-check-label" for="ratingCheckBox3">
+                                <input class="form-check-input" type="radio" name="rating" id="ratingRadio3"
+                                    value="2">
+                                <label class="form-check-label" for="ratingRadio3">
                                     2+ Good
                                 </label>
                             </div>
                             <div class="form-check col mb-3">
-                                <input class="form-check-input" type="checkbox" name="rating[]" id="ratingCheckBox4" value="1">
-                                <label class="form-check-label" for="ratingCheckBox4">
+                                <input class="form-check-input" type="radio" name="rating" id="ratingRadio4"
+                                    value="1">
+                                <label class="form-check-label" for="ratingRadio4">
                                     1+ Pleasant
                                 </label>
                             </div>
                         </div>
                         <div class="text-end">
-                            <button class="profile-save-btn" type="submit">Save</button>
+                            <button class="profile-save-btn filter-btn bg-white text-dark border border-dark"
+                                type="button" onclick="clearFilter('rating')">Clear</button>
+                            <button class="profile-save-btn filter-btn" type="submit">Save</button>
                         </div>
                     </form>
                 </div>

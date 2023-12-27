@@ -1,11 +1,10 @@
 const swiper = new Swiper('.swiper', {
     // Optional parameters
     direction: 'horizontal',
-    // slidesPerView: 4.5,
-    // spaceBetween: 30,
+    slidesPerView: 4.5,
+    spaceBetween: 30,
 
 });
-
 
 // Login & Register toggle
 var formTitle = document.getElementById('loginModalHeader');
@@ -47,4 +46,17 @@ function changeFormTitle(newTitle) {
     void formTitle.offsetWidth; // Trigger reflow to restart the animation
     formTitle.classList.add('fade-in-title'); // Add the animation class back
 }
+
+// loginForm.addEventListener('submit', function (e) {
+//     const loginModal = document.getElementById('loginModal');
+//     const modal = bootstrap.Modal.getInstance(loginModal)
+//     e.preventDefault();
+//     axios.post('/login', {
+//         'email': e.target.email.value,
+//         'password': e.target.password.value
+//     }).then(function (response) {
+//         modal.hide()
+//         window.location.reload();
+//     })
+// });
 

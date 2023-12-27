@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BookingSlot;
 use App\Models\Employee;
 use App\Models\SuperAdmin;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,18 +30,39 @@ class BookingSlotController extends Controller
             'date' => 'required',
             'time_start' =>'required',
             'time_end' =>'required',
+            'repeat' =>'required | min:1 | max:10',
         ]);
 
         $emp = Employee::find($request->emp_id);
+        $emp_id = $emp->emp_id;
+        $service_id = $emp->service_id;
+        $date = $request->date;
+        $req_time_start = $request->time_start;
+        $req_time_end = $request->time_end;
+        $i = 0;
 
-        BookingSlot::create([
-            'emp_id' => $request->emp_id,
-            'service_id' => $emp->service_id,
-            'date' => $request->date,
-            'time_start' => $request->time_start,
-            'time_end' => $request->time_end,
-            'is_available' => true
-        ]);
+        do{
+            $count = BookingSlot::where('date', '=', $date)->where('emp_id', '=', $emp_id)->where(function (Builder $query) use ($req_time_start, $req_time_end) {
+                $query->where(function (Builder $q)  use ($req_time_start, $req_time_end){
+                    $q->where($req_time_start, '<=', 'time_start')->where($req_time_end, '>', 'time_start');
+                })->orWhere(function (Builder $q) use ($req_time_start, $req_time_end) {
+                    $q->where($req_time_start, '<', 'time_end')->where($req_time_end, '>=', 'time_end');
+                });
+            })->count();
+            if($count == 0){
+                BookingSlot::create([
+                    'emp_id' => $emp_id,
+                    'service_id' => $service_id,
+                    'date' => $date,
+                    'time_start' => $req_time_start,
+                    'time_end' => $req_time_end,
+                    'is_available' => true
+                ]);
+            }
+            $date = date("Y-m-d", strtotime('+7 days', strtotime($date)));
+            $i++;
+        }while ($i < $request->repeat);
+
 
         return redirect('/bookingslot');
     }
