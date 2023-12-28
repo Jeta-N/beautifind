@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\BookingSlot;
 use App\Models\Employee;
+use App\Models\ServiceServiceType;
 use App\Models\SuperAdmin;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BookingSlotController extends Controller
 {
@@ -76,5 +78,14 @@ class BookingSlotController extends Controller
         }
 
         return redirect('/bookingslot');
+    }
+
+    public function showAvailableSlots(Request $request){
+        $slots = BookingSlot::query();
+        $slots->where('is_available', '=', true)->where('emp_id', '=', $request->emp_id)->select(DB::raw('*, TIMESTAMPDIFF(MINUTE, CAST(CONCAT(date, " ",time_start) AS datetime), CAST(CONCAT(date, " ",time_end) AS datetime)) as duration'));
+
+        $duration = ServiceServiceType::where('st_id', '=', $request->st_id)->where('service_id', '=', $request->service_id)->select('duration');
+
+        $slots->where('duration', '>=', $duration)->get();
     }
 }
