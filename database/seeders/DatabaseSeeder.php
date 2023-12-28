@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             EmployeeSeeder::class,
             SuperAdminSeeder::class,
             SecurityQuestionSeeder::class,
+            UserSecurityQuestionSeeder::class,
             BookingSlotSeeder::class,
             BookingSeeder::class,
             ReviewSeeder::class,

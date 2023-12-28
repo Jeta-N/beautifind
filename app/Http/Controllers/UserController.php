@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\User;
+use App\Models\UserSecurityQuestion;
 use App\Models\UserServiceType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,9 @@ class UserController extends Controller
             'reg_email' => 'required | email | unique:account,email',
             'reg_password' => 'required | min:8 | confirmed',
             'reg_password_confirmation' => 'required',
-            'typePreferences' => 'required'
+            'typePreferences' => 'required',
+            'question' => 'required',
+            'answer' => 'required | min:3 | max:25',
         ]);
 
         $account = Account::create([
@@ -47,6 +50,12 @@ class UserController extends Controller
             'user_name' => $request->name,
             'city_id' => $request->city,
             'user_image_path' => "userprofile.jpg"
+        ]);
+
+        UserSecurityQuestion::create([
+            'user_id' => $user->user_id,
+            'sq_id' => $request->question,
+            'sq_answer' => $request->answer
         ]);
 
         if ($user) {

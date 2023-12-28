@@ -6,17 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SecurityQuestion extends Model
+class UserSecurityQuestion extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'security_question';
+    protected $table = 'user_security_question';
 
-    protected $primaryKey = 'sq_id';
+    protected $primaryKey = 'usq_id';
 
     /**
      * The attributes that are mass assignable.
@@ -24,11 +25,18 @@ class SecurityQuestion extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'sq_question',
+        'user_id',
+        'sq_id',
+        'sq_answer',
     ];
 
-    public function userSecurityQuestion()
+    public function securityQuestion()
     {
-        return $this->hasMany(UserSecurityQuestion::class, 'sq_id');
+        return $this->belongsTo(SecurityQuestion::class, 'sq_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
