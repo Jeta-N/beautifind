@@ -50,7 +50,7 @@ class ServiceController extends Controller
                 if (isset($service_score[$sst->service_id])) {
                     $service_score[$sst->service_id] += 1;
                 } else {
-                    if ($sst->service->city_id == $user->city_id && $sst->service->service_status == 'Active') {
+                    if ($sst->service->city_id == $user->city_id && $sst->service->is_active) {
                         $service_score[$sst->service_id] = 1;
                     }
                 }

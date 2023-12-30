@@ -38,7 +38,7 @@ class SuperAdminController extends Controller
             'city_id' =>$request->city,
             'logo_image_path' => 'logo.jpg',
             'service_image_path' => 'service_image.jpg',
-            'service_status' => 'Inactive',
+            'is_active' => false,
             'has_faq' => false,
             'has_portfolio' => false,
             'has_promo' => false
