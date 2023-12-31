@@ -48,11 +48,10 @@ class PortfolioImageController extends Controller
         $file = $request->file('image');
         $img_name = $emp->service_id.'_portfolio_'.time().'.'.$file->getClientOriginalExtension();
         Storage::putFileAs('public/images', $file, $img_name);
-        $path = $img_name;
 
         PortfolioImage::create([
             'service_id' => $emp->service_id,
-            'image_path' => $path,
+            'image_path' => $img_name,
             'portfolio_title' => $request->title
         ]);
     }

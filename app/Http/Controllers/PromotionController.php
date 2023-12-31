@@ -49,11 +49,10 @@ class PromotionController extends Controller
         $file = $request->file('image');
         $img_name = $emp->service_id.'_promo_'.time().'.'.$file->getClientOriginalExtension();
         Storage::putFileAs('public/images', $file, $img_name);
-        $path = $img_name;
 
         Promotion::create([
             'service_id' => $emp->service_id,
-            'image_path' => $path,
+            'image_path' => $img_name,
             'promo_title' => $request->title,
             'promo_description' => $request->desc,
         ]);

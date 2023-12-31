@@ -11,12 +11,14 @@ use App\Models\Review;
 use App\Models\Service;
 use App\Models\ServiceServiceType;
 use App\Models\ServiceType;
+use App\Models\SuperAdmin;
 use App\Models\User;
 use DeepCopy\Filter\Filter;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -174,13 +176,6 @@ class ServiceController extends Controller
         ]);
     }
 
-
-    public function createService(Request $request){
-        $this->validate($request, [
-            'service_name' => 'required | min:5',
-        ]);
-    }
-
     public function deleteService(Request $request){
         $service = Review::find($request->service_id);
         $service->delete();
@@ -218,6 +213,102 @@ class ServiceController extends Controller
         foreach($bookings->review as $review){
             $review->delete();
         }
+
+        return redirect()->back();
+    }
+
+    public function updateServiceProfile(Request $request){
+        $this->validate($request, [
+            'name' => 'required | min:5',
+            'description' => 'required',
+            'opening hours' => 'required',
+            'address' => 'required | min:5',
+            'phone' => 'required | min:10 | max:13',
+            'email' => 'email | unique:service,service_email',
+            'logo_image' => 'image',
+            'service_image' => 'image'
+        ]);
+
+        $acc_role = Auth::user()->account_role;
+        $acc_id = Auth::user()->account_id;
+        if ($acc_role == 'Super Admin'){
+            $emp = SuperAdmin::where('account_id','=',$acc_id)->first();
+        }else{
+            $emp = Employee::where('account_id','=',$acc_id)->first();
+        }
+
+        $service = Service::find($emp->service_id);
+
+        $service->service_name = $request->name;
+        $service->service_description = $request->description;
+        $service->service_opening_hours = $request->opening_hours;
+        $service->service_address = $request->address;
+        $service->service_phone = $request->phone;
+
+        if($request->filled('email')){
+            $service->service_email = $request->email;
+        }else{
+            $service->service_email = null;
+        }
+
+        if($request->filled('instagram')){
+            $service->service_instagram = $request->instagram;
+        }else{
+            $service->service_instagram = null;
+        }
+
+        if($request->filled('logo_image')){
+            $file = $request->file('logo_image');
+            $logo_img_name = $emp->service_id.'_logo_image_'.time().'.'.$file->getClientOriginalExtension();
+            Storage::putFileAs('public/images', $file, $logo_img_name);
+
+            $service->logo_image_path = $logo_img_name;
+        }
+
+        if($request->filled('service_image')){
+            $file = $request->file('service_image');
+            $service_img_name = $emp->service_id.'_service_image_'.time().'.'.$file->getClientOriginalExtension();
+            Storage::putFileAs('public/images', $file, $service_img_name);
+
+            $service->service_image_path = $service_img_name;
+        }
+
+        $service->save();
+        return redirect()->back();
+    }
+
+    public function activateService (Request $request){
+        $acc_role = Auth::user()->account_role;
+        $acc_id = Auth::user()->account_id;
+        if ($acc_role == 'Super Admin'){
+            $emp = SuperAdmin::where('account_id','=',$acc_id)->first();
+        }else{
+            $emp = Employee::where('account_id','=',$acc_id)->first();
+        }
+        $service = Service::find($emp->service_id);
+
+        if(is_null($service->service_name) || is_null($service->service_description) || is_null($service->service_opening_hours) || is_null($service->service_address) || is_null($service->service_phone)){
+            return redirect()->back()->with('error', 'Please complete the service profile.');
+        }
+
+        $service->is_active = true;
+        $service->save();
+
+        return redirect()->back();
+    }
+
+    public function deactivateFAQ(){
+        $acc_role = Auth::user()->account_role;
+        $acc_id = Auth::user()->account_id;
+        if ($acc_role == 'Super Admin'){
+            $emp = SuperAdmin::where('account_id','=',$acc_id)->first();
+        }else{
+            $emp = Employee::where('account_id','=',$acc_id)->first();
+        }
+        $service = Service::find($emp->service_id);
+
+        $service->is_active = true;
+        $service->save();
 
         return redirect()->back();
     }
