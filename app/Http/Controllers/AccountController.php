@@ -72,4 +72,28 @@ class AccountController extends Controller
 
         return redirect('/');
     }
+
+    // Staff
+    public function viewLoginStaff()
+    {
+        return view('pages.staff.login');
+    }
+
+    public function loginStaff(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required | email',
+            'password' => 'required'
+        ]);
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'account_role' => ['Manager', 'Super Admin'], 'is_blocked' => false])) {
+            $request->session()->regenerate();
+            return redirect('/staff-dashboard');
+        } else if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'account_role' => ['Staff'], 'is_blocked' => false])) {
+            $request->session()->regenerate();
+            return redirect('/staff-booking');
+        } else {
+            return redirect()->back()->with('failedLogin', 'failed login');
+        }
+    }
 }

@@ -1,52 +1,3 @@
-document.addEventListener("DOMContentLoaded", function (event) {
-    const dashboard = document.getElementById("dashboard");
-    dashboard.classList.remove("d-none");
-
-    const title = document.getElementById("title-main");
-    title.innerHTML = "Dashboard";
-})
-
-function activeDashboard(id) {
-    const dashboard = document.getElementById("dashboard");
-    dashboard.classList.add("d-none");
-
-    const users = document.getElementById("users");
-    users.classList.add("d-none");
-
-    const services = document.getElementById("services");
-    services.classList.add("d-none");
-
-    const reviews = document.getElementById("reviews");
-    reviews.classList.add("d-none");
-
-
-    const active = document.getElementById(id);
-    active.classList.remove("d-none");
-
-    const title = document.getElementById("title-main");
-    switch (id) {
-        case "dashboard":
-            title.innerHTML = "Dashboard";
-            break;
-        case "users":
-            title.innerHTML = "View Users";
-            break;
-        case "services":
-            title.innerHTML = "View Services";
-            break;
-        case "reviews":
-            title.innerHTML = "View Reviews";
-            break;
-    }
-
-    // $('#dashboard').addClass("d-none");
-    // $('#viewCourse').addClass("d-none");
-    // $('#viewStudent').addClass('d-none');
-    // $('#viewLecture').addClass('d-none');
-
-    // $('#' + id).removeClass("d-none");
-}
-
 function sortTable(n, id) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById(id);
@@ -99,5 +50,17 @@ function sortTable(n, id) {
                 switching = true;
             }
         }
+    }
+}
+
+function activateService(status) {
+    const btnActivate = document.getElementById("activateBtn");
+    const btnDeactive = document.getElementById("deactivateBtn");
+    if (status == 'activate') {
+        btnActivate.classList.add('d-none');
+        btnDeactive.classList.remove('d-none');
+    } else {
+        btnActivate.classList.remove('d-none');
+        btnDeactive.classList.add('d-none');
     }
 }

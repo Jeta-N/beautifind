@@ -11,6 +11,7 @@ use App\Models\Review;
 use App\Models\Service;
 use App\Models\ServiceServiceType;
 use App\Models\ServiceType;
+use App\Models\SuperAdmin;
 use App\Models\User;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
@@ -196,6 +197,29 @@ class ServiceController extends Controller
             'services' => $service,
             'serviceTypesAvailable' => $serviceTypesWithEmployees,
             'reviews' => $reviews
+        ]);
+    }
+
+    public function staffService()
+    {
+        $acc_id = Auth::user()->account_id;
+        $acc_role = Auth::user()->account_role;
+
+        if ($acc_role == 'Super Admin') {
+            $service_id = SuperAdmin::where('account_id', '=', $acc_id)->pluck('service_id');
+        } else {
+            $service_id = Employee::where('account_id', '=', $acc_id)->pluck('service_id');
+        }
+
+        $service = Service::with([
+            'faq',
+            'portfolioImage',
+            'promotion',
+            'serviceServiceType'
+        ])->find($service_id);
+
+        return redirect('/staff-employee', [
+            'service' => $service
         ]);
     }
 }

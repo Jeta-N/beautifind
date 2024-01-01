@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="./css/admin/style.css">
     {{-- Bootstrap icon --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <script src="https://kit.fontawesome.com/1e820c1c1b.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -101,6 +100,7 @@
         </script>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="./js/admin/app.js"></script>
+    </div>
 </body>
 
 </html>

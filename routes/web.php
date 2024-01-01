@@ -72,3 +72,31 @@ Route::get('/review/{id}', [ReviewController::class, 'viewReviewForm']);
 Route::post('/create-review/{id}', [ReviewController::class, 'createReview']);
 
 Route::post('/cancel-book/{id}', [BookingController::class, 'cancelBooking']);
+
+// Staff
+Route::get('/staff-login', [AccountController::class, 'viewLoginStaff']);
+Route::post('/staff-login', [AccountController::class, 'loginStaff']);
+
+Route::get('/staff-dashboard', [EmployeeController::class, 'staffDashboard']);
+
+Route::get('/staff-employee', function () {
+    return view('pages.staff.employee');
+});
+
+Route::get('/staff-salon-profile', function () {
+    return view('pages.staff.salon-profile');
+});
+
+Route::get('/staff-review', function () {
+    return view('pages.staff.review');
+});
+
+Route::get('/staff-booking', function () {
+    return view('pages.staff.booking');
+});
+
+Route::get('/staff-booking-slot', function () {
+    return view('pages.staff.booking-slots');
+});
+
+Route::get('/logout-staff', [EmployeeController::class, 'logoutStaff']);
