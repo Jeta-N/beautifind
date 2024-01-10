@@ -9,6 +9,7 @@ use App\Models\EmployeeServiceType;
 use App\Models\Review;
 use App\Models\SuperAdmin;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,33 +36,79 @@ class BookingController extends Controller
         return response()->json($bookings);
     }
 
-    public function viewServiceBooking($acc_role)
+    public function staffBooking(Request $request)
     {
         $acc_id = Auth::user()->account_id;
-        $user = null;
+        $acc_role = Auth::user()->account_role;
+
         if ($acc_role == 'Super Admin') {
             $user = SuperAdmin::where('account_id', '=', $acc_id)->first();
         } else {
             $user = Employee::where('account_id', '=', $acc_id)->first();
         }
-        $bookings = Booking::where('service_id', '=', $user->service_id)->orderBy('booking_status', 'desc')->get();
-        return view('viewBooking')->with('bookings', $bookings);
-    }
 
-    public function viewStaffBooking()
-    {
-        $acc_id = Auth::user()->account_id;
-        $user = Employee::where('account_id', '=', $acc_id)->first();
-        $bookings = Booking::where('booking.service_id', '=', $user->service_id)
-            ->join('booking_slot', 'booking.bs_id', '=', 'booking_slot.bs_id')
-            ->where('booking_slot.emp_id', '=', $user->emp_id)
-            ->orderBy('booking.booking_status', 'desc')->get();
-        return view('viewBooking')->with('bookings', $bookings);
+        if ($acc_role == 'Staff') {
+            $bookings = Booking::where('service_id', '=', $user->service_id)
+                ->with(['bookingSlot', 'bookingSlot.employee', 'user', 'serviceType', 'service.serviceServiceType'])
+                ->whereHas('bookingSlot', function ($query) use ($user) {
+                    $query->where('emp_id', $user->emp_id);
+                });
+        } else {
+            $bookings = Booking::where('service_id', '=', $user->service_id)
+                ->with(['bookingSlot', 'bookingSlot.employee', 'user', 'serviceType', 'service.serviceServiceType']);
+        }
+
+        if ($request->startDate) {
+            $bookings->whereHas('bookingSlot', function ($query) use ($request) {
+                $query->where('date', '>=', $request->startDate);
+            });
+        }
+
+        if ($request->endDate) {
+            $bookings->whereHas('bookingSlot', function ($query) use ($request) {
+                $query->where('date', '<=', $request->endDate);
+            });
+        }
+
+        if ($request->name) {
+            $employees = Employee::where('emp_name', 'like', '%' . $request->name . '%')->get();
+            $bookings->whereHas('bookingSlot', function ($query) use ($employees) {
+                $empIds = $employees->pluck('emp_id');
+                $query->whereIn('emp_id', $empIds);
+            });
+        }
+
+        if ($request->status) {
+            $statuses = explode(',', $request->status);
+            $bookings->whereIn('booking_status', $statuses);
+        }
+
+        $bookings = $bookings->get();
+        return view('pages.staff.booking')->with('bookings', $bookings);
     }
 
     public function createBooking(Request $request)
     {
         $user = User::where('account_id', '=', Auth::user()->account_id)->first();
+        $slot = BookingSlot::find($request->bs_id);
+        $req_time_start = $slot->time_start;
+        $req_time_end = $slot->time_end;
+
+        $bookings = Booking::query();
+        $bookings->where('user_id', '=', $user->user_id);
+        $count = $bookings->join('booking_slot', 'booking_slot.bs_id', '=', 'booking.bs_id');
+        $count->where('date', '=', $slot->date)->where(function (Builder $query) use ($req_time_start, $req_time_end) {
+            $query->where(function (Builder $q)  use ($req_time_start, $req_time_end) {
+                $q->where($req_time_start, '<=', 'time_start')->where($req_time_end, '>', 'time_start');
+            })->orWhere(function (Builder $q) use ($req_time_start, $req_time_end) {
+                $q->where($req_time_start, '<', 'time_end')->where($req_time_end, '>=', 'time_end');
+            });
+        })->count();
+
+        if ($count > 0) {
+            return redirect()->back()->with('error', 'Another booking is at the same time');
+        }
+
         $slot = BookingSlot::find($request->bs_id);
         $service_id = $slot->service_id;
         $est = EmployeeServiceType::where('emp_id', '=', $slot->emp_id)->where('st_id', '=', $request->id)->first();
@@ -86,7 +133,7 @@ class BookingController extends Controller
     public function updateBookingStatus(Request $request)
     {
         $booking = Booking::find($request->booking_id);
-        $booking->status = $request->status;
+        $booking->booking_status = $request->status;
         $booking->save();
 
         if ($request->status == 'Cancelled') {
@@ -95,8 +142,9 @@ class BookingController extends Controller
             $slot->save();
         }
 
-        return redirect('/booking');
+        return redirect()->back();
     }
+
     public function cancelBooking(Request $request)
     {
         $booking = Booking::find($request->id);

@@ -95,7 +95,7 @@
             <div class="py-3">
                 <div class="row">
                     <div class="col-6 col-md-3 my-2">
-                        <a href="/services?city%5B%5D=1" class="card text-bg-dark">
+                        <a href="/services?city%5B%5D=1" class="card text-white">
                             <img src="{{ asset('storage/asset/images/dummy-location4.png') }}" alt=""
                                 class="w-100 rounded">
                             <div class="card-img-overlay">
@@ -106,7 +106,7 @@
                         </a>
                     </div>
                     <div class="col-6 col-md-3 my-2">
-                        <a href="/services?city%5B%5D=2" class="card text-bg-dark">
+                        <a href="/services?city%5B%5D=2" class="card text-white">
                             <img src="{{ asset('storage/asset/images/dummy-location.png') }}" alt=""
                                 class="w-100 rounded">
                             <div class="card-img-overlay">
@@ -116,7 +116,7 @@
                         </a>
                     </div>
                     <div class="col-6 col-md-3 my-2">
-                        <a href="/services?city%5B%5D=3" class="card text-bg-dark">
+                        <a href="/services?city%5B%5D=3" class="card text-white">
                             <img src="{{ asset('storage/asset/images/dummy-location2.png') }}" alt=""
                                 class="w-100 rounded">
                             <div class="card-img-overlay">
@@ -126,7 +126,7 @@
                         </a>
                     </div>
                     <div class="col-6 col-md-3 my-2">
-                        <a href="/services?city%5B%5D=4" class="card text-bg-dark">
+                        <a href="/services?city%5B%5D=4" class="card text-white">
                             <img src="{{ asset('storage/asset/images/dummy-location3.png') }}" alt=""
                                 class="w-100 rounded">
                             <div class="card-img-overlay">

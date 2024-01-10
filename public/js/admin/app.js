@@ -1,51 +1,7 @@
-document.addEventListener("DOMContentLoaded", function (event) {
-    const dashboard = document.getElementById("dashboard");
-    dashboard.classList.remove("d-none");
-
-    const title = document.getElementById("title-main");
-    title.innerHTML = "Dashboard";
+document.addEventListener("DOMContentLoaded", function () {
+    generateDateOptions();
 })
 
-function activeDashboard(id) {
-    const dashboard = document.getElementById("dashboard");
-    dashboard.classList.add("d-none");
-
-    const users = document.getElementById("users");
-    users.classList.add("d-none");
-
-    const services = document.getElementById("services");
-    services.classList.add("d-none");
-
-    const reviews = document.getElementById("reviews");
-    reviews.classList.add("d-none");
-
-
-    const active = document.getElementById(id);
-    active.classList.remove("d-none");
-
-    const title = document.getElementById("title-main");
-    switch (id) {
-        case "dashboard":
-            title.innerHTML = "Dashboard";
-            break;
-        case "users":
-            title.innerHTML = "View Users";
-            break;
-        case "services":
-            title.innerHTML = "View Services";
-            break;
-        case "reviews":
-            title.innerHTML = "View Reviews";
-            break;
-    }
-
-    // $('#dashboard').addClass("d-none");
-    // $('#viewCourse').addClass("d-none");
-    // $('#viewStudent').addClass('d-none');
-    // $('#viewLecture').addClass('d-none');
-
-    // $('#' + id).removeClass("d-none");
-}
 
 function sortTable(n, id) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -100,4 +56,50 @@ function sortTable(n, id) {
             }
         }
     }
+}
+
+function generateDateOptions() {
+    const dateSelect = document.getElementById("dateProfile");
+    if (dateSelect) {
+        var defaultDate, defaultDay;
+        if (dateSelect && dateSelect.dataset.defaultDate) {
+            defaultDate = dateSelect.dataset.defaultDate;
+            defaultDay = defaultDate.split("-")[2];
+        }
+        dateSelect.innerHTML = `<option value="">Date</option>`; // Clear existing options
+        for (let i = 1; i <= 31; i++) {
+            const option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            if (i == defaultDay) {
+                option.selected = true;
+            }
+            dateSelect.add(option);
+        }
+    }
+
+    const yearSelect = document.getElementById("yearProfile");
+    if (yearSelect) {
+        var defaultYear;
+        if (defaultDate) {
+            defaultYear = defaultDate.split("-")[0];
+        }
+        yearSelect.innerHTML = `<option value="">Year</option>`; // Clear existing options
+        for (let i = 2021; i > 1921; i--) {
+            const option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            if (i == defaultYear) {
+                option.selected = true;
+            }
+            yearSelect.add(option);
+        }
+    }
+}
+
+//Clear Filter
+function clearFilter() {
+    var currentURL = window.location.href;
+    var url = currentURL.split('?')[0];
+    window.location.href = url;
 }

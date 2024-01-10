@@ -140,7 +140,7 @@
                         <div class="row">
                             @foreach ($services->promotion as $promotion)
                                 <div class="col-4">
-                                    <div class="card">
+                                    <div class="card h-100">
                                         <img src="{{ asset('storage/asset/images/dummy-salon-detail.png ') }}"
                                             class="card-img-top" alt="promo image">
                                         <div class="card-body">

@@ -43,9 +43,9 @@ class User extends Model
         return $this->belongsTo(City::class, 'city_id');
     }
 
-    public function securityQuestion()
+    public function userSecurityQuestion()
     {
-        return $this->hasOne(SecurityQuestion::class, 'user_id');
+        return $this->hasOne(userSecurityQuestion::class, 'user_id');
     }
 
     public function review()

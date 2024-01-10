@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\City;
 use App\Models\Employee;
-use App\Models\Faq;
-use App\Models\PortfolioImage;
-use App\Models\Promotion;
 use App\Models\Review;
 use App\Models\Service;
 use App\Models\ServiceServiceType;
@@ -17,6 +15,7 @@ use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -26,6 +25,7 @@ class ServiceController extends Controller
         if (Auth::check()) {
             $rec_services = $this->rec_service();
         }
+
         $cityIds = City::all()->pluck('city_id');
         $serviceCounts = [];
 
@@ -60,7 +60,7 @@ class ServiceController extends Controller
                 if (isset($service_score[$sst->service_id])) {
                     $service_score[$sst->service_id] += 1;
                 } else {
-                    if ($sst->service->city_id == $user->city_id && $sst->service->service_status == 'Active') {
+                    if ($sst->service->city_id == $user->city_id && $sst->service->is_active) {
                         $service_score[$sst->service_id] = 1;
                     }
                 }
@@ -187,7 +187,8 @@ class ServiceController extends Controller
             'faq',
             'portfolioImage',
             'promotion',
-            'serviceServiceType'
+            'serviceServiceType',
+            'serviceServiceType.serviceType'
         ])
             ->withAvg('review', 'rating')
             ->withCount('review')
@@ -215,10 +216,192 @@ class ServiceController extends Controller
             'faq',
             'portfolioImage',
             'promotion',
-            'serviceServiceType'
-        ])->find($service_id);
+            'serviceServiceType',
+            'serviceServiceType.serviceType'
+        ])->find($service_id)->first();
 
-        return redirect('/staff-employee', [
+        return view('pages.staff.salon-profile', [
+            'service' => $service
+        ]);
+    }
+
+    public function deleteService(Request $request)
+    {
+        $service = Service::find($request->id);
+        $admin = SuperAdmin::where('service_id', '=', $service->service_id)->first();
+        $service->delete();
+        $admin->delete();
+        $admin->account->delete();
+
+        foreach ($service->employee as $emp) {
+            foreach ($emp->employeeServiceType as $est) {
+                $est->delete();
+            }
+            $emp->delete();
+        }
+
+        foreach ($service->faq as $faq) {
+            $faq->delete();
+        }
+
+        foreach ($service->portfolioImage as $pi) {
+            $pi->delete();
+        }
+
+        foreach ($service->promotion as $promo) {
+            $promo->delete();
+        }
+
+        foreach ($service->serviceServiceType as $sst) {
+            $sst->delete();
+        }
+
+        foreach ($service->bookingSlot as $bs) {
+            if ($bs->is_available) {
+                $bs->delete();
+            }
+        }
+
+        $bookings = Booking::where('service_id', '=', $service->service_id)->get();
+        $reviews = Review::whereIn('booking_id', $bookings->pluck('booking_id'));
+        $reviews->delete();
+
+        return redirect()->back()->with('successDeleteService', 'Service has been deleted.');
+    }
+
+    public function updateServiceProfile(Request $request)
+    {
+        $acc_role = Auth::user()->account_role;
+        $acc_id = Auth::user()->account_id;
+        if ($acc_role == 'Super Admin') {
+            $emp = SuperAdmin::where('account_id', '=', $acc_id)->first();
+        } else {
+            $emp = Employee::where('account_id', '=', $acc_id)->first();
+        }
+
+        $service = Service::find($emp->service_id);
+
+        $this->validate($request, [
+            'name' => 'required | min:5',
+            'description' => 'required',
+            'opening_hours' => 'required',
+            'address' => 'required | min:5',
+            'phone' => 'required | min:9 | max:13',
+            'email' => 'email',
+            'logo_image' => 'image',
+            'service_image' => 'image'
+        ]);
+
+
+
+        $service->service_name = $request->name;
+        $service->service_description = $request->description;
+        $service->service_opening_hours = $request->opening_hours;
+        $service->service_address = $request->address;
+        $service->service_phone = $request->phone;
+
+        if ($request->filled('email')) {
+            $service->service_email = $request->email;
+        } else {
+            $service->service_email = null;
+        }
+
+        if ($request->filled('instagram')) {
+            $service->service_instagram = $request->instagram;
+        } else {
+            $service->service_instagram = null;
+        }
+
+        if ($request->filled('logo_image')) {
+            $file = $request->file('logo_image');
+            $logo_img_name = $emp->service_id . '_logo_image_' . time() . '.' . $file->getClientOriginalExtension();
+            Storage::putFileAs('public/asset/images/services/logo', $file, $logo_img_name);
+
+            $service->logo_image_path = $logo_img_name;
+        }
+
+        if ($request->filled('service_image')) {
+            $file = $request->file('service_image');
+            $service_img_name = $emp->service_id . '_service_image_' . time() . '.' . $file->getClientOriginalExtension();
+            Storage::putFileAs('public/asset/images/services/thumbnail', $file, $service_img_name);
+
+            $service->service_image_path = $service_img_name;
+        }
+
+        $service->save();
+        return redirect()->back();
+    }
+
+    public function activateService()
+    {
+        $acc_role = Auth::user()->account_role;
+        $acc_id = Auth::user()->account_id;
+        if ($acc_role == 'Super Admin') {
+            $emp = SuperAdmin::where('account_id', '=', $acc_id)->first();
+        } else {
+            $emp = Employee::where('account_id', '=', $acc_id)->first();
+        }
+        $service = Service::find($emp->service_id);
+
+        if (
+            is_null($service->service_name) || is_null($service->service_description) || is_null($service->service_opening_hours)
+            || is_null($service->service_address) || is_null($service->service_phone)
+        ) {
+            return redirect()->back()->with('error', 'Please complete the service profile.');
+        }
+
+        $service->is_active = true;
+        $service->save();
+
+        return redirect()->back();
+    }
+
+    public function deactivateService()
+    {
+        $acc_role = Auth::user()->account_role;
+        $acc_id = Auth::user()->account_id;
+        if ($acc_role == 'Super Admin') {
+            $emp = SuperAdmin::where('account_id', '=', $acc_id)->first();
+        } else {
+            $emp = Employee::where('account_id', '=', $acc_id)->first();
+        }
+        $service = Service::find($emp->service_id);
+
+        $service->is_active = false;
+        $service->save();
+
+        return redirect()->back();
+    }
+
+    public function adminServices(Request $request)
+    {
+        $services = Service::query();
+        $servicesName = Service::pluck('service_name');
+
+        if ($request->name) {
+            $services->where('service_name', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->service) {
+            $services->where('service_id', '=', $request->service);
+        }
+        if ($request->status != null) {
+            $services->where('is_active', '=', $request->status);
+        }
+        // dd($request->status);
+        $services = $services->get();
+
+        return view('pages.admin.services', [
+            'services' => $services,
+            'servicesName' => $servicesName
+        ]);
+    }
+
+    public function viewServiceProfile(Request $request)
+    {
+        $service = Service::find($request->id);
+
+        return view('pages.admin.service-profile', [
             'service' => $service
         ]);
     }

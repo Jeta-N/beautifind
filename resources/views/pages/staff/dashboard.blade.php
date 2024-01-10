@@ -1,7 +1,7 @@
 @extends('layouts.staff.default')
 
 @section('content')
-    <div class="container pt-4">
+    <div class="container py-4">
         <h1>Dashboard</h1>
         <div class="row pt-4">
             <div class="col">
@@ -48,7 +48,7 @@
             </div>
             <div class="col">
                 <div class="rounded border d-flex flex-row align-items-center py-4 px-3 bg-white">
-                    <img src="{{ asset('storage/asset/icon/services.svg') }}" alt="" class="me-3">
+                    <img src="{{ asset('storage/asset/icon/reviews.svg') }}" alt="" class="me-3">
                     <div class="flex flex-column">
                         <p class="mb-0 text-secondary">
                             <strong>

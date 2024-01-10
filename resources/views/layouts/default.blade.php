@@ -30,6 +30,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+        @if (session('successRegister'))
+            <div class="alert alert-success alert-dismissible fade show alert-login" role="alert">
+                Account registered successfully. Login Now.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
         @yield('content')
         @include('components.login-modal')

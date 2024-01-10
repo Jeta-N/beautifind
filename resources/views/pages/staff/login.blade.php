@@ -51,7 +51,6 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                                <a href="#" class="d-block text-end mt-2">Forgot Password?</a>
                             </div>
                             <button type="submit" class="form-control btn-sign-in py-2">Sign in</button>
                         </form>

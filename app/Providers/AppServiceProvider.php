@@ -22,7 +22,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-        view()->composer(['pages.home', 'pages.detail', 'pages.search', 'pages.profile', 'pages.aboutus', 'pages.faq', 'pages.review-form'], function ($view) {
+        view()->composer([
+            'pages.home', 'pages.detail', 'pages.search', 'pages.profile',
+            'pages.aboutus', 'pages.faq', 'pages.review-form', 'pages.staff.salon-profile',
+            'pages.staff.staff-profile', 'pages.staff.employee', 'pages.admin.services'
+        ], function ($view) {
             $serviceType = ServiceType::all();
             $city = City::all();
             $sharedData = [

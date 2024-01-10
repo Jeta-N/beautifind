@@ -36,6 +36,12 @@
                             </a>
                         </li>
                         <li class="pt-3">
+                            <a href="/staff-employee-service-type" class="nav-link d-flex align-items-center">
+                                <i class="bi bi-people me-2 fs-5" style="margin-bottom:2px;"></i>
+                                <p class="mb-0">Manage Employee Service Type</p>
+                            </a>
+                        </li>
+                        <li class="pt-3">
                             <a href="/staff-booking" class="nav-link d-flex align-items-center">
                                 <i class="bi bi-bell me-2 fs-5" style="margin-bottom:2px;"></i>
                                 <p class="mb-0">Manage Bookings</p>
@@ -49,13 +55,20 @@
                         </li>
                         <li class="pt-3">
                             <a href="/staff-review" class="nav-link d-flex align-items-center">
-                                <i class="bi bi-box2 me-2 fs-5" style="margin-bottom:2px;"></i>
+                                <i class="bi bi-pencil-square me-2 fs-5" style="margin-bottom:2px;"></i>
                                 <p class="mb-0">View Reviews</p>
                             </a>
                         </li>
                     </ul>
 
                     <div class="mt-auto pb-5 ps-3">
+                        @if (Auth::user()->account_role != 'Super Admin')
+                            <a href="/staff-profile"
+                                class="text-decoration-none text-dark nav-link d-flex align-items-center mb-3">
+                                <i class="bi bi-person-circle me-2 fs-5"></i>
+                                <p class="mb-0">My Profile</p>
+                            </a>
+                        @endif
                         <a href="/logout-staff"
                             class="text-decoration-none text-dark nav-link d-flex align-items-center">
                             <i class="bi bi-box-arrow-right me-2 fs-5"></i>

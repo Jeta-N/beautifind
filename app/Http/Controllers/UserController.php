@@ -5,22 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Models\Booking;
 use App\Models\User;
+use App\Models\UserSecurityQuestion;
 use App\Models\UserServiceType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    public function viewUsers()
+    public function adminUsers(Request $request)
     {
-        $users = User::all();
+        $users = User::query();
 
-        return view('viewUser')->with('users', $users);
+        if ($request->name) {
+            $users->where('user_name', 'like', '%' . $request->name . '%');
+        }
+
+        $users = $users->with('account')->get();
+        return view('pages.admin.users')->with('users', $users);
     }
 
-    public function viewUserProfile()
+    public function viewProfile()
     {
         $acc_id = Auth::user()->account_id;
         $user = User::where('account_id', '=', $acc_id)->first();
@@ -42,9 +49,11 @@ class UserController extends Controller
                 'name' => 'required | min:2',
                 'city' => 'required',
                 'reg_email' => 'required | email | unique:account,email',
-                'reg_password' => "required | min:8 | confirmed",
-                'reg_password_confirmation' => "required",
-                'typePreferences' => 'required'
+                'reg_password' => 'required | min:8 | confirmed',
+                'reg_password_confirmation' => 'required',
+                'typePreferences' => 'required',
+                'question' => 'required',
+                'answer' => 'required | min:3 | max:25',
             ]);
         } catch (ValidationException $e) {
             return redirect()->back()->with('failedRegister', 'Failed to register')->withErrors($e->errors())->withInput();
@@ -63,6 +72,12 @@ class UserController extends Controller
             'user_image_path' => "userprofile.jpg"
         ]);
 
+        UserSecurityQuestion::create([
+            'user_id' => $user->user_id,
+            'sq_id' => $request->question,
+            'sq_answer' => $request->answer
+        ]);
+
         if ($user) {
             $serviceTypeIds = $request->typePreferences;
 
@@ -76,7 +91,7 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Failed to register');
         }
 
-        return redirect('/');
+        return redirect()->back()->with('successRegister', 'Successfully registered');
     }
 
     public function editProfile(Request $request)
@@ -90,7 +105,11 @@ class UserController extends Controller
         $phoneNumber = $request->input('phoneNumber');
 
         $this->validate($request, [
-            'email' => 'required|email',
+            'email' => [
+                'email',
+                'required',
+                Rule::unique('account', 'email')->ignore(Auth::user())
+            ],
             'username'  => 'required|min:2',
             'gender' => 'required',
             'city' => 'required',
@@ -115,24 +134,6 @@ class UserController extends Controller
         return redirect()->back()->with('successEditProfile', 'Successfully edit profile');
     }
 
-    public function changePassword(Request $request)
-    {
-        $this->validate($request, [
-            'old_password' => 'required',
-            'new_password'  => 'required|min:8',
-            'confirm_password' => 'required|same:new_password',
-        ]);
-
-        if (bcrypt($request->old_password) != Auth::user()->password) {
-            return redirect()->back()->with('errorPassword', 'Current password is incorrect');
-        }
-        $user = Account::where('account_id', '=', Auth::user()->account_id)->first();
-        $user->account->password = bcrypt($request->new_password);
-        $user->account->save();
-
-        return redirect()->back()->with('successChangePassword', 'Successfully change password');
-    }
-
     public function editPreferences(Request $request)
     {
         $this->validate($request, [
@@ -153,5 +154,29 @@ class UserController extends Controller
                 'st_id' => $serviceTypeId
             ]);
         }
+    }
+
+    public function viewUserProfile(Request $request)
+    {
+        $user = User::where('user_id', '=', $request->id)
+            ->with('userServiceType')
+            ->with('userServiceType.serviceType')
+            ->with('account')
+            ->first();
+
+        return view('pages.admin.user-profile')->with('user', $user);
+    }
+
+    public function deleteUser(Request $request)
+    {
+        $user = User::find($request->id);
+        $acc = Account::find($user->account_id);
+        foreach ($user->userServiceType as $ust) {
+            $ust->delete();
+        }
+        $user->delete();
+        $acc->delete();
+
+        return redirect()->back();
     }
 }

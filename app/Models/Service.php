@@ -35,7 +35,7 @@ class Service extends Model
         'service_instagram',
         'logo_image_path',
         'service_image_path',
-        'service_status',
+        'is_active',
         'has_faq',
         'has_portfolio',
         'has_promo'
