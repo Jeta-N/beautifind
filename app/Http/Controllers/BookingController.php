@@ -99,14 +99,16 @@ class BookingController extends Controller
         $count = $bookings->join('booking_slot', 'booking_slot.bs_id', '=', 'booking.bs_id');
         $count->where('date', '=', $slot->date)->where(function (Builder $query) use ($req_time_start, $req_time_end) {
             $query->where(function (Builder $q)  use ($req_time_start, $req_time_end) {
-                $q->where($req_time_start, '<=', 'time_start')->where($req_time_end, '>', 'time_start');
+                $q->where('time_start', '>=', $req_time_start)->where('time_start', '<', $req_time_end);
             })->orWhere(function (Builder $q) use ($req_time_start, $req_time_end) {
-                $q->where($req_time_start, '<', 'time_end')->where($req_time_end, '>=', 'time_end');
+                $q->where('time_end', '>', $req_time_start)->where('time_end', '>=', $req_time_end);
             });
-        })->count();
+        });
 
-        if ($count > 0) {
-            return redirect()->back()->with('error', 'Another booking is at the same time');
+        $countResult = $count->count();
+
+        if ($countResult > 0) {
+            return redirect()->back()->with('errorBook', 'Another booking is at the same time');
         }
 
         $slot = BookingSlot::find($request->bs_id);

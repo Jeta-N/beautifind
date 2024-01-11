@@ -31,6 +31,8 @@ const swiperPortofolio = new Swiper('.swiper-portfolio', {
 
 document.addEventListener('DOMContentLoaded', function () {
     const successModal = document.getElementById('successBookModal');
-    const modal = new bootstrap.Modal(successModal)
-    modal.show();
+    if (successModal) {
+        const modal = new bootstrap.Modal(successModal)
+        modal.show();
+    }
 });

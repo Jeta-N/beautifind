@@ -76,14 +76,18 @@ class BookingSlotController extends Controller
         $req_time_start = $request->time_start;
         $req_time_end = $request->time_end;
         $i = 0;
-
+        $flag = false;
         do {
             $count = BookingSlot::where('date', '=', $date)->where('emp_id', '=', $emp_id)->where(function (Builder $query) use ($req_time_start, $req_time_end) {
                 $query->where(function (Builder $q)  use ($req_time_start, $req_time_end) {
-                    $q->where('time_start', '<=', $req_time_start)->where('time_start', '>', $req_time_end);
+                    $q->where('time_start', '>=', $req_time_start)->where('time_start', '<', $req_time_end);
                 })->orWhere(function (Builder $q) use ($req_time_start, $req_time_end) {
-                    $q->where('time_end', '<', $req_time_start)->where('time_end', '>=', $req_time_end);
-                });
+                    $q->where('time_end', '>', $req_time_start)->where('time_end', '<=', $req_time_end);
+                })->orWhere(function (Builder $q) use ($req_time_start) {
+                    $q->where('time_start', '<=', $req_time_start)->where('time_end', '>', $req_time_start);
+                })->orWhere(function (Builder $q) use ($req_time_end) {
+                    $q->where('time_start', '<', $req_time_end)->where('time_end', '>=', $req_time_end);
+                });;
             })->count();
             if ($count == 0) {
                 BookingSlot::create([
@@ -94,13 +98,18 @@ class BookingSlotController extends Controller
                     'time_end' => $req_time_end,
                     'is_available' => true
                 ]);
+            } else {
+                $flag = true;
             }
             $date = date("Y-m-d", strtotime('+7 days', strtotime($date)));
             $i++;
         } while ($i < $request->repeat);
 
-
-        return redirect()->back()->with('successCreateBookingSlot', 'Successfully create booking slot');
+        if ($flag) {
+            return redirect()->back()->with('failedCreateBookingSlot', 'Failed to create booking slot');
+        } else {
+            return redirect()->back()->with('successCreateBookingSlot', 'Successfully create booking slot');
+        }
     }
 
     public function deleteBookingSlot(Request $request)
@@ -130,10 +139,19 @@ class BookingSlotController extends Controller
     public function showAvailableSlots(Request $request)
     {
         $slots = BookingSlot::query();
-        $slots->where('is_available', '=', true)->where('emp_id', '=', $request->emp_id)->select(DB::raw('*, TIMESTAMPDIFF(MINUTE, CAST(CONCAT(date, " ",time_start) AS datetime), CAST(CONCAT(date, " ",time_end) AS datetime)) as duration'));
+        $slots->where('is_available', true)
+            ->where('emp_id', $request->employeeId)
+            ->where('date', $request->date)
+            ->select(DB::raw('*, TIMESTAMPDIFF(MINUTE, CAST(CONCAT(date, " ", time_start) AS datetime), CAST(CONCAT(date, " ", time_end) AS datetime)) as duration'));
 
-        $duration = ServiceServiceType::where('st_id', '=', $request->st_id)->where('service_id', '=', $request->service_id)->select('duration');
+        $duration = ServiceServiceType::where('st_id', $request->stId)
+            ->where('service_id', $request->serviceId)
+            ->value('duration');
 
-        $slots->where('duration', '>=', $duration)->get();
+        $slots->whereRaw('TIMESTAMPDIFF(MINUTE, CAST(CONCAT(date, " ", time_start) AS datetime), CAST(CONCAT(date, " ", time_end) AS datetime)) >= ?', [$duration]);
+
+        $slotsResult = $slots->get();
+
+        return response()->json($slotsResult);
     }
 }

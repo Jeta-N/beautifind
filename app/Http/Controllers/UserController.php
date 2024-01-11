@@ -10,6 +10,7 @@ use App\Models\UserServiceType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
@@ -53,7 +54,7 @@ class UserController extends Controller
                 'reg_password_confirmation' => 'required',
                 'typePreferences' => 'required',
                 'question' => 'required',
-                'answer' => 'required | min:3 | max:25',
+                'answer' => 'required | min:3 | max:50',
             ]);
         } catch (ValidationException $e) {
             return redirect()->back()->with('failedRegister', 'Failed to register')->withErrors($e->errors())->withInput();
@@ -129,6 +130,15 @@ class UserController extends Controller
         $user->user_phone_number = $phoneNumber;
         $user->updated_at = now();
         $user->account->updated_at = now();
+
+        if ($request->profile_picture) {
+            $file = $request->file('profile_picture');
+            $profilePictureName = $user->user_id . 'user_profile_image_' . time() . '.' . $file->getClientOriginalExtension();
+            Storage::putFileAs('public/asset/images/profile-picture', $file, $profilePictureName);
+
+            $user->user_image_path = $profilePictureName;
+        }
+
         $user->save();
 
         return redirect()->back()->with('successEditProfile', 'Successfully edit profile');

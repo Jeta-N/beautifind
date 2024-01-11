@@ -1,3 +1,11 @@
+document.addEventListener("DOMContentLoaded", function () {
+    var today = new Date().toISOString().split('T')[0];
+    const datePickers = document.querySelectorAll('[id^="bookDate"]');
+    Array.from(datePickers).forEach(datePicker => {
+        datePicker.setAttribute('min', today);
+    });
+})
+
 const swiperTimeDate = new Swiper('.swiper-time', {
     direction: 'horizontal',
     loop: false,
@@ -11,15 +19,15 @@ const swiperTimeDate = new Swiper('.swiper-time', {
     },
 })
 
-function fetchTimeSlots(id, employeeId, estId) {
+function fetchTimeSlots(id, employeeId, estId, stId) {
     const selectedDate = document.getElementById(`bookDate${estId}`).value;
     // Send an AJAX request to your Laravel controller
     axios.post('/get-time-slots', {
         date: selectedDate,
         serviceId: id,
-        employeeId: employeeId
+        employeeId: employeeId,
+        stId: stId
     }).then(function (response) {
-        console.log(response.data);
         const bookTime = document.getElementById(`bookTime${estId}`);
         if (response.data.length > 4) {
             bookTime.innerHTML = `

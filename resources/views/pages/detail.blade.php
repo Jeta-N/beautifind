@@ -288,6 +288,13 @@
     @include('components.success-book-modal')
 @endif
 
+@if (session('errorBook'))
+    <div class="alert alert-danger alert-dismissible fade show alert-login top-50" role="alert">
+        Failed to Book. Please check if you already have booking in same time.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
 @endsection
 
 @section('scripts')

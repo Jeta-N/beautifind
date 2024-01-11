@@ -4,11 +4,13 @@
     <div class="container pt-4">
         <h1>Manage Booking</h1>
         <div class="d-flex flex-row w-100 pt-4">
-            <form id="searchNameForm" class="d-flex align-items-center mb-3 mt-3 mt-lg-0 w-50">
-                <input type="text" id="searchNameBooking" name="name" placeholder="Search Employee Name"
-                    class="form-control me-2">
-                <input class="btn border border-dark" type="submit" value="SEARCH" id="button-addon2"></input>
-            </form>
+            @if (Auth::user()->account_role != 'Staff')
+                <form id="searchNameForm" class="d-flex align-items-center mb-3 mt-3 mt-lg-0 w-50">
+                    <input type="text" id="searchNameBooking" name="name" placeholder="Search Employee Name"
+                        class="form-control me-2">
+                    <input class="btn border border-dark" type="submit" value="SEARCH" id="button-addon2"></input>
+                </form>
+            @endif
             <div class="text-end mb-2 ms-auto">
                 <button class="btn border border-dark" data-bs-toggle="modal" data-bs-target="#filterBookingModal"
                     type="button">

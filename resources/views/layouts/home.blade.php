@@ -24,7 +24,7 @@
                         </a>
                         <ul class="dropdown-menu p-3">
                             <li><a class="dropdown-item py-2" href="/profile?activeTab=personalData">My Profile</a></li>
-                            <li><a class="dropdown-item py-2" href="/profile?activeTab=myOrder">View My Orders</a></li>
+                            <li><a class="dropdown-item py-2" href="/profile?activeTab=myOrder">View My Bookings</a></li>
                             <li><a class="dropdown-item py-2" href="/profile?activeTab=editPreferences">Edit My
                                     Preferences</a></li>
                             <li>
@@ -64,7 +64,7 @@
                         </a>
                         <ul class="dropdown-menu p-3">
                             <li><a class="dropdown-item py-2" href="/profile?activeTab=personalData">My Profile</a></li>
-                            <li><a class="dropdown-item py-2" href="/profile?activeTab=myOrder">View My Orders</a></li>
+                            <li><a class="dropdown-item py-2" href="/profile?activeTab=myOrder">View My Bookings</a></li>
                             <li><a class="dropdown-item py-2" href="/profile?activeTab=editPreferences">Edit My
                                     Preferences</a></li>
                             <li>
@@ -120,6 +120,12 @@
         @if (session('failedRegister'))
             <div class="alert alert-danger alert-dismissible fade show alert-login" role="alert">
                 Failed to Register. Please check again the form.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session('successRegister'))
+            <div class="alert alert-success alert-dismissible fade show alert-login" role="alert">
+                Account registered successfully. Login Now.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif

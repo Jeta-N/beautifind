@@ -17,42 +17,46 @@
                                 <img src="{{ asset('storage/asset/images/logo.png') }}" alt="" class="w-100">
                             </a>
                         </li>
-                        <li class="pt-3">
-                            <a href="/staff-dashboard" class="nav-link d-flex align-items-center">
-                                <i class="bi bi-house-door me-2 fs-5" style="margin-bottom:2px;"></i>
-                                <p class="mb-0">Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="pt-3">
-                            <a href="/staff-salon-profile" class="nav-link d-flex align-items-center">
-                                <i class="bi bi-file-bar-graph me-2 fs-5" style="margin-bottom:2px;"></i>
-                                <p class="mb-0">Salon profile</p>
-                            </a>
-                        </li>
-                        <li class="pt-3">
-                            <a href="/staff-employee" class="nav-link d-flex align-items-center">
-                                <i class="bi bi-people me-2 fs-5" style="margin-bottom:2px;"></i>
-                                <p class="mb-0">Manage Employee</p>
-                            </a>
-                        </li>
-                        <li class="pt-3">
-                            <a href="/staff-employee-service-type" class="nav-link d-flex align-items-center">
-                                <i class="bi bi-people me-2 fs-5" style="margin-bottom:2px;"></i>
-                                <p class="mb-0">Manage Employee Service Type</p>
-                            </a>
-                        </li>
+                        @if (Auth::user()->account_role != 'Staff')
+                            <li class="pt-3">
+                                <a href="/staff-dashboard" class="nav-link d-flex align-items-center">
+                                    <i class="bi bi-house-door me-2 fs-5" style="margin-bottom:2px;"></i>
+                                    <p class="mb-0">Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="pt-3">
+                                <a href="/staff-salon-profile" class="nav-link d-flex align-items-center">
+                                    <i class="bi bi-file-bar-graph me-2 fs-5" style="margin-bottom:2px;"></i>
+                                    <p class="mb-0">Salon profile</p>
+                                </a>
+                            </li>
+                            <li class="pt-3">
+                                <a href="/staff-employee" class="nav-link d-flex align-items-center">
+                                    <i class="bi bi-people me-2 fs-5" style="margin-bottom:2px;"></i>
+                                    <p class="mb-0">Manage Employee</p>
+                                </a>
+                            </li>
+                            <li class="pt-3">
+                                <a href="/staff-employee-service-type" class="nav-link d-flex align-items-center">
+                                    <i class="bi bi-people me-2 fs-5" style="margin-bottom:2px;"></i>
+                                    <p class="mb-0">Manage Employee Service Type</p>
+                                </a>
+                            </li>
+                        @endif
                         <li class="pt-3">
                             <a href="/staff-booking" class="nav-link d-flex align-items-center">
                                 <i class="bi bi-bell me-2 fs-5" style="margin-bottom:2px;"></i>
                                 <p class="mb-0">Manage Bookings</p>
                             </a>
                         </li>
-                        <li class="pt-3">
-                            <a href="/staff-booking-slot" class="nav-link d-flex align-items-center">
-                                <i class="bi bi-bell me-2 fs-5" style="margin-bottom:2px;"></i>
-                                <p class="mb-0">Manage Booking Slots</p>
-                            </a>
-                        </li>
+                        @if (Auth::user()->account_role != 'Staff')
+                            <li class="pt-3">
+                                <a href="/staff-booking-slot" class="nav-link d-flex align-items-center">
+                                    <i class="bi bi-bell me-2 fs-5" style="margin-bottom:2px;"></i>
+                                    <p class="mb-0">Manage Booking Slots</p>
+                                </a>
+                            </li>
+                        @endif
                         <li class="pt-3">
                             <a href="/staff-review" class="nav-link d-flex align-items-center">
                                 <i class="bi bi-pencil-square me-2 fs-5" style="margin-bottom:2px;"></i>

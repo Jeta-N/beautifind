@@ -9,7 +9,7 @@
                     <hr>
                     <p class="cursor-pointer profile-tab bg-secondary-subtle p-1 rounded" id="personalData">My
                         Profile</p>
-                    <p class="cursor-pointer profile-tab p-1 rounded" id="myOrder">View My Order</p>
+                    <p class="cursor-pointer profile-tab p-1 rounded" id="myOrder">View My Bookings</p>
                     <p class="cursor-pointer profile-tab p-1 rounded" id="editPreferences">Edit My
                         Preferences
                     </p>

@@ -36,10 +36,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endforeach
-            <form action="edit-profile" method="POST">
+            <form action="edit-profile" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="mb-3">
-                    <label for="fnProfile" class="form-label">Full Name</label>
+                    <label for="fnProfile" class="form-label"><strong>Full Name </strong> </label>
                     <input type="Text" class="form-control form-login py-2  @error('username') is-invalid  @enderror"
                         id="fnProfile" placeholder="Your Name" value="{{ old('username', $user->user_name) }}"
                         name="username">
@@ -50,7 +51,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="emailProfile" class="form-label">Email address</label>
+                    <label for="emailProfile" class="form-label"><strong>Email address </strong> </label>
                     <input type="email" class="form-control form-login py-2  @error('email') is-invalid  @enderror"
                         id="emailProfile" placeholder="Input Your Email"
                         value="{{ old('email', $user->account->email) }}" name="email">
@@ -61,7 +62,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="phoneProfile" class="form-label">Phone Number</label>
+                    <label for="phoneProfile" class="form-label"><strong>Phone Number </strong> </label>
                     <input type="text"
                         class="form-control form-login py-2  @error('phoneNumber') is-invalid  @enderror"
                         id="phoneProfile" placeholder="Input Your Phone Number"
@@ -73,7 +74,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="city" class="form-label">City</label>
+                    <label for="city" class="form-label"><strong>City </strong> </label>
                     <select class="form-select form-login" aria-label="city" name="city">
                         <option>Select your city</option>
                         @foreach ($cities as $city)
@@ -90,7 +91,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-5">
-                        <label for="genderProfile" class="form-label">Gender</label>
+                        <label for="genderProfile" class="form-label"><strong>Gender </strong> </label>
                         <select class="form-select" id="genderProfile" name="gender">
                             <option value="">Choose Your Gender</option>
                             <option class=" @error('gender') is-invalid  @enderror" value="Female"
@@ -108,7 +109,7 @@
                     <div class="col-7">
                         <div class="row">
                             <div class="col">
-                                <label for="dateProfile" class="form-label">Birthdate</label>
+                                <label for="dateProfile" class="form-label"><strong>Birthdate </strong> </label>
                                 <select class="form-select" id="dateProfile"
                                     data-default-date="{{ $user->user_birthdate }}" name="date">
                                 </select>
@@ -119,7 +120,7 @@
                                 @enderror
                             </div>
                             <div class="col">
-                                <label for="monthProfile" class="form-label opacity-0">month</label>
+                                <label for="monthProfile" class="form-label opacity-0">month </strong> </label>
                                 <select class="form-select" id="monthProfile" name="month">
                                     <option value="">Month</option>
                                     <option value="01" @error('month') class="is-invalid"  @enderror
@@ -166,7 +167,7 @@
                                 @enderror
                             </div>
                             <div class="col">
-                                <label for="yearProfile" class="form-label opacity-0">year</label>
+                                <label for="yearProfile" class="form-label opacity-0">year </strong> </label>
                                 <select class="form-select" id="yearProfile" name="year">
                                 </select>
                                 @error('year')
@@ -178,6 +179,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="mb-3 col-4">
+                    <p><strong>Profile Picture:</strong></p>
+                    <img src="{{ asset('storage/asset/images/profile-picture/' . $user->user_image_path) }}"
+                        alt="" class="w-100">
+                    <div class="my-3">
+                        <label for="profilePicture"><strong>Edit Profile Picture </strong> </label>
+                        <input class="form-control" type="file" id="profilePicture" name="profile_picture">
+                        @error('profile_picture')
+                            <div class="invalid-feedback d-block">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
                 <div class="text-end">
                     <button class="profile-save-btn" type="submit">Save</button>
                 </div>
@@ -186,8 +201,9 @@
         <div id="passSecContent" class="d-none py-4">
             <form action="/change-password" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="mb-3">
-                    <label for="passwordCurrent" class="form-label">Current Password</label>
+                    <label for="passwordCurrent" class="form-label"><strong>Current Password </strong> </label>
                     <input type="password"
                         class="form-control form-login py-2 @error('old_password') is-invalid  @enderror @if (session('errorPassword')) is-invalid @endif"
                         id="passwordCurrent" placeholder="Enter Your Current Password" name="old_password" required>
@@ -204,7 +220,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="passwordNew" class="form-label">New Password</label>
+                    <label for="passwordNew" class="form-label"><strong>New Password </strong> </label>
                     <input type="password"
                         class="form-control form-login py-2 @error('new_password') is-invalid  @enderror"
                         id="passwordNew" placeholder="Min. 8 characters and include special character"
@@ -216,7 +232,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="passwordReNew" class="form-label">Confirm New Password</label>
+                    <label for="passwordReNew" class="form-label"><strong>Confirm New Password </strong> </label>
                     <input type="password"
                         class="form-control form-login py-2 @error('confirm_password') is-invalid  @enderror"
                         id="passwordReNew" placeholder="Min. 8 characters and include special character"

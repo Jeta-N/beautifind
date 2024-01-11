@@ -99,4 +99,16 @@
             });
         </script>
     @endif
+    @if (session('failedCreateBookingSlot'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "Failed to create all of the booking slots, some schedules is clashing!"
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
 @endsection

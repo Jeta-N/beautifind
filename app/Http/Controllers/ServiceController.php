@@ -24,9 +24,11 @@ class ServiceController extends Controller
         $rec_services = [];
         if (Auth::check()) {
             $rec_services = $this->rec_service();
+        } else {
+            $rec_services = Service::where('is_active', '=', true)->inRandomOrder()->take(8)->get();
         }
 
-        $cityIds = City::all()->pluck('city_id');
+        $cityIds = City::Take(4)->pluck('city_id');
         $serviceCounts = [];
 
         foreach ($cityIds as $cityId) {
@@ -47,7 +49,7 @@ class ServiceController extends Controller
     {
         $acc_id = Auth::user()->account_id;
         $user = User::where('account_id', '=', $acc_id)->first();
-        // dd($user);
+
         $service_score = [];
         $service_types = [];
 
@@ -90,7 +92,7 @@ class ServiceController extends Controller
 
 
         $query = Service::query();
-
+        $query = $query->where('is_active', '=', true);
         if ($searchName) {
             $query->where('service_name', 'LIKE', '%' . $searchName . '%');
         }

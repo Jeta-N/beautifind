@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+    var today = new Date().toISOString().split('T')[0];
+    const datePicker = document.getElementById('date');
+    datePicker.setAttribute('min', today);
+
     var dateFilter = document.getElementById('filterBookingForm');
     dateFilter.addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission

@@ -7,11 +7,11 @@
             <div class="d-flex dropdown ms-auto d-md-none w-50 justify-content-end">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    Jeta Nanda
+                    {{ Auth::user()->user->user_name }}
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item py-2" href="/profile?activeTab=personalData">My Profile</a></li>
-                    <li><a class="dropdown-item py-2" href="/profile?activeTab=myOrder">View My Orders</a></li>
+                    <li><a class="dropdown-item py-2" href="/profile?activeTab=myOrder">View My Bookings</a></li>
                     <li><a class="dropdown-item py-2" href="/profile?activeTab=editPreferences">Edit My Preferences</a></li>
                     <li>
                         <hr class="dropdown-divider">
@@ -48,11 +48,11 @@
             <div class="d-md-flex dropdown ms-auto d-none">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    Jeta Nanda
+                    {{ Auth::user()->user->user_name }}
                 </a>
                 <ul class="dropdown-menu p-3">
                     <li><a class="dropdown-item py-2" href="/profile?activeTab=personalData">My Profile</a></li>
-                    <li><a class="dropdown-item py-2" href="/profile?activeTab=myOrder">View My Orders</a></li>
+                    <li><a class="dropdown-item py-2" href="/profile?activeTab=myOrder">View My Bookings</a></li>
                     <li><a class="dropdown-item py-2" href="/profile?activeTab=editPreferences">Edit My Preferences</a></li>
                     <li>
                         <hr class="dropdown-divider">

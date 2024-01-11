@@ -48,46 +48,48 @@
             </div>
         </div>
     </section>
-    @auth
-        <section class="bg-color-secondary">
-            <div class="container py-5">
+    <section class="bg-color-secondary">
+        <div class="container py-5">
+            @auth
                 <h2>Recommended For You</h2>
-                @if (count($rec_services) > 4)
-                    <div class="swiper swiper-home pt-2">
-                        <div class="swiper-wrapper">
-                            @foreach ($rec_services as $service)
-                                <div class="swiper-slide">
-                                    <div class="card h-100">
-                                        <img src="..." class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ $service->service_name }}</h5>
-                                            <p class="card-text">{{ $service->service_description }}</p>
-                                            <a href="/service/{{ $service->service_id }}" class="btn btn-primary">See Detail</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @else
-                    <div class="row pt-2">
+            @else
+                <h2>Check Out These Picks</h2>
+            @endauth
+            @if (count($rec_services) > 4)
+                <div class="swiper swiper-home pt-2">
+                    <div class="swiper-wrapper">
                         @foreach ($rec_services as $service)
-                            <div class="col d-flex align-items-stretch">
+                            <div class="swiper-slide">
                                 <div class="card h-100">
                                     <img src="..." class="card-img-top" alt="...">
-                                    <div class="card-body d-flex flex-column align-items-center">
+                                    <div class="card-body">
                                         <h5 class="card-title">{{ $service->service_name }}</h5>
                                         <p class="card-text">{{ $service->service_description }}</p>
-                                        <a href="/service/{{ $service->service_id }}" class="btn btn-primary mt-auto">See
-                                            Detail</a>
+                                        <a href="/service/{{ $service->service_id }}" class="btn btn-primary">See Detail</a>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
-                @endif
-        </section>
-    @endauth
+                </div>
+            @else
+                <div class="row pt-2">
+                    @foreach ($rec_services as $service)
+                        <div class="col-3 d-flex align-items-stretch">
+                            <div class="card h-100">
+                                <img src="..." class="card-img-top" alt="...">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <h5 class="card-title">{{ $service->service_name }}</h5>
+                                    <p class="card-text">{{ $service->service_description }}</p>
+                                    <a href="/service/{{ $service->service_id }}" class="btn btn-primary mt-auto">See
+                                        Detail</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+    </section>
 
     <section>
         <div class="container py-5">

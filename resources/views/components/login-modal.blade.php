@@ -40,7 +40,7 @@
                                     {{ $message }}
                                 </div>
                             @enderror
-                            <a href="#" class="d-block text-end mt-2">Forgot Password?</a>
+                            <a href="/forgot-password" class="d-block text-end mt-2">Forgot Password?</a>
                         </div>
                         <button type="submit" class="form-control btn-sign-in py-2">Sign in</button>
                     </form>
@@ -134,7 +134,35 @@
                                 </div>
                             @enderror
                         </div>
-
+                        <div class="mb-3">
+                            <label for="question" class="form-label">Security Question</label>
+                            <select class="form-select form-login @error('question') is-invalid  @enderror"
+                                aria-label="question" name="question" required>
+                                <option value="">Select your Question</option>
+                                @foreach ($questions as $question)
+                                    <option value="{{ $loop->iteration }}"
+                                        @if ($loop->iteration == old('question')) selected @endif>
+                                        {{ $question->sq_question }}</option>
+                                @endforeach
+                            </select>
+                            @error('question')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="answer" class="form-label">Security Answer</label>
+                            <input type="Text"
+                                class="form-control form-login py-2 @error('answer') is-invalid  @enderror"
+                                id="answer" placeholder="Input Your Security Answer" name="answer"
+                                value="{{ old('answer') }}" required>
+                            @error('answer')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                         <button type="submit" class="form-control btn-sign-in py-2">Register</button>
                     </form>
                 </div>

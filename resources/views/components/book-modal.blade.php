@@ -15,7 +15,7 @@
                             <label for="bookDate" class="form-label">Select Date</label>
                             <input type="date" class="form-control" id="bookDate{{ $employeeServiceType->est_id }}"
                                 name="bookDate"
-                                onchange="fetchTimeSlots({{ $employeeServiceType->employee->service_id }}, {{ $employeeServiceType->emp_id }}, {{ $employeeServiceType->est_id }})">
+                                onchange="fetchTimeSlots({{ $employeeServiceType->employee->service_id }}, {{ $employeeServiceType->emp_id }}, {{ $employeeServiceType->est_id }}, {{ $employeeServiceType->serviceType->st_id }})">
                         </div>
                         <hr>
 

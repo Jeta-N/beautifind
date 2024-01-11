@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Models\Booking;
 use App\Models\Employee;
-use App\Models\Review;
 use App\Models\Service;
 use App\Models\SuperAdmin;
 use App\Models\User;
@@ -42,6 +41,38 @@ class AccountController extends Controller
         return redirect('/');
     }
 
+    public function viewForgotPassword()
+    {
+        return view('pages.forgot-password');
+    }
+
+    public function checkEmail(Request $request)
+    {
+        $account = Account::where('email', '=', $request->email)->first();
+
+        if ($account == null) {
+            return response()->json(404);
+        } else {
+            $securityQuestion = UserSecurityQuestion::where('user_id', '=', $account->user->user_id)
+                ->with('securityQuestion')
+                ->first();
+
+            return response()->json(['securityQuestion' => $securityQuestion, 'account' => $account]);
+        }
+    }
+
+    public function checkAnswer(Request $request)
+    {
+        $user = User::where('user_id', '=', $request->user_id)->first();
+        $account = Account::where('account_id', '=', $user->account_id)->first();
+        $userSecurityQuestion = UserSecurityQuestion::where('user_id', '=', $request->user_id)->first();
+        if ($userSecurityQuestion->sq_answer == $request->answer) {
+            return response()->json(['account' => $account]);
+        } else {
+            return response()->json(404);
+        }
+    }
+
     public function adminDashboard()
     {
         if (Auth::user()->account_role != 'Website Manager') {
@@ -76,6 +107,20 @@ class AccountController extends Controller
         $acc->save();
 
         return redirect()->back();
+    }
+
+    public function editPassword(Request $request)
+    {
+        $this->validate($request, [
+            'new_password'  => 'required|min:8',
+            'confirm_password' => 'required|same:new_password',
+        ]);
+        $account = Account::where('account_id', '=', $request->acc_id)->first();
+        $account->password = bcrypt($request->new_password);
+        $account->updated_at = now();
+        $account->save();
+
+        return redirect('/')->with('successChangePassword', 'Successfully change password');
     }
 
     public function changePassword(Request $request)

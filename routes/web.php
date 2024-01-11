@@ -25,131 +25,155 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ServiceController::class, 'viewHomepage']);
-Route::get('/booking', [BookingController::class, 'viewBooking']);
-Route::get('/bookingslot', [BookingSlotController::class, 'viewBookingSlots']);
-Route::get('/employees', [EmployeeController::class, 'viewEmployees']);
-Route::get('/emp-profile', [EmployeeController::class, 'viewEmployeeProfile']);
-Route::get('/admins', [SuperAdminController::class, 'viewSuperAdmins']);
-Route::get('/sa-profile', [SuperAdminController::class, 'viewSuperAdminProfile']);
-Route::get('/users', [UserController::class, 'viewUsers']);
-Route::get('/profile', [UserController::class, 'viewProfile']);
-Route::get('/faqs', [FaqController::class, 'viewFaqs']);
-Route::get('/portfolio', [PortfolioImageController::class, 'viewPortfolios']);
-Route::get('/promotion', [PromotionController::class, 'viewPromotions']);
-Route::get('/review', [ReviewController::class, 'viewReviews']);
-Route::get('/services', [ServiceController::class, 'viewServicesList']);
-Route::get('/service/{id}', [ServiceController::class, 'viewServicesDetails']);
-Route::get('/logout', [AccountController::class, 'logout']);
-Route::post('/login', [AccountController::class, 'login']);
-Route::post('/register', [UserController::class, 'register']);
 
-Route::get('/detail', function () {
-    return view('pages.detail');
-});
-
+// Static Page
 Route::get('/about', function () {
     return view('pages.aboutus');
 });
-
 Route::get('/faq', function () {
     return view('pages.faq');
 });
 
-Route::post('/get-time-slots', [BookingSlotController::class, 'getBookingSlots']);
-Route::post('/book/{id}', [BookingController::class, 'createBooking']);
+// Forgot Password
+Route::get('/forgot-password', [AccountController::class, 'viewForgotPassword']);
+Route::post('/check-email', [AccountController::class, 'checkEmail']);
+Route::post('/check-answer', [AccountController::class, 'checkAnswer']);
+Route::put('/edit-password', [AccountController::class, 'editPassword']);
 
-Route::post('/edit-profile', [UserController::class, 'editProfile']);
-Route::post('/change-password', [AccountController::class, 'changePassword']);
+// Service List
+Route::get('/services', [ServiceController::class, 'viewServicesList']);
 
-Route::get('/user-booking', [BookingController::class, 'viewUserBooking']);
+// Service Detail
+Route::get('/service/{id}', [ServiceController::class, 'viewServicesDetails']);
 
-Route::post('/edit-preferences', [UserController::class, 'editPreferences']);
+// Service Detail - Book
+Route::post('/get-time-slots', [BookingSlotController::class, 'showAvailableSlots']);
 
-Route::get('/review/{id}', [ReviewController::class, 'viewReviewForm']);
-Route::post('/create-review/{id}', [ReviewController::class, 'createReview']);
+// Guest
+Route::middleware(['isGuest'])->group(function () {
+    // Login / Register
+    Route::post('/login', [AccountController::class, 'login']);
+    Route::post('/register', [UserController::class, 'register']);
 
-Route::post('/cancel-book/{id}', [BookingController::class, 'cancelBooking']);
+    // Home Page
+    Route::get('/', [ServiceController::class, 'viewHomepage']);
+
+    //Login Staff, Manager & Admin
+    Route::get('/staff-login', [AccountController::class, 'viewLoginStaff']);
+    Route::post('/staff-login', [AccountController::class, 'loginStaff']);
+});
+
+// User
+Route::middleware(['isUser'])->group(function () {
+    // Booking
+    Route::post('/book/{id}', [BookingController::class, 'createBooking']);
+
+    // User Profile - My Profile
+    Route::get('/profile', [UserController::class, 'viewProfile']);
+    Route::put('/edit-profile', [UserController::class, 'editProfile']);
+    Route::put('/change-password', [AccountController::class, 'changePassword']);
+    // User Profile - My Order
+    Route::get('/user-booking', [BookingController::class, 'viewUserBooking']);
+    Route::post('/cancel-book/{id}', [BookingController::class, 'cancelBooking']);
+    // User Profile - My Preferences
+    Route::post('/edit-preferences', [UserController::class, 'editPreferences']);
+
+    // Review
+    Route::get('/review/{id}', [ReviewController::class, 'viewReviewForm']);
+    Route::post('/create-review/{id}', [ReviewController::class, 'createReview']);
+
+    // Logout
+    Route::get('/logout', [AccountController::class, 'logout']);
+});
 
 // Staff
-Route::get('/staff-login', [AccountController::class, 'viewLoginStaff']);
-Route::post('/staff-login', [AccountController::class, 'loginStaff']);
+Route::middleware(['isStaff'])->group(function () {
+    // Staff Booking
+    Route::get('/staff-booking', [BookingController::class, 'staffBooking']);
+    Route::put('/done-booking-employee/{booking_id}', [BookingController::class, 'updateBookingStatus']);
+    Route::put('/cancel-booking-employee/{booking_id}', [BookingController::class, 'updateBookingStatus']);
 
-Route::get('/staff-dashboard', [EmployeeController::class, 'staffDashboard']);
-Route::get('/staff-review', [ReviewController::class, 'staffReviews']);
-Route::get('/staff-profile', [EmployeeController::class, 'staffProfile']);
-Route::put('/edit-staff-profile', [EmployeeController::class, 'updateStaffProfile']);
-Route::get('/logout-staff', [EmployeeController::class, 'logoutStaff']);
+    Route::put('/edit-staff-profile', [EmployeeController::class, 'updateStaffProfile']);
+    Route::get('/staff-profile', [EmployeeController::class, 'staffProfile']);
+    Route::get('/logout-staff', [EmployeeController::class, 'logoutStaff']);
+    Route::get('/staff-review', [ReviewController::class, 'staffReviews']);
+});
 
+// Manager
+Route::middleware(['isManager'])->group(function () {
+    Route::get('/staff-dashboard', [EmployeeController::class, 'staffDashboard']);
 
-// Staff Salon Profile
-Route::get('/staff-salon-profile', [ServiceController::class, 'staffService']);
+    // Staff Salon Profile
+    Route::get('/staff-salon-profile', [ServiceController::class, 'staffService']);
 
-Route::put('/activate-service', [ServiceController::class, 'activateService']);
-Route::put('/deactivate-service', [ServiceController::class, 'deactivateService']);
+    Route::put('/activate-service', [ServiceController::class, 'activateService']);
+    Route::put('/deactivate-service', [ServiceController::class, 'deactivateService']);
 
-Route::put('/activate-portfolio', [PortfolioImageController::class, 'activatePortfolio']);
-Route::put('/deactivate-portfolio', [PortfolioImageController::class, 'deactivatePortfolio']);
-Route::delete('/delete-portfolio/{id}', [PortfolioImageController::class, 'deletePortfolio']);
-Route::post('/add-portfolio', [PortfolioImageController::class, 'createPortfolio']);
+    Route::put('/activate-portfolio', [PortfolioImageController::class, 'activatePortfolio']);
+    Route::put('/deactivate-portfolio', [PortfolioImageController::class, 'deactivatePortfolio']);
+    Route::delete('/delete-portfolio/{id}', [PortfolioImageController::class, 'deletePortfolio']);
+    Route::post('/add-portfolio', [PortfolioImageController::class, 'createPortfolio']);
 
-Route::put('/activate-promo', [PromotionController::class, 'activatePromotion']);
-Route::put('/deactivate-promo', [PromotionController::class, 'deactivatePromotion']);
-Route::delete('/delete-promo/{id}', [PromotionController::class, 'deletePromotion']);
-Route::post('/add-promotion', [PromotionController::class, 'createPromotion']);
+    Route::put('/activate-promo', [PromotionController::class, 'activatePromotion']);
+    Route::put('/deactivate-promo', [PromotionController::class, 'deactivatePromotion']);
+    Route::delete('/delete-promo/{id}', [PromotionController::class, 'deletePromotion']);
+    Route::post('/add-promotion', [PromotionController::class, 'createPromotion']);
 
-Route::put('/activate-faq', [FaqController::class, 'activateFAQ']);
-Route::put('/deactivate-faq', [FaqController::class, 'deactivateFAQ']);
-Route::delete('/delete-faq/{id}', [FaqController::class, 'deleteFAQ']);
-Route::post('/add-faq', [FaqController::class, 'createFAQ']);
+    Route::put('/activate-faq', [FaqController::class, 'activateFAQ']);
+    Route::put('/deactivate-faq', [FaqController::class, 'deactivateFAQ']);
+    Route::delete('/delete-faq/{id}', [FaqController::class, 'deleteFAQ']);
+    Route::post('/add-faq', [FaqController::class, 'createFAQ']);
 
-Route::put('/edit-service-profile', [ServiceController::class, 'updateServiceProfile']);
+    Route::put('/edit-service-profile', [ServiceController::class, 'updateServiceProfile']);
 
-// Staff Manage Employee
-Route::get('/staff-employee', [EmployeeController::class, 'staffEmployees']);
+    // Staff Manage Employee
+    Route::get('/staff-employee', [EmployeeController::class, 'staffEmployees'])->middleware('isAdmin');;
+    Route::put('/edit-service-type/{id}', [EmployeeController::class, 'updateServiceType']);
 
-Route::put('/edit-role/{id}', [AccountController::class, 'updateRole']);
-Route::put('/edit-service-type/{id}', [EmployeeController::class, 'updateServiceType']);
-Route::delete('/delete-employee/{id}', [EmployeeController::class, 'deleteEmployee']);
-Route::post('/create-employee', [EmployeeController::class, 'createEmployee']);
-Route::get('/employee-profile/{id}', [EmployeeController::class, 'viewEmployeeProfile']);
-Route::put('/edit-employee-password', [AccountController::class, 'changeEmployeePassword']);
+    Route::get('/employee-profile/{id}', [EmployeeController::class, 'viewEmployeeProfile']);
+    Route::put('/edit-employee-password', [AccountController::class, 'changeEmployeePassword']);
 
-// Staff Manage Employee Service Type
-Route::get('/staff-employee-service-type', [EmployeeServiceTypeController::class, 'staffEmployeeServiceType']);
-Route::post('/create-employee-service-type', [EmployeeServiceTypeController::class, 'createEmployeeServiceType']);
-Route::delete('/delete-employee-service-type/{id}', [EmployeeServiceTypeController::class, 'deleteEmployeeServiceType']);
+    // Staff Manage Employee Service Type
+    Route::get('/staff-employee-service-type', [EmployeeServiceTypeController::class, 'staffEmployeeServiceType']);
+    Route::post('/create-employee-service-type', [EmployeeServiceTypeController::class, 'createEmployeeServiceType']);
+    Route::delete('/delete-employee-service-type/{id}', [EmployeeServiceTypeController::class, 'deleteEmployeeServiceType']);
 
-// Staff Booking
-Route::get('/staff-booking', [BookingController::class, 'staffBooking']);
-Route::put('/done-booking-employee/{booking_id}', [BookingController::class, 'updateBookingStatus']);
-Route::put('/cancel-booking-employee/{booking_id}', [BookingController::class, 'updateBookingStatus']);
+    // Staff Booking Slot
+    Route::get('/staff-booking-slot', [BookingSlotController::class, 'staffBookingSlot']);
+    Route::put('/delete-booking-slot/{bs_id}', [BookingSlotController::class, 'deleteBookingSlot']);
+    Route::post('/create-booking-slot', [BookingSlotController::class, 'createBookingSlot']);
+});
 
-// Staff Booking Slot
-Route::get('/staff-booking-slot', [BookingSlotController::class, 'staffBookingSlot']);
-Route::put('/delete-booking-slot/{bs_id}', [BookingSlotController::class, 'deleteBookingSlot']);
-Route::post('/create-booking-slot', [BookingSlotController::class, 'createBookingSlot']);
+// Super Admin
+Route::middleware(['isAdmin'])->group(function () {
+    // Admin Manage Employee
+    Route::put('/edit-role/{id}', [AccountController::class, 'updateRole']);
+    Route::delete('/delete-employee/{id}', [EmployeeController::class, 'deleteEmployee']);
+    Route::post('/create-employee', [EmployeeController::class, 'createEmployee']);
+});
 
 // Website Manager
-Route::get('/admin-dashboard', [AccountController::class, 'adminDashboard']);
+Route::middleware(['isWebsiteManager'])->group(function () {
+    Route::get('/admin-dashboard', [AccountController::class, 'adminDashboard']);
 
-// WM Users
-Route::get('/admin-users', [UserController::class, 'adminUsers']);
-Route::put('/edit-user-password', [AccountController::class, 'changeUserPassword']);
-Route::put('/block-user/{id}', [AccountController::class, 'blockAccount']);
-Route::delete('/delete-user/{id}', [UserController::class, 'deleteUser']);
-Route::get('/user-profile/{id}', [UserController::class, 'viewUserProfile']);
+    // WM Users
+    Route::get('/admin-users', [UserController::class, 'adminUsers']);
+    Route::put('/edit-user-password', [AccountController::class, 'changeUserPassword']);
+    Route::put('/block-user/{id}', [AccountController::class, 'blockAccount']);
+    Route::delete('/delete-user/{id}', [UserController::class, 'deleteUser']);
+    Route::get('/user-profile/{id}', [UserController::class, 'viewUserProfile']);
 
-// WM Employee
-Route::get('/admin-employees', [EmployeeController::class, 'adminEmployees']);
-Route::get('/admin-employee-profile/{id}', [EmployeeController::class, 'viewEmployeeProfile']);
-Route::put('/edit-super-admin-password', [AccountController::class, 'changeSuperAdminPassword']);
+    // WM Employee
+    Route::get('/admin-employees', [EmployeeController::class, 'adminEmployees']);
+    Route::get('/admin-employee-profile/{id}', [EmployeeController::class, 'viewEmployeeProfile']);
+    Route::put('/edit-super-admin-password', [AccountController::class, 'changeSuperAdminPassword']);
 
-// WM Services
-Route::get('/admin-services', [ServiceController::class, 'adminServices']);
-Route::get('/admin-service-profile/{id}', [ServiceController::class, 'viewServiceProfile']);
-Route::post('/create-service', [SuperAdminController::class, 'createSuperAdmin']);
-Route::delete('/delete-service/{id}', [ServiceController::class, 'deleteService']);
+    // WM Services
+    Route::get('/admin-services', [ServiceController::class, 'adminServices']);
+    Route::get('/admin-service-profile/{id}', [ServiceController::class, 'viewServiceProfile']);
+    Route::post('/create-service', [SuperAdminController::class, 'createSuperAdmin']);
+    Route::delete('/delete-service/{id}', [ServiceController::class, 'deleteService']);
 
-// WM Reviews
-Route::get('/admin-reviews', [ReviewController::class, 'adminReviews']);
+    // WM Reviews
+    Route::get('/admin-reviews', [ReviewController::class, 'adminReviews']);
+});
