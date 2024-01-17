@@ -5,8 +5,9 @@
         <button id="progressBtn" class="btn rounded mx-2 status-btn">On
             Progress</button>
         <button id="successBtn" class="btn rounded mx-2 status-btn">Success</button>
-        <button id="canceledBtn" class="btn rounded mx-2 status-btn">Canceled</button>
+        <button id="canceledBtn" class="btn rounded mx-2 status-btn">Cancelled</button>
     </div>
+
     @if (session('successCancel'))
         <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
             {{ session('successCancel') }}

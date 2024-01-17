@@ -79,10 +79,10 @@
                         <div class="mb-3">
                             <label for="email-register" class="form-label">Email address</label>
                             <input type="email"
-                                class="form-control form-login py-2 @error('reg_email') is-invalid  @enderror"
-                                id="email-register" placeholder="Input Your Email" name="reg_email"
-                                value="{{ old('reg_email') }}" required>
-                            @error('reg_email')
+                                class="form-control form-login py-2 @error('register_email') is-invalid  @enderror"
+                                id="email-register" placeholder="Input Your Email" name="register_email"
+                                value="{{ old('register_email') }}" required>
+                            @error('register_email')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -91,10 +91,10 @@
                         <div class="mb-3">
                             <label for="password-register" class="form-label">Create Password</label>
                             <input type="password"
-                                class="form-control form-login py-2 @error('reg_password') is-invalid  @enderror"
-                                id="password-register" placeholder="Min. 8 characters and include special character"
-                                name="reg_password" required>
-                            @error('reg_password')
+                                class="form-control form-login py-2 @error('register_password') is-invalid  @enderror"
+                                id="password-register" placeholder="Min. 8 characters" name="register_password"
+                                required>
+                            @error('register_password')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -104,10 +104,10 @@
                         <div class="mb-3">
                             <label for="password-reregister" class="form-label">Confirm Password</label>
                             <input type="password"
-                                class="form-control form-login py-2 @error('reg_password_confirmation') is-invalid  @enderror"
-                                id="password-reregister" placeholder="Password" name="reg_password_confirmation"
+                                class="form-control form-login py-2 @error('register_password_confirmation') is-invalid  @enderror"
+                                id="password-reregister" placeholder="Password" name="register_password_confirmation"
                                 required>
-                            @error('reg_password_confirmation')
+                            @error('register_password_confirmation')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

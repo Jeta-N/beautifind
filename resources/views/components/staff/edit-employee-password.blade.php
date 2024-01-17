@@ -8,15 +8,17 @@
             <div class="modal-body">
                 <div class="container">
                     <h2 id="editEmployeePasswordModalHeader">Edit Employee Password</h2>
-                    <form method="POST" id="editEmployeePasswordForm" action="/edit-employee-password">
+                    <form method="POST" id="editEmployeePasswordForm{{ $loop->iteration }}"
+                        action="/edit-employee-password">
                         @csrf
                         @method('PUT')
                         <input type="hidden" name="id" value="{{ $employee->emp_id }}">
                         <div class="mb-3">
-                            <label for="passwordNew" class="form-label">New Password</label>
+                            <label for="passwordNew{{ $loop->iteration }}" class="form-label">New Password</label>
                             <input type="password"
                                 class="form-control form-login py-2 @error('new_password') is-invalid  @enderror"
-                                id="passwordNew" placeholder="Min. 8 characters" name="new_password" required>
+                                id="passwordNew{{ $loop->iteration }}" placeholder="Min. 8 characters"
+                                name="new_password" required>
                             @error('new_password')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -24,10 +26,12 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="passwordReNew" class="form-label">Confirm New Password</label>
+                            <label for="passwordReNew{{ $loop->iteration }}" class="form-label">Confirm New
+                                Password</label>
                             <input type="password"
                                 class="form-control form-login py-2 @error('confirm_password') is-invalid  @enderror"
-                                id="passwordReNew" placeholder="Min. 8 characters" name="confirm_password" required>
+                                id="passwordReNew{{ $loop->iteration }}" placeholder="Min. 8 characters"
+                                name="confirm_password" required>
                             @error('confirm_password')
                                 <div class="invalid-feedback">
                                     {{ $message }}

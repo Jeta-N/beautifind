@@ -16,7 +16,7 @@
                                 aria-label="emp_id" name="emp_id" required>
                                 <option value="">Select Employee</option>
                                 @foreach ($employees as $employee)
-                                    <option value="{{ $loop->iteration }}">
+                                    <option value="{{ $employee->emp_id }}">
                                         {{ $employee->emp_name }}</option>
                                 @endforeach
                             </select>

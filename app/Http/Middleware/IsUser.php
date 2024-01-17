@@ -21,7 +21,7 @@ class IsUser
         if ($user && $user->account_role == 'User') {
             return $next($request);
         } else {
-            abort(401, 'Unauthorized');
+            return redirect('/');
         }
     }
 }

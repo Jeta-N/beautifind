@@ -9,15 +9,26 @@ use App\Models\SuperAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\MessageBag;
+use Illuminate\Validation\ValidationException;
 
 class PortfolioImageController extends Controller
 {
     public function createPortfolio(Request $request)
     {
-        $this->validate($request, [
-            'image' => 'required | image',
-            'title' => 'required | max:25'
-        ]);
+        try {
+            $this->validate($request, [
+                'image' => 'required | image',
+                'title' => 'required | max:25'
+            ]);
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            if (!($errors instanceof MessageBag)) {
+                $errors = new MessageBag($errors);
+            }
+            $errors->add('validation_scenario', 'portfolio');
+            return redirect()->back()->withErrors($errors)->withInput();
+        }
 
         $acc_role = Auth::user()->account_role;
         $acc_id = Auth::user()->account_id;
@@ -28,8 +39,8 @@ class PortfolioImageController extends Controller
         }
 
         $count = PortfolioImage::where('service_id', '=', $emp->service_id)->count();
-        if ($count > 10) {
-            return redirect()->back()->with('error', 'There are already 10 Portfolio Images, please delete some before adding new ones.');
+        if ($count > 10 || $count < 1) {
+            return redirect()->back()->with('errorActivatePortfolio', 'There are already 10 Portfolio Images, please delete some before adding new ones.');
         }
 
         $file = $request->file('image');

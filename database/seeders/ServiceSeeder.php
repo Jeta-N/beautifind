@@ -87,7 +87,7 @@ class ServiceSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'service_name' => 'Nail Salon', //pedicure, nail art
+                'service_name' => 'Nail Salon', //manicure, pedicure, nail art
                 'service_description' => 'This salon provides services for female and male haircut and nail art.',
                 'service_opening_hours' => 'Monday - Sunday 10 AM - 9 PM',
                 'service_address' => 'Jl. Karang Tengah Raya No. 13, Lebak Bulus, Jakarta Selatan',

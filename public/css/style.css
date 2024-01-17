@@ -4,6 +4,11 @@
     --bg-secondary: #F4EFEC;
 }
 
+*
+{
+    font-family: 'Poppins', sans-serif;
+}
+
 .bg-color-primary
 {
     background-color: var(--bg-primary);

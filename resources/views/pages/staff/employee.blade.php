@@ -43,21 +43,26 @@
                             <a class="btn btn-primary" href="/employee-profile/{{ $employee->emp_id }}">
                                 View Detail
                             </a>
-                            <button class="btn btn-warning text-white" data-bs-toggle="modal"
-                                data-bs-target="#editRoleModal{{ $loop->iteration }}" type="button">
-                                Edit Role
-                            </button>
-                            <button class="btn btn-info text-white" data-bs-toggle="modal"
+                            @if (Auth::user()->account_role == 'Super Admin')
+                                <button class="btn mt-1 btn-warning text-white" data-bs-toggle="modal"
+                                    data-bs-target="#editRoleModal{{ $loop->iteration }}" type="button">
+                                    Edit Role
+                                </button>
+                            @endif
+                            <button class="btn mt-1 btn-info text-white" data-bs-toggle="modal"
                                 data-bs-target="#editEmployeePasswordModal{{ $loop->iteration }}" type="button">
                                 Edit Password
                             </button>
-                            <form action="/delete-employee/{{ $employee->emp_id }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger" type="submit">
-                                    Delete
-                                </button>
-                            </form>
+                            @if (Auth::user()->account_role == 'Super Admin' ||
+                                    (Auth::user()->account_role == 'Manager' && $employee->account->account_role == 'Staff'))
+                                <form action="/delete-employee/{{ $employee->emp_id }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn mt-1 btn-danger" type="submit">
+                                        Delete
+                                    </button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                     @include('components.staff.edit-employee-password')
@@ -96,6 +101,18 @@
             });
         </script>
     @endif
+    @if (session('successCreateEmployee'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = 'The employee has been created successfully!'
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
     @if (session('successDeleteEmployee'))
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -105,6 +122,24 @@
                 const toastBody = document.getElementById('toastBody');
                 toastBody.innerHTML = 'The employee has been deleted successfully!'
                 toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if ($errors->has('validation_scenario'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = 'Failed to create employee, check the form again!'
+                toastBootstrap.show();
+
+                const addModal = document.getElementById('addEmployeeModal');
+                if (addModal) {
+                    const modal = new bootstrap.Modal(addModal)
+                    modal.show();
+                }
             });
         </script>
     @endif

@@ -18,10 +18,10 @@ class IsStaff
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if ($user && ($user->account_role == 'Super Admin' || $user->account_role == 'Manager' || $user->account_role == 'Staff')) {
+        if ($user && ($user->account_role == 'Website Manager' || $user->account_role == 'Super Admin' || $user->account_role == 'Manager' || $user->account_role == 'Staff')) {
             return $next($request);
         } else {
-            abort(401, 'Unauthorized');
+            return redirect('/staff-login');
         }
     }
 }

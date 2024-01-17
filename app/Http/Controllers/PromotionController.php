@@ -9,16 +9,27 @@ use App\Models\SuperAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\MessageBag;
+use Illuminate\Validation\ValidationException;
 
 class PromotionController extends Controller
 {
     public function createPromotion(Request $request)
     {
-        $this->validate($request, [
-            'image' => 'required | image',
-            'title' => 'required | max:25',
-            'desc' => 'required | max:255'
-        ]);
+        try {
+            $this->validate($request, [
+                'image' => 'required | image',
+                'title' => 'required | max:25',
+                'desc' => 'required | max:255'
+            ]);
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            if (!($errors instanceof MessageBag)) {
+                $errors = new MessageBag($errors);
+            }
+            $errors->add('validation_scenario', 'promotion');
+            return redirect()->back()->withErrors($errors)->withInput();
+        }
 
         $acc_role = Auth::user()->account_role;
         $acc_id = Auth::user()->account_id;
@@ -75,7 +86,7 @@ class PromotionController extends Controller
 
         $count = Promotion::where('service_id', '=', $emp->service_id)->count();
         if ($count < 1) {
-            return redirect()->back()->with('error', 'There are no promotions available. Please add some.');
+            return redirect()->back()->with('errorActivatePromotion', 'There are no promotions available. Please add some.');
         }
 
         $service = Service::find($emp->service_id);

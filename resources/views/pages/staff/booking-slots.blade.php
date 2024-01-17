@@ -55,13 +55,17 @@
                         <td>{{ substr($bookingSlot->time_end, 0, 5) }}</td>
                         <td>{{ $bookingSlot->is_available != 0 ? 'Available' : 'Booked' }} </td>
                         <td>
-                            <form action="/delete-booking-slot/{{ $bookingSlot->bs_id }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <button class="btn btn-danger mt-2" type="submit">
-                                    Delete
-                                </button>
-                            </form>
+                            @if ($bookingSlot->is_available != 0)
+                                <form action="/delete-booking-slot/{{ $bookingSlot->bs_id }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button class="btn btn-danger" type="submit">
+                                        Delete
+                                    </button>
+                                </form>
+                            @else
+                                -
+                            @endif
                         </td>
                     </tr>
                 @endforeach

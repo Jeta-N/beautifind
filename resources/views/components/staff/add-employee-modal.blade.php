@@ -50,14 +50,17 @@
                             <div class="row row-cols-2 mx-0">
                                 <div class="form-check col mb-3">
                                     <input class="form-check-input @error('account_role') is-invalid  @enderror"
-                                        type="radio" name="account_role" id="empRoleRadio1" value="Manager">
+                                        type="radio" name="account_role" id="empRoleRadio1" value="Manager"
+                                        @if (Auth::user()->account_role == 'Manager') disabled @endif
+                                        @if (old('account_role') == 'Manager') checked @endif>
                                     <label class="form-check-label" for="empRoleRadio1">
                                         Manager
                                     </label>
                                 </div>
                                 <div class="form-check col mb-3">
                                     <input class="form-check-input @error('account_role') is-invalid  @enderror"
-                                        type="radio" name="account_role" id="empRoleRadio2" value="Staff">
+                                        type="radio" name="account_role" id="empRoleRadio2" value="Staff"
+                                        @if (old('account_role') == 'Staff') checked @endif>
                                     <label class="form-check-label" for="empRoleRadio2">
                                         Staff
                                     </label>
@@ -72,10 +75,10 @@
                         <div class="mb-3">
                             <label for="employeeName" class="form-label">Employee Name</label>
                             <input type="Text"
-                                class="form-control form-login py-2 @error('emp_name') is-invalid  @enderror"
-                                id="employeeName" placeholder="Employee Name" name="emp_name"
-                                value="{{ old('emp_name') }}" required>
-                            @error('emp_name')
+                                class="form-control form-login py-2 @error('name') is-invalid  @enderror"
+                                id="employeeName" placeholder="Employee Name" name="name" value="{{ old('name') }}"
+                                required>
+                            @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -83,14 +86,17 @@
                         </div>
                         <div class="mb-3">
                             <label for="genderProfile" class="form-label">Employee Gender</label>
-                            <select class="form-select" id="genderProfile" name="emp_gender">
+                            <select class="form-select" id="genderProfile" name="gender" required>
                                 <option value="">Choose Your Gender</option>
-                                <option class=" @error('emp_gender') is-invalid  @enderror" value="Female">Female
+                                <option class=" @error('gender') is-invalid  @enderror" value="Female"
+                                    @if (old('gender') == 'Female') selected @endif>
+                                    Female
                                 </option>
-                                <option class=" @error('emp_gender') is-invalid  @enderror" value="Male">Male</option>
+                                <option class=" @error('gender') is-invalid  @enderror" value="Male"
+                                    @if (old('gender') == 'Male') selected @endif>Male</option>
                             </select>
-                            @error('emp_gender')
-                                <div class="invalid-feedback">
+                            @error('gender')
+                                <div class="invalid-feedback d-block">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -98,10 +104,10 @@
                         <div class="mb-3">
                             <label for="phoneProfile" class="form-label">Employee Phone Number</label>
                             <input type="text"
-                                class="form-control form-login py-2  @error('emp_phone_number') is-invalid  @enderror"
+                                class="form-control form-login py-2  @error('phone_number') is-invalid  @enderror"
                                 id="phoneProfile" placeholder="Input Employee Phone Number"
-                                value="{{ old('emp_phone_number') }}" name="emp_phone_number">
-                            @error('emp_phone_number')
+                                value="{{ old('phone_number') }}" name="phone_number" required>
+                            @error('phone_number')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -111,16 +117,11 @@
                             <label for="dateProfile" class="form-label">Employee Birthdate</label>
                             <div class="row">
                                 <div class="col">
-                                    <select class="form-select" id="dateProfile" name="date">
+                                    <select class="form-select" id="dateProfile" name="date" required>
                                     </select>
-                                    @error('date')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
                                 </div>
                                 <div class="col">
-                                    <select class="form-select" id="monthProfile" name="month">
+                                    <select class="form-select" id="monthProfile" name="month" required>
                                         <option value="">Month</option>
                                         <option value="01" @error('month') class="is-invalid"  @enderror>January
                                         </option>
@@ -154,7 +155,7 @@
                                     @enderror
                                 </div>
                                 <div class="col">
-                                    <select class="form-select" id="yearProfile" name="year">
+                                    <select class="form-select" id="yearProfile" name="year" required>
                                     </select>
                                     @error('year')
                                         <div class="invalid-feedback">
@@ -163,6 +164,11 @@
                                     @enderror
                                 </div>
                             </div>
+                            @error('date')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <button type="submit" class="form-control btn-sign-in py-2">Register</button>
                     </form>

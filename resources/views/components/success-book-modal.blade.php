@@ -11,7 +11,8 @@
                         begun! 💅💄</p>
                     <p>Please be aware that any cancellations must be made at least one day before your scheduled
                         appointment to allow us ample time to adjust our schedule.</p>
-                    <p>For booking details please <a href="">click here</a></p>
+                    <p>For booking details please <a href="/profile?activeTab=myOrder">click
+                            here</a></p>
                 </div>
             </div>
         </div>

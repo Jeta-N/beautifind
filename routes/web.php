@@ -10,6 +10,7 @@ use App\Http\Controllers\PortfolioImageController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ServiceServiceTypeController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -46,8 +47,7 @@ Route::get('/services', [ServiceController::class, 'viewServicesList']);
 // Service Detail
 Route::get('/service/{id}', [ServiceController::class, 'viewServicesDetails']);
 
-// Service Detail - Book
-Route::post('/get-time-slots', [BookingSlotController::class, 'showAvailableSlots']);
+
 
 // Guest
 Route::middleware(['isGuest'])->group(function () {
@@ -65,7 +65,8 @@ Route::middleware(['isGuest'])->group(function () {
 
 // User
 Route::middleware(['isUser'])->group(function () {
-    // Booking
+    // Service Detail - Book
+    Route::post('/get-time-slots', [BookingSlotController::class, 'showAvailableSlots']);
     Route::post('/book/{id}', [BookingController::class, 'createBooking']);
 
     // User Profile - My Profile
@@ -126,12 +127,20 @@ Route::middleware(['isManager'])->group(function () {
 
     Route::put('/edit-service-profile', [ServiceController::class, 'updateServiceProfile']);
 
+    // Staff Service Service Type
+    Route::get('/staff-service-service-type', [ServiceServiceTypeController::class, 'staffServiceServiceType']);
+    Route::post('/create-service-service-type', [ServiceServiceTypeController::class, 'createServiceServiceType']);
+    Route::delete('/delete-service-service-type/{id}', [ServiceServiceTypeController::class, 'deleteServiceServiceType']);
+
     // Staff Manage Employee
-    Route::get('/staff-employee', [EmployeeController::class, 'staffEmployees'])->middleware('isAdmin');;
+    Route::get('/staff-employee', [EmployeeController::class, 'staffEmployees']);
     Route::put('/edit-service-type/{id}', [EmployeeController::class, 'updateServiceType']);
 
     Route::get('/employee-profile/{id}', [EmployeeController::class, 'viewEmployeeProfile']);
     Route::put('/edit-employee-password', [AccountController::class, 'changeEmployeePassword']);
+
+    Route::delete('/delete-employee/{id}', [EmployeeController::class, 'deleteEmployee']);
+    Route::post('/create-employee', [EmployeeController::class, 'createEmployee']);
 
     // Staff Manage Employee Service Type
     Route::get('/staff-employee-service-type', [EmployeeServiceTypeController::class, 'staffEmployeeServiceType']);
@@ -148,8 +157,6 @@ Route::middleware(['isManager'])->group(function () {
 Route::middleware(['isAdmin'])->group(function () {
     // Admin Manage Employee
     Route::put('/edit-role/{id}', [AccountController::class, 'updateRole']);
-    Route::delete('/delete-employee/{id}', [EmployeeController::class, 'deleteEmployee']);
-    Route::post('/create-employee', [EmployeeController::class, 'createEmployee']);
 });
 
 // Website Manager

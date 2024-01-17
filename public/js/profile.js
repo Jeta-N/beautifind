@@ -162,7 +162,6 @@ function toggleStatusOrder(event) {
 }
 
 function getOrderData(status) {
-    console.log("Test")
     axios.get(`/user-booking?status=${status}`)
         .then(function (response) {
             console.log(response.data)
@@ -176,7 +175,7 @@ function getOrderData(status) {
                     <div class="card-body position-relative d-flex flex-column border rounded p-4 mt-3">
                     <div class="d-flex flex-row">
                      <div class="logo-container-my-order me-3">
-                            <img src="{{ asset('storage/asset/images/dummy-salon-logo-my-order.png') }}" alt=""
+                            <img src="../storage/asset/images/dummy-salon-logo-my-order.png" alt=""
                                 class="rounded-circle logo-my-order">
                       </div>
                        <div class="d-flex flex-column justify-content-center me-3">
@@ -209,7 +208,7 @@ function getOrderData(status) {
                        </div>
                     </div>
                     <div class="d-flex justify-content-end align-items-center">
-                    ${order.booking_status === 'Done' ? `
+                    ${order.booking_status === 'Done' && order.isReviewed == false ? `
                     <a href="/review/${order.booking_id}" class="review-href me-3">Write a Review</a>
                     ` : ''}
                     ${order.booking_status === 'Upcoming' ? `<button class="profile-save-btn me-1 filter-btn bg-white border border-danger text-danger" data-bs-toggle="modal" data-bs-target="#cancelBookModal" data-booking-id="${order.booking_id}">Cancel</button>

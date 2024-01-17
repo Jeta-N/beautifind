@@ -62,10 +62,11 @@
                             <div class="swiper-slide">
                                 <div class="card h-100">
                                     <img src="..." class="card-img-top" alt="...">
-                                    <div class="card-body">
+                                    <div class="card-body d-flex flex-column align-items-center">
                                         <h5 class="card-title">{{ $service->service_name }}</h5>
                                         <p class="card-text">{{ $service->service_description }}</p>
-                                        <a href="/service/{{ $service->service_id }}" class="btn btn-primary">See Detail</a>
+                                        <a href="/service/{{ $service->service_id }}" class="btn bg-btn-book text-white">See
+                                            Detail</a>
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +82,8 @@
                                 <div class="card-body d-flex flex-column align-items-center">
                                     <h5 class="card-title">{{ $service->service_name }}</h5>
                                     <p class="card-text">{{ $service->service_description }}</p>
-                                    <a href="/service/{{ $service->service_id }}" class="btn btn-primary mt-auto">See
+                                    <a href="/service/{{ $service->service_id }}"
+                                        class="btn bg-btn-book text-white mt-auto">See
                                         Detail</a>
                                 </div>
                             </div>
@@ -142,112 +144,12 @@
         </div>
     </section>
 
-    {{-- <section class="bg-color-secondary">
-        <div class="container py-5">
-            <h2>Trending Service</h2>
-            <div class="swiper swiper-home pt-2">
-                <!-- Additional required wrapper -->
-                <div class="swiper-wrapper">
-                    <!-- Slides -->
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make
-                                    up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make
-                                    up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make
-                                    up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make
-                                    up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make
-                                    up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make
-                                    up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make
-                                    up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make
-                                    up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-
     <section class="bg-color-secondary">
         <div class="container py-5">
             <h2>Why Book in Beautifind?</h2>
             <div class="row py-3">
                 <div class="col-6 col-md-4">
-                    <div class="row g-1 g-sm-1 p-2 align-items-center shadow-sm rounded bg-white">
+                    <div class="row g-1 g-sm-1 p-2 align-items-center shadow-sm rounded bg-white h-100">
                         <div class="col-3 text-center">
                             <img src="{{ asset('storage/asset/images/why-1.png') }}" alt="" class="img-fluid">
                         </div>
@@ -260,27 +162,27 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="row g-1 g-sm-1 p-2 align-items-center shadow-sm rounded bg-white">
+                    <div class="row g-1 g-sm-1 p-2 align-items-center shadow-sm rounded bg-white h-100">
                         <div class="col-3 text-center">
                             <img src="{{ asset('storage/asset/images/why-2.png') }}" alt="" class="img-fluid">
                         </div>
                         <div class="col-9">
                             <p>
-                                <strong>Discover Local Talent</strong><br>Connects you with a diverse array of skilled
-                                beauty and wellness professionals right in your neighborhood.
+                                <strong>Effortless Booking</strong><br>Browse, choose, and book your preferred services
+                                with just a few clicks, saving you time and hassle.
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="col pt-3 pt-md-0">
-                    <div class="row g-1 g-sm-1 p-2 align-items-center shadow-sm rounded bg-white">
+                    <div class="row g-1 g-sm-1 p-2 align-items-center shadow-sm rounded bg-white h-100">
                         <div class="col-3 text-center">
                             <img src="{{ asset('storage/asset/images/why-3.png') }}" alt="" class="img-fluid">
                         </div>
                         <div class="col-9">
                             <p>
-                                <strong>Discover Local Talent</strong><br>Connects you with a diverse array of skilled
-                                beauty and wellness professionals right in your neighborhood.
+                                <strong>Tailored Experiences</strong><br>we offer personalized services to suit your unique
+                                preferences. From hair and makeup to spa treatments, find the perfect match for your needs.
                             </p>
                         </div>
                     </div>
@@ -292,7 +194,7 @@
     <section>
         <div class="container py-5 text-center px-md-5 px-0">
             <h2>Our Clients Share the Love</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, vel?</p>
+            <p>Where Clients Share Their Delight.</p>
             <div class="d-flex justify-content-center testimony">
                 @if (count($reviews) > 3)
                     <div class="swiper swiper-testimony pt-2">
@@ -305,8 +207,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $review->user->user_name }}</h5>
                                             <p class="card-text">{{ $review->review_content }}</p>
-                                            <a href="/service/{{ $review->service_id }}" class="btn btn-primary">See
-                                                Service</a>
+
                                         </div>
                                     </div>
                                 </div>
@@ -336,8 +237,6 @@
                                             {{ $review->rating }}
                                         </p>
                                         <p class="card-text">{{ $review->review_content }}</p>
-                                        <a href="/service/{{ $review->service_id }}" class="btn btn-primary mt-auto">See
-                                            Service</a>
                                     </div>
                                 </div>
                             </div>

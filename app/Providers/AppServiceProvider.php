@@ -26,7 +26,8 @@ class AppServiceProvider extends ServiceProvider
         view()->composer([
             'pages.home', 'pages.detail', 'pages.search', 'pages.profile', 'pages.forgot-password',
             'pages.aboutus', 'pages.faq', 'pages.review-form', 'pages.staff.salon-profile',
-            'pages.staff.staff-profile', 'pages.staff.employee', 'pages.admin.services'
+            'pages.staff.service-service-type', 'pages.staff.staff-profile', 'pages.staff.employee',
+            'pages.admin.services'
         ], function ($view) {
             $serviceType = ServiceType::all();
             $city = City::all();

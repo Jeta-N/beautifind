@@ -49,9 +49,15 @@ class UserController extends Controller
             $this->validate($request, [
                 'name' => 'required | min:2',
                 'city' => 'required',
-                'reg_email' => 'required | email | unique:account,email',
-                'reg_password' => 'required | min:8 | confirmed',
-                'reg_password_confirmation' => 'required',
+                'register_email' => [
+                    'required',
+                    'email',
+                    Rule::unique('account', 'email')->where(function ($query) {
+                        return $query->whereNull('deleted_at');
+                    }),
+                ],
+                'register_password' => 'required | min:8 | confirmed',
+                'register_password_confirmation' => 'required',
                 'typePreferences' => 'required',
                 'question' => 'required',
                 'answer' => 'required | min:3 | max:50',
@@ -61,8 +67,8 @@ class UserController extends Controller
         }
 
         $account = Account::create([
-            'email' => $request->reg_email,
-            'password' => bcrypt($request->reg_password),
+            'email' => $request->register_email,
+            'password' => bcrypt($request->register_password),
             'account_role' => "User",
             'is_blocked' => false
         ]);
@@ -109,12 +115,14 @@ class UserController extends Controller
             'email' => [
                 'email',
                 'required',
-                Rule::unique('account', 'email')->ignore(Auth::user())
+                Rule::unique('account', 'email')->ignore(Auth::user())->where(function ($query) {
+                    return $query->whereNull('deleted_at');
+                }),
             ],
             'username'  => 'required|min:2',
             'gender' => 'required',
             'city' => 'required',
-            'phoneNumber' => 'required',
+            'phoneNumber' => 'required|min:10|max:13',
             'date' => 'required|numeric|min:1|max:31',
             'month' => 'required|numeric|min:1|max:12',
             'year' => 'required|numeric|min:1900',
@@ -164,6 +172,8 @@ class UserController extends Controller
                 'st_id' => $serviceTypeId
             ]);
         }
+
+        return redirect()->back();
     }
 
     public function viewUserProfile(Request $request)

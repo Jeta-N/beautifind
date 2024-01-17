@@ -31,7 +31,8 @@
                         {{ $service->service_description }}</p>
                     <p><strong>Service Address:</strong> {{ $service->service_address }}</p>
                     <p><strong>Service Phone Number:</strong> {{ $service->service_phone }}</p>
-                    <p><strong>Service Instagram:</strong> {{ $service->service_instagram }} </p>
+                    <p><strong>Service Email:</strong> {{ $service->service_email ?? '-' }}</p>
+                    <p><strong>Service Instagram:</strong> {{ $service->service_instagram ?? '-' }} </p>
                     <p><strong>Service Opening Hours:</strong> {{ $service->service_opening_hours }}</p>
                     <p><strong>Service Type:</strong>
                         @foreach ($service->serviceServiceType as $serviceServiceType)
@@ -252,7 +253,8 @@
                                 <div class="accordion" id="faqAccordion{{ $loop->iteration }}">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse"
                                                 data-bs-target="#collapse{{ $loop->iteration }}" aria-expanded="true"
                                                 aria-controls="collapse{{ $loop->iteration }}">
                                                 <p class="mb-0"><strong>Q: </strong> {{ $faq->faq_question }} </p>
@@ -288,4 +290,101 @@
     @include('components.staff.add-portfolio-modal')
     @include('components.staff.add-promotion-modal')
     @include('components.staff.add-faq-modal')
+    @include('components.staff.info-toast')
+@endsection
+
+@section('scripts')
+    <script src="../js/staff/bookingSlot.js"></script>
+    @if ($errors->has('validation_scenario') && $errors->first('validation_scenario') == 'profile')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "Failed to update profile, please check the form again."
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if ($errors->has('validation_scenario'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                @if ($errors->first('validation_scenario') == 'portfolio')
+                    toastBody.innerHTML = "Failed to add portfolio, please check the form again."
+                @elseif ($errors->first('validation_scenario') == 'profile')
+                    toastBody.innerHTML = "Failed to update profile, please check the form again."
+                @elseif ($errors->first('validation_scenario') == 'promotion')
+                    toastBody.innerHTML = "Failed to add promotion, please check the form again."
+                @elseif ($errors->first('validation_scenario') == 'faq')
+                    toastBody.innerHTML = "Failed to add FAQ, please check the form again."
+                @endif
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('successUpdateService'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "Service profile has been updated successfully!"
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('errorActivate'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "Can't activate the service, please complete the profile first!"
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('errorActivatePortfolio'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "Can't activate the portfolio, at least 1 portfolio and max 10 portfolio!"
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('errorActivatePromotion'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "Can't activate the service, at least 1 promotion!"
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('errorActivateFaq'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "Can't activate the service, at least 1 faq and max 10 faq!"
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
 @endsection

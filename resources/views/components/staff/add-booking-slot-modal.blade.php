@@ -16,7 +16,7 @@
                                 aria-label="emp_id" name="emp_id" required>
                                 <option value="">Select Employee</option>
                                 @foreach ($employees as $employee)
-                                    <option value="{{ $loop->iteration }}">
+                                    <option value="{{ $employee->emp_id }}">
                                         {{ $employee->emp_name }}</option>
                                 @endforeach
                             </select>
@@ -50,6 +50,7 @@
                                             {{ $message }}
                                         </div>
                                     @enderror
+
                                 </div>
                                 <div class="col">
                                     <label for="time_end" class="form-label">Time End</label>
@@ -62,6 +63,8 @@
                                         </div>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="invalid-feedback d-block" id="timeStartError">
                             </div>
                         </div>
 
@@ -78,7 +81,8 @@
                                 </div>
                             @enderror
                         </div>
-                        <button type="submit" class="form-control btn-sign-in py-2">Add Slot</button>
+                        <button type="button" class="form-control btn-sign-in py-2" onclick="validateForm()">Add
+                            Slot</button>
                     </form>
                 </div>
             </div>

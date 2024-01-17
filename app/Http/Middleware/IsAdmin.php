@@ -20,10 +20,8 @@ class IsAdmin
         $user = Auth::user();
         if ($user && $user->account_role == 'Super Admin') {
             return $next($request);
-        } else if ($user && $user->account_role == 'User') {
-            return redirect('/staff-login');
         } else {
-            abort(401, 'Unauthorized');
+            return redirect('/staff-login');
         }
     }
 }

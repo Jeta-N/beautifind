@@ -11,7 +11,9 @@ use App\Models\SuperAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\MessageBag;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class EmployeeController extends Controller
 {
@@ -35,22 +37,41 @@ class EmployeeController extends Controller
 
     public function createEmployee(Request $request)
     {
-        $this->validate($request, [
-            'emp_name' => 'required | min:2',
-            'emp_gender' => 'required',
-            'date' => 'required|numeric|min:1|max:31',
-            'month' => 'required|numeric|min:1|max:12',
-            'year' => 'required|numeric|min:1900',
-            'emp_phone_number' => 'required',
-            'account_role' => 'required',
-            'email' => 'required | email | unique:account,email',
-            'password' => 'required | min:8 | confirmed',
-            'password_confirmation' => 'required'
-        ]);
-
+        try {
+            $this->validate($request, [
+                'name' => 'required | min:2',
+                'gender' => 'required',
+                'date' => 'required|numeric|min:1|max:31',
+                'month' => 'required|numeric|min:1|max:12',
+                'year' => 'required|numeric|min:1900',
+                'phone_number' => ['required', 'regex:/^[0-9]+$/', 'min:10', 'max:13'],
+                'account_role' => 'required',
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('account', 'email')->where(function ($query) {
+                        return $query->whereNull('deleted_at');
+                    }),
+                ],
+                'password' => 'required | min:8 | confirmed',
+                'password_confirmation' => 'required'
+            ]);
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            if (!($errors instanceof MessageBag)) {
+                $errors = new MessageBag($errors);
+            }
+            $errors->add('validation_scenario', 'createEmployee');
+            return redirect()->back()->withErrors($errors)->withInput();
+        }
 
         $acc_id = Auth::user()->account_id;
-        $service_id = SuperAdmin::where('account_id', '=', $acc_id)->pluck('service_id')->first();
+        $acc_role = Auth::user()->account_role;
+        if ($acc_role == 'Super Admin') {
+            $service_id = SuperAdmin::where('account_id', '=', $acc_id)->pluck('service_id')->first();
+        } else {
+            $service_id = Employee::where('account_id', '=', $acc_id)->pluck('service_id')->first();
+        }
         $birthdate = $request->year . '-' . $request->month . '-' . $request->date;
 
         $account = Account::create([
@@ -61,15 +82,15 @@ class EmployeeController extends Controller
         ]);
 
         $account->employee()->create([
-            'emp_name' => $request->emp_name,
+            'emp_name' => $request->name,
             'service_id' => $service_id,
-            'emp_gender' => $request->emp_gender,
+            'emp_gender' => $request->gender,
             'emp_birthdate' => $birthdate,
-            'emp_phone_number' => $request->emp_phone_number,
+            'emp_phone_number' => $request->phone_number,
             'emp_image_path' => "employeeprofile.jpg"
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('successCreateEmployee', 'Successfully create employee');;
     }
 
     public function deleteEmployee(Request $request)
@@ -79,7 +100,11 @@ class EmployeeController extends Controller
         foreach ($emp->employeeServiceType as $est) {
             $est->delete();
         }
-
+        foreach ($emp->bookingSlot as $bs) {
+            if ($bs->is_available) {
+                $bs->delete();
+            }
+        }
         $emp->delete();
         $acc->delete();
 
@@ -164,10 +189,13 @@ class EmployeeController extends Controller
             'date' => 'required|numeric|min:1|max:31',
             'month' => 'required|numeric|min:1|max:12',
             'year' => 'required|numeric|min:1900',
-            'phone_number' => 'required',
+            'phone_number' => 'required|min:10|max:13',
             'email' => [
                 'email',
-                Rule::unique('account', 'email')->ignore(Auth::user())
+                Rule::unique('account', 'email')->ignore(Auth::user()),
+                Rule::unique('account', 'email')->where(function ($query) {
+                    return $query->whereNull('deleted_at');
+                }),
             ]
         ]);
 

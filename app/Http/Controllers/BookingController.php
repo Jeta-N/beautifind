@@ -33,6 +33,12 @@ class BookingController extends Controller
         }
         $bookings = $bookings->orderBy('booking_status', 'desc')->get();
 
+        foreach ($bookings as $booking) {
+            $review = Review::where('booking_id', $booking->booking_id)->first();
+
+            $booking->isReviewed = !is_null($review);
+        }
+
         return response()->json($bookings);
     }
 
@@ -95,14 +101,18 @@ class BookingController extends Controller
         $req_time_end = $slot->time_end;
 
         $bookings = Booking::query();
-        $bookings->where('user_id', '=', $user->user_id);
+        $bookings->where('user_id', '=', $user->user_id)->where('booking_status', '!=', 'Cancelled');
         $count = $bookings->join('booking_slot', 'booking_slot.bs_id', '=', 'booking.bs_id');
         $count->where('date', '=', $slot->date)->where(function (Builder $query) use ($req_time_start, $req_time_end) {
             $query->where(function (Builder $q)  use ($req_time_start, $req_time_end) {
                 $q->where('time_start', '>=', $req_time_start)->where('time_start', '<', $req_time_end);
             })->orWhere(function (Builder $q) use ($req_time_start, $req_time_end) {
                 $q->where('time_end', '>', $req_time_start)->where('time_end', '>=', $req_time_end);
-            });
+            })->orWhere(function (Builder $q) use ($req_time_start) {
+                $q->where('time_start', '<=', $req_time_start)->where('time_end', '>', $req_time_start);
+            })->orWhere(function (Builder $q) use ($req_time_end) {
+                $q->where('time_start', '<', $req_time_end)->where('time_end', '>=', $req_time_end);
+            });;;
         });
 
         $countResult = $count->count();

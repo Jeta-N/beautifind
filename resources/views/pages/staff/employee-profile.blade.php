@@ -21,6 +21,9 @@
                             &#8226; {{-- bullet --}}
                         @endif
                     @endforeach
+                    @if ($employee->employeeServiceType->count() == 0)
+                        -
+                    @endif
                 </p>
             </div>
             <div class="col-4">

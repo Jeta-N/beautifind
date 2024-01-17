@@ -25,8 +25,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="serviceDesc" class="form-label">Service Description</label>
-                            <textarea type="Text" class="form-control form-login py-2 @error('description') is-invalid  @enderror"
-                                id="serviceDesc" name="description" required>{{ old('description', $service->service_description) }}</textarea>
+                            <textarea class="form-control form-login py-2 @error('description') is-invalid  @enderror" id="serviceDesc"
+                                name="description" required>{{ old('description', $service->service_description) }}</textarea>
                             @error('description')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -35,10 +35,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="serviceAddress" class="form-label">Service Address</label>
-                            <input type="Text"
-                                class="form-control form-login py-2 @error('address') is-invalid  @enderror"
-                                id="serviceAddress" placeholder="Service Address" name="address"
-                                value="{{ old('address', $service->service_address) }}" required>
+                            <textarea class="form-control form-login py-2 @error('address') is-invalid  @enderror" id="serviceAddress"
+                                name="address" required>{{ old('address', $service->service_address) }}</textarea>
                             @error('address')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -58,11 +56,23 @@
                             @enderror
                         </div>
                         <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email"
+                                class="form-control form-login py-2 @error('email') is-invalid  @enderror"
+                                id="email" placeholder="Input Your Email" name="email"
+                                value="{{ old('email', $service->service_email ?? '') }}">
+                            @error('email')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
                             <label for="serviceInstagram" class="form-label">Service Instagram</label>
                             <input type="Text"
                                 class="form-control form-login py-2 @error('instagram') is-invalid  @enderror"
                                 id="serviceInstagram" placeholder="Service Instagram" name="instagram"
-                                value="{{ old('instagram', $service->service_instagram) }}" required>
+                                value="{{ old('instagram', $service->service_instagram) }}">
                             @error('Instagram')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -94,40 +104,6 @@
                             </select>
                             @error('city')
                                 <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email address</label>
-                            <input type="email"
-                                class="form-control form-login py-2 @error('email') is-invalid  @enderror"
-                                id="email" placeholder="Input Your Email" name="email"
-                                value="{{ old('email', $service->service_email ?? '') }}">
-                            @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <p>Service Type</p>
-                            <div class="row row-cols-3 mx-0">
-                                @foreach ($serviceTypes as $serviceType)
-                                    <div class="form-check col mb-3">
-                                        <input class="form-check-input @error('typePreferences') is-invalid  @enderror"
-                                            type="checkbox" name="typePreferences[]"
-                                            id="typePreferences{{ $loop->iteration }}"
-                                            value="{{ $loop->iteration }}"
-                                            {{ $service->serviceServiceType->contains('st_id', $serviceType->st_id) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="typePreferences{{ $loop->iteration }}">
-                                            {{ $serviceType->st_name }}
-                                        </label>
-                                    </div>
-                                @endforeach
-                            </div>
-                            @error('typePreferences')
-                                <div class="invalid-feedback d-block">
                                     {{ $message }}
                                 </div>
                             @enderror

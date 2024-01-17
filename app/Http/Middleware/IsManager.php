@@ -21,7 +21,7 @@ class IsManager
         if ($user && ($user->account_role == 'Super Admin' || $user->account_role == 'Manager')) {
             return $next($request);
         } else {
-            abort(401, 'Unauthorized');
+            return redirect('/staff-login');
         }
     }
 }

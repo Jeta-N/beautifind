@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\MessageBag;
+use Illuminate\Validation\ValidationException;
 
 class ServiceController extends Controller
 {
@@ -283,18 +285,39 @@ class ServiceController extends Controller
 
         $service = Service::find($emp->service_id);
 
-        $this->validate($request, [
-            'name' => 'required | min:5',
-            'description' => 'required',
-            'opening_hours' => 'required',
-            'address' => 'required | min:5',
-            'phone' => 'required | min:9 | max:13',
-            'email' => 'email',
-            'logo_image' => 'image',
-            'service_image' => 'image'
-        ]);
+        try {
+            $this->validate($request, [
+                'name' => 'required | min:5',
+                'description' => 'required',
+                'opening_hours' => 'required',
+                'address' => 'required | min:5',
+                'phone' => 'required | min:9 | max:13',
+                'logo_image' => 'image',
+                'service_image' => 'image'
+            ]);
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            if (!($errors instanceof MessageBag)) {
+                $errors = new MessageBag($errors);
+            }
+            $errors->add('validation_scenario', 'profile');
+            return redirect()->back()->withErrors($errors)->withInput();
+        }
 
-
+        try {
+            if ($request->email) {
+                $this->validate($request, [
+                    'email' => 'email'
+                ]);
+            }
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            if (!($errors instanceof MessageBag)) {
+                $errors = new MessageBag($errors);
+            }
+            $errors->add('validation_scenario', 'profile');
+            return redirect()->back()->withErrors($errors)->withInput();
+        }
 
         $service->service_name = $request->name;
         $service->service_description = $request->description;
@@ -331,7 +354,7 @@ class ServiceController extends Controller
         }
 
         $service->save();
-        return redirect()->back();
+        return redirect()->back()->with('successUpdateService', 'Service profile has been updated.');
     }
 
     public function activateService()
@@ -347,9 +370,9 @@ class ServiceController extends Controller
 
         if (
             is_null($service->service_name) || is_null($service->service_description) || is_null($service->service_opening_hours)
-            || is_null($service->service_address) || is_null($service->service_phone)
+            || is_null($service->service_address) || is_null($service->service_phone) || is_null($service->serviceServiceType) || count($service->employee) < 1
         ) {
-            return redirect()->back()->with('error', 'Please complete the service profile.');
+            return redirect()->back()->with('errorActivate', 'Please complete the service profile.');
         }
 
         $service->is_active = true;

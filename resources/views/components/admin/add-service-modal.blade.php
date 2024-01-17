@@ -36,8 +36,7 @@
                             <label for="password" class="form-label">Create Password</label>
                             <input type="password"
                                 class="form-control form-login py-2 @error('password') is-invalid  @enderror"
-                                id="password" placeholder="Min. 8 characters and include special character"
-                                name="password" required>
+                                id="password" placeholder="Min. 8 characters" name="password" required>
                             @error('password')
                                 <div class="invalid-feedback">
                                     {{ $message }}

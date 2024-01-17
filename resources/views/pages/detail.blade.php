@@ -260,10 +260,6 @@
                     {{-- <img src="{{ asset($services->logo_image_path) }}" alt="logo salon"> --}}
                 </div>
                 <div class="p-3 border-top border-bottom">
-                    <p><strong>About Us</strong></p>
-                    <p>{{ $services->service_description }}
-                    </p>
-                    <hr>
                     <p><strong>Contact & Business Hours</strong></p>
                     <p><i class="bi bi-geo-alt me-1"></i>{{ $services->service_address }}</p>
                     <p><i class="bi bi-telephone me-1"></i>{{ $services->service_phone }}</p>
@@ -289,7 +285,7 @@
 @endif
 
 @if (session('errorBook'))
-    <div class="alert alert-danger alert-dismissible fade show alert-login top-50" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show alert-login top-50 position-fixed" role="alert">
         Failed to Book. Please check if you already have booking in same time.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>

@@ -43,7 +43,7 @@
                     <label for="fnProfile" class="form-label"><strong>Full Name </strong> </label>
                     <input type="Text" class="form-control form-login py-2  @error('username') is-invalid  @enderror"
                         id="fnProfile" placeholder="Your Name" value="{{ old('username', $user->user_name) }}"
-                        name="username">
+                        name="username" required>
                     @error('username')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -54,7 +54,7 @@
                     <label for="emailProfile" class="form-label"><strong>Email address </strong> </label>
                     <input type="email" class="form-control form-login py-2  @error('email') is-invalid  @enderror"
                         id="emailProfile" placeholder="Input Your Email"
-                        value="{{ old('email', $user->account->email) }}" name="email">
+                        value="{{ old('email', $user->account->email) }}" name="email" required>
                     @error('email')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -66,7 +66,7 @@
                     <input type="text"
                         class="form-control form-login py-2  @error('phoneNumber') is-invalid  @enderror"
                         id="phoneProfile" placeholder="Input Your Phone Number"
-                        value="{{ old('phoneNumber', $user->user_phone_number) }}" name="phoneNumber">
+                        value="{{ old('phoneNumber', $user->user_phone_number) }}" name="phoneNumber" required>
                     @error('phoneNumber')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -75,7 +75,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="city" class="form-label"><strong>City </strong> </label>
-                    <select class="form-select form-login" aria-label="city" name="city">
+                    <select class="form-select form-login" aria-label="city" name="city" required>
                         <option>Select your city</option>
                         @foreach ($cities as $city)
                             <option value="{{ $loop->iteration }}" class=" @error('city') is-invalid  @enderror"
@@ -92,7 +92,7 @@
                 <div class="row mb-3">
                     <div class="col-5">
                         <label for="genderProfile" class="form-label"><strong>Gender </strong> </label>
-                        <select class="form-select" id="genderProfile" name="gender">
+                        <select class="form-select" id="genderProfile" name="gender" required>
                             <option value="">Choose Your Gender</option>
                             <option class=" @error('gender') is-invalid  @enderror" value="Female"
                                 {{ $user->user_gender == 'Female' ? 'selected' : '' }}>Female
@@ -110,7 +110,7 @@
                         <div class="row">
                             <div class="col">
                                 <label for="dateProfile" class="form-label"><strong>Birthdate </strong> </label>
-                                <select class="form-select" id="dateProfile"
+                                <select required class="form-select" id="dateProfile"
                                     data-default-date="{{ $user->user_birthdate }}" name="date">
                                 </select>
                                 @error('date')
@@ -121,7 +121,7 @@
                             </div>
                             <div class="col">
                                 <label for="monthProfile" class="form-label opacity-0">month </strong> </label>
-                                <select class="form-select" id="monthProfile" name="month">
+                                <select required class="form-select" id="monthProfile" name="month">
                                     <option value="">Month</option>
                                     <option value="01" @error('month') class="is-invalid"  @enderror
                                         {{ substr($user->user_birthdate, 5, 2) == '01' ? 'selected' : '' }}>January
@@ -168,7 +168,7 @@
                             </div>
                             <div class="col">
                                 <label for="yearProfile" class="form-label opacity-0">year </strong> </label>
-                                <select class="form-select" id="yearProfile" name="year">
+                                <select required class="form-select" id="yearProfile" name="year">
                                 </select>
                                 @error('year')
                                     <div class="invalid-feedback">
@@ -223,8 +223,7 @@
                     <label for="passwordNew" class="form-label"><strong>New Password </strong> </label>
                     <input type="password"
                         class="form-control form-login py-2 @error('new_password') is-invalid  @enderror"
-                        id="passwordNew" placeholder="Min. 8 characters and include special character"
-                        name="new_password" required>
+                        id="passwordNew" placeholder="Min. 8 characters" name="new_password" required>
                     @error('new_password')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -235,8 +234,7 @@
                     <label for="passwordReNew" class="form-label"><strong>Confirm New Password </strong> </label>
                     <input type="password"
                         class="form-control form-login py-2 @error('confirm_password') is-invalid  @enderror"
-                        id="passwordReNew" placeholder="Min. 8 characters and include special character"
-                        name="confirm_password" required>
+                        id="passwordReNew" placeholder="Min. 8 characters" name="confirm_password" required>
                     @error('confirm_password')
                         <div class="invalid-feedback">
                             {{ $message }}

@@ -117,9 +117,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+        @if (session('failedLoginBlocked'))
+            <div class="alert alert-danger alert-dismissible fade show alert-login" role="alert">
+                Your account has been Blocked, Contact customerhelp@beautifind.com for more detail.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         @if (session('failedRegister'))
             <div class="alert alert-danger alert-dismissible fade show alert-login" role="alert">
-                Failed to Register. Please check again the form.
+                Failed to Register. Please check the form again.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
@@ -145,6 +151,20 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/home.js"></script>
+    @if (session('failedLogin') || session('failedRegister'))
+        <script>
+            @if (session('failedRegister'))
+                var registerBtn = document.getElementById('registerBtn');
+                registerBtn.click();
+            @endif
+
+            const addModal = document.getElementById('loginModal');
+            if (addModal) {
+                const modal = new bootstrap.Modal(addModal)
+                modal.show();
+            }
+        </script>
+    @endif
 </body>
 
 </html>

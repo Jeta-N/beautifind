@@ -88,6 +88,10 @@
                                     </a>
                                 </div>
                             </div>
+                            <div class="position-absolute card-salon-price">
+                                <p class="mb-0 text-end">Starting from</p>
+                                <h4 class="card-salon-price-text">Rp. {{ number_format($service->min_price, 0, ',') }}</h4>
+                            </div>
                         </div>
                     </div>
                 </div>

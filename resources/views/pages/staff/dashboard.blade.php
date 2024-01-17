@@ -80,9 +80,6 @@
                             <th scope="col" onclick="sortTable(3, 'employeesTable')">No Telpon <i
                                     class="bi bi-arrow-down-up"></i>
                             </th>
-                            <th scope="col" onclick="sortTable(4, 'employeesTable')">Role <i
-                                    class="bi bi-arrow-down-up"></i>
-                            </th>
                         </tr>
                     </thead>
                     <tbody id="-show">
@@ -92,7 +89,6 @@
                                 <td>{{ $employee->emp_name }}</td>
                                 <td>{{ $employee->account->email }}</td>
                                 <td>{{ $employee->emp_phone_number }}</td>
-                                <td>{{ $employee->account->account_role }}</td>
                             </tr>
                         @endforeach
                     </tbody>
