@@ -19,19 +19,23 @@ class BookingController extends Controller
     {
         $acc_id = Auth::user()->account_id;
         $user = User::where('account_id', '=', $acc_id)->first();
-        $bookings = Booking::where('user_id', '=', $user->user_id);
-        $bookings->with('bookingSlot');
-        $bookings->with('bookingSlot.employee');
-        $bookings->with('service');
-        $bookings->with('service.city');
-        $bookings->with('serviceType');
+        $bookings = Booking::join('booking_slot', 'booking_slot.bs_id', '=', 'booking.bs_id')
+                ->where('booking.user_id', $user->user_id)
+                ->with('bookingSlot')
+                ->with('bookingSlot.employee')
+                ->with('service')
+                ->with('service.city')
+                ->with('serviceType');
 
         if ($request->status !== 'All') {
             $bookings->where('booking_status', '=', $request->status);
         } else {
             $bookings->whereIn('booking_status', ['Upcoming', 'Done', 'Cancelled']);
         }
-        $bookings = $bookings->orderBy('booking_status', 'desc')->get();
+        $bookings->orderBy('booking.booking_status', 'desc');
+        $bookings->orderBy('booking_slot.date', 'desc');
+
+        $bookings = $bookings->get();
 
         foreach ($bookings as $booking) {
             $review = Review::where('booking_id', $booking->booking_id)->first();
@@ -107,7 +111,7 @@ class BookingController extends Controller
             $query->where(function (Builder $q)  use ($req_time_start, $req_time_end) {
                 $q->where('time_start', '>=', $req_time_start)->where('time_start', '<', $req_time_end);
             })->orWhere(function (Builder $q) use ($req_time_start, $req_time_end) {
-                $q->where('time_end', '>', $req_time_start)->where('time_end', '>=', $req_time_end);
+                $q->where('time_end', '>', $req_time_start)->where('time_end', '<=', $req_time_end);
             })->orWhere(function (Builder $q) use ($req_time_start) {
                 $q->where('time_start', '<=', $req_time_start)->where('time_end', '>', $req_time_start);
             })->orWhere(function (Builder $q) use ($req_time_end) {

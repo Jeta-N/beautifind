@@ -65,8 +65,8 @@
                                     <div class="card-body d-flex flex-column align-items-center">
                                         <h5 class="card-title">{{ $service->service_name }}</h5>
                                         <p class="card-text">{{ $service->service_description }}</p>
-                                        <a href="/service/{{ $service->service_id }}" class="btn bg-btn-book text-white">See
-                                            Detail</a>
+                                        <a href="/service/{{ $service->service_id }}"
+                                            class="px-2 py-1 bg-btn-book text-white">View Service</a>
                                     </div>
                                 </div>
                             </div>
@@ -219,9 +219,9 @@
                         @foreach ($reviews as $review)
                             <div class="col d-flex align-items-stretch flex-column">
                                 <div class="card h-100">
-                                    <img src="..." class="card-img-top" alt="...">
+
                                     <div class="card-body d-flex flex-column align-items-center">
-                                        <h5 class="card-title">{{ $review->user->user_name }}</h5>
+
                                         <p class="mb-0">
                                             @for ($i = 1; $i <= 5; $i++)
                                                 @if ($review->rating < $i)
@@ -237,6 +237,11 @@
                                             {{ $review->rating }}
                                         </p>
                                         <p class="card-text">{{ $review->review_content }}</p>
+                                        <div class="mt-auto">
+                                            {{-- <img src="..." class="" alt="..."> --}}
+                                            <i class="bi bi-person-circle text-secondary"></i>
+                                            <h5 class="card-title">{{ $review->user->user_name }}</h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

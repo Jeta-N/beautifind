@@ -162,6 +162,10 @@ function toggleStatusOrder(event) {
 }
 
 function getOrderData(status) {
+    var today = new Date();
+    today.setDate(today.getDate() - 1); // Subtract one day
+    var maxCancelDate = today.toISOString().split('T')[0];
+
     axios.get(`/user-booking?status=${status}`)
         .then(function (response) {
             console.log(response.data)
@@ -211,7 +215,7 @@ function getOrderData(status) {
                     ${order.booking_status === 'Done' && order.isReviewed == false ? `
                     <a href="/review/${order.booking_id}" class="review-href me-3">Write a Review</a>
                     ` : ''}
-                    ${order.booking_status === 'Upcoming' ? `<button class="profile-save-btn me-1 filter-btn bg-white border border-danger text-danger" data-bs-toggle="modal" data-bs-target="#cancelBookModal" data-booking-id="${order.booking_id}">Cancel</button>
+                    ${order.booking_status === 'Upcoming' && order.booking_slot.date < maxCancelDate ? `<button class="profile-save-btn me-1 filter-btn bg-white border border-danger text-danger" data-bs-toggle="modal" data-bs-target="#cancelBookModal" data-booking-id="${order.booking_id}">Cancel</button>
                     ` : ''}
                     <a class="profile-save-btn filter-btn text-decoration-none cursor-pointer" href="/service/${order.service_id}">Book Again</a>
                  </div>

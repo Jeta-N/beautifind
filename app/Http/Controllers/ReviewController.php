@@ -10,6 +10,7 @@ use App\Models\SuperAdmin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class ReviewController extends Controller
 {
@@ -40,10 +41,14 @@ class ReviewController extends Controller
 
     public function createReview(Request $request)
     {
-        $this->validate($request, [
-            'rating' => 'required',
-            'review' => 'min:5 | max:255'
-        ]);
+        try {
+            $this->validate($request, [
+                'rating' => 'required|numeric|min:0|max:5',
+                'review' => 'max:255'
+            ]);
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
 
         $booking = Booking::find($request->id);
         $acc_id = Auth::user()->account_id;

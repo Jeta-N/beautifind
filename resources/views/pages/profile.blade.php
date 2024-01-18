@@ -14,7 +14,7 @@
                         Preferences
                     </p>
                     <hr>
-                    <p class="p-1 cursor-pointer" data-bs-toggle="modal" data-bs-target="#logOutModal">Log Out</p>
+                    <a class="p-1 cursor-pointer text-decoration-none text-black" href="/logout">Log Out</a>
                 </div>
             </div>
             <div class="col-9">
@@ -22,7 +22,6 @@
                 @include('components.profile.my-order')
                 @include('components.profile.edit-preference')
             </div>
-            @include('components.profile.logout-modal')
         </div>
     </div>
 @endsection

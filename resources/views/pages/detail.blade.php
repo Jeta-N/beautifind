@@ -163,11 +163,10 @@
                         @foreach ($services->faq as $faq)
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapse{{ $loop->iteration }}" aria-expanded="true"
                                         aria-controls="collapse{{ $loop->iteration }}">
                                         <p class="mb-0"><strong>Q: </strong>{{ $faq->faq_question }}</p>
-
                                     </button>
                                 </h2>
                                 <div id="collapse{{ $loop->iteration }}" class="accordion-collapse collapse"

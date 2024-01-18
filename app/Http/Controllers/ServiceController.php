@@ -38,7 +38,7 @@ class ServiceController extends Controller
             $serviceCounts[$cityId] = $count;
         }
 
-        $reviews = Review::all()->sortByDesc('review_id')->take(9);
+        $reviews = Review::inRandomOrder()->take(9)->get();
 
         return view('pages.home', [
             'rec_services' => $rec_services,

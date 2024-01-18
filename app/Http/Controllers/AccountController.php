@@ -28,7 +28,7 @@ class AccountController extends Controller
         ];
 
         $user = Account::where('email', '=', $request->email)->first();
-        if ($user->is_blocked == true) {
+        if ($user != null && $user->is_blocked == true) {
             return redirect()->back()->with('failedLoginBlocked', 'failed login');
         }
         if (Auth::attempt($credentials)) {

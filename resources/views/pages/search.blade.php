@@ -54,7 +54,7 @@
                                     class="p-2 border-light-subtle border card-salon-rating rounded">{{ $service->review_avg_rating == null ? '-' : $service->review_avg_rating }}</span>
                                 <span><strong>
                                         @if ($service->review_avg_rating > 4)
-                                            SuperB
+                                            Superb
                                         @elseif($service->review_avg_rating > 3)
                                             Very Good
                                         @elseif($service->review_avg_rating > 2)
