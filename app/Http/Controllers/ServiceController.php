@@ -27,10 +27,10 @@ class ServiceController extends Controller
         if (Auth::check()) {
             $rec_services = $this->rec_service();
             if ($rec_services == []) {
-                $rec_services = Service::where('is_active', '=', true)->inRandomOrder()->take(8)->get();
+                $rec_services = Service::where('is_active', '=', true)->inRandomOrder()->take(8)->with('city')->get();
             }
         } else {
-            $rec_services = Service::where('is_active', '=', true)->inRandomOrder()->take(8)->get();
+            $rec_services = Service::where('is_active', '=', true)->inRandomOrder()->take(8)->with('city')->get();
         }
 
         $cityIds = City::Take(4)->pluck('city_id');
@@ -82,7 +82,7 @@ class ServiceController extends Controller
 
         if ($recommender == [] && count($recommender) > 1) {
             foreach ($recommender as $rec) {
-                $rec_services[] = Service::find($rec);
+                $rec_services[] = Service::find($rec)->with('city');
             }
         }
 

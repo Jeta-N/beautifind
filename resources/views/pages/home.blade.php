@@ -64,7 +64,8 @@
                                     <img src="{{ asset('storage/asset/images/services/thumbnail/' . $service->service_image_path) }}"
                                         class="card-img-top card-img-top-home" alt="service-thumbnail">
                                     <div class="card-body d-flex flex-column align-items-center">
-                                        <h5 class="card-title">{{ $service->service_name }}</h5>
+                                        <h5 class="card-title mb-0">{{ $service->service_name }}</h5>
+                                        <p class="text-secondary">{{ $service->city->city_name }}</p>
                                         <p class="card-text">{{ $service->service_description }}</p>
                                         <a href="/service/{{ $service->service_id }}"
                                             class="px-2 py-1 bg-btn-book text-white">View Service</a>

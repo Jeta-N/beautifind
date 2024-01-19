@@ -143,6 +143,94 @@ class AccountSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now()
             ],
+            [
+                'email' => 'manager1@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager2@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager3@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager4@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager5@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager6@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager7@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager8@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager9@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager10@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager11@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
         ]);
     }
 }

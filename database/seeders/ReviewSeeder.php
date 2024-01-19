@@ -22,15 +22,6 @@ class ReviewSeeder extends Seeder
                 'review_content' => 'Hasilnya bagus, dekat rumah,  recommended',
                 'created_at' => now(),
                 'updated_at' => now()
-            ],
-            [
-                'user_id' => 1,
-                'booking_id' => 2,
-                'service_id' => 1,
-                'rating' => 4.3,
-                'review_content' => 'Hasilnya bagus,  recommended, harga terjangkau',
-                'created_at' => now(),
-                'updated_at' => now()
             ]
         ]);
     }

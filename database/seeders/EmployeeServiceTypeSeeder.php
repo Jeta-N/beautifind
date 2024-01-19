@@ -34,6 +34,118 @@ class EmployeeServiceTypeSeeder extends Seeder
                 'price' => 170000,
                 'created_at' => now(),
                 'updated_at' => now()
+            ],
+            [
+                'emp_id' => 3,
+                'st_id' => 2,
+                'price' => 125000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 4,
+                'st_id' => 1,
+                'price' => 185000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 4,
+                'st_id' => 4,
+                'price' => 225000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 4,
+                'st_id' => 5,
+                'price' => 155000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 5,
+                'st_id' => 1,
+                'price' => 175000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 5,
+                'st_id' => 5,
+                'price' => 195000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 6,
+                'st_id' => 3,
+                'price' => 125000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 6,
+                'st_id' => 4,
+                'price' => 135000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 7,
+                'st_id' => 1,
+                'price' => 205000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 7,
+                'st_id' => 2,
+                'price' => 105000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 8,
+                'st_id' => 2,
+                'price' => 165000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 9,
+                'st_id' => 3,
+                'price' => 295000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 10,
+                'st_id' => 4,
+                'price' => 145000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 11,
+                'st_id' => 5,
+                'price' => 195000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 12,
+                'st_id' => 3,
+                'price' => 175000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 13,
+                'st_id' => 3,
+                'price' => 195000,
+                'created_at' => now(),
+                'updated_at' => now()
             ]
         ]);
     }

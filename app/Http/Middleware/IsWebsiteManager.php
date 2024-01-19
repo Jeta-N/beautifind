@@ -21,7 +21,7 @@ class IsWebsiteManager
         if ($user && $user->account_role == 'Website Manager') {
             return $next($request);
         } else {
-            abort(401, 'Unauthorized');
+            return redirect('/staff-login');
         }
     }
 }

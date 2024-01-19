@@ -26,7 +26,8 @@
             <div class="col-5">
                 <p><strong>Employee Profile Picture:</strong></p>
                 <div class="w-100">
-                    <img src="{{ asset('storage/asset/images/dummy-salon-detail.png') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('storage/asset/images/profile-picture/' . $employee->emp_image_path) }}" alt=""
+                        class="img-fluid">
                 </div>
             </div>
         </div>

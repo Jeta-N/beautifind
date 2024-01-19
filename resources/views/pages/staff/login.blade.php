@@ -21,7 +21,14 @@
                         </div>
                         @if (session('failedLogin'))
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                Failed to login. Please check your email and password.
+                                Failed to login. Incorrect email and/or password.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                                    onclick="console.log('test')"></button>
+                            </div>
+                        @endif
+                        @if (session('failedLoginBlocked'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                Your account is blocked. Please contact your superior or customerhelp@beautifind.com.
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
                                     onclick="console.log('test')"></button>
                             </div>

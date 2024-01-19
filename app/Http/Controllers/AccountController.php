@@ -12,6 +12,7 @@ use App\Models\UserSecurityQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\MessageBag;
 use Illuminate\Validation\ValidationException;
 
 class AccountController extends Controller
@@ -32,7 +33,9 @@ class AccountController extends Controller
         if ($user != null && $user->is_blocked == true) {
             return redirect()->back()->with('failedLoginBlocked', 'failed login');
         }
-        if (Auth::attempt($credentials)) {
+        if ($user != null && $user->account_role != "User") {
+            return redirect()->back()->with('failedLogin', 'failed login');
+        } else if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->back();
         } else {
@@ -142,7 +145,12 @@ class AccountController extends Controller
                 'confirm_password' => 'required|same:new_password',
             ]);
         } catch (ValidationException $e) {
-            return redirect()->back()->withErrors($e->errors())->withInput();
+            $errors = $e->errors();
+            if (!($errors instanceof MessageBag)) {
+                $errors = new MessageBag($errors);
+            }
+            $errors->add('validation_scenario', 'changePassword');
+            return redirect()->back()->withErrors($errors)->withInput();
         };
 
         $user = Auth::user();
@@ -226,6 +234,8 @@ class AccountController extends Controller
         } else if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'account_role' => ['Website Manager'], 'is_blocked' => false])) {
             $request->session()->regenerate();
             return redirect('/admin-dashboard');
+        } else if (Auth::attempt(['email' => $request->email, 'password' => $request->password,  'is_blocked' => true])) {
+            return redirect()->back()->with('failedLoginBlocked', 'failed login');
         } else {
             return redirect()->back()->with('failedLogin', 'failed login');
         }
