@@ -20,7 +20,7 @@
         </div>
         <table class="table table-bordered" id="usersTable">
             <thead>
-                <tr>
+                <tr class="align-middle">
                     <th scope="col-2" onclick="sortTable(0, 'usersTable')">No <i class="bi bi-arrow-down-up"></i></th>
                     <th scope="col" onclick="sortTable(1, 'usersTable')">Employee Name<i class="bi bi-arrow-down-up"></i>
                     </th>

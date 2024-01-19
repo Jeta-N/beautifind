@@ -39,7 +39,7 @@
             <h2>Booking History</h2>
             <table class="table table-bordered" id="bookingProfileTable">
                 <thead>
-                    <tr>
+                    <tr class="align-middle">
                         <th scope="col-2" onclick="sortTable(0, 'bookingProfileTable')">No <i
                                 class="bi bi-arrow-down-up"></i>
                         </th>

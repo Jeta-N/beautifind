@@ -68,7 +68,7 @@
                 </div>
                 <table class="table table-bordered rounded" id="employeesTable">
                     <thead class="rounded-top">
-                        <tr>
+                        <tr class="align-middle">
                             <th scope="col-2" onclick="sortTable(0, 'employeesTable')">No <i
                                     class="bi bi-arrow-down-up"></i>
                             </th>
@@ -101,7 +101,7 @@
                 </div>
                 <table class="table table-bordered rounded" id="bookingsTable">
                     <thead>
-                        <tr>
+                        <tr class="align-middle">
                             <th scope="col-2" onclick="sortTable(0, 'bookingsTable')">No <i
                                     class="bi bi-arrow-down-up"></i>
                             </th>

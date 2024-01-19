@@ -13,7 +13,7 @@
         </div>
         <table class="table table-bordered" id="manageServiceServiceTypeTable">
             <thead>
-                <tr>
+                <tr class="align-middle">
                     <th scope="col-2" onclick="sortTable(0, 'manageServiceServiceTypeTable')">No <i
                             class="bi bi-arrow-down-up"></i>
                     </th>
