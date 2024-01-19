@@ -39,8 +39,8 @@ class PortfolioImageController extends Controller
         }
 
         $count = PortfolioImage::where('service_id', '=', $emp->service_id)->count();
-        if ($count > 10 || $count < 1) {
-            return redirect()->back()->with('errorActivatePortfolio', 'There are already 10 Portfolio Images, please delete some before adding new ones.');
+        if ($count > 10) {
+            return redirect()->back()->with('errorCreatePortfolio', 'There are already 10 Portfolio Images, please delete some before adding new ones.');
         }
 
         $file = $request->file('image');
@@ -53,7 +53,7 @@ class PortfolioImageController extends Controller
             'portfolio_title' => $request->title
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('successCreatePortfolio', 'successCreatePortfolio');
     }
 
     public function deletePortfolio(Request $request)
@@ -85,7 +85,7 @@ class PortfolioImageController extends Controller
 
         $count = PortfolioImage::where('service_id', '=', $emp->service_id)->count();
         if ($count < 1) {
-            return redirect()->back()->with('error', 'There are no portfolio images available. Please add some.');
+            return redirect()->back()->with('errorActivatePortfolio', 'There are no portfolio images available. Please add some.');
         }
 
         $service = Service::find($emp->service_id);

@@ -46,7 +46,7 @@
                             <label for="service_type" class="form-label">Price</label>
                             <input type="number" name="price" id="price"
                                 class="form-control form-login @error('price') is-invalid  @enderror"
-                                placeholder="Input the Price. ex: 30000" min="10000" step="1000">
+                                placeholder="Input the Price. ex: 30000" min="10000" step="1000" required>
                             @error('price')
                                 <div class="invalid-feedback">
                                     {{ $message }}

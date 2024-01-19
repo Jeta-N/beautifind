@@ -19,7 +19,8 @@
                 </button>
             </form>
             <div class="ms-auto">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editServiceModal">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editServiceModal" type="button"
+                    id="editProfileBtn">
                     <strong>Edit Profile</strong>
                 </button>
             </div>
@@ -28,12 +29,13 @@
             <div class="row">
                 <div class="col-7">
                     <p><strong>Service Description: </strong><br>
-                        {{ $service->service_description }}</p>
-                    <p><strong>Service Address:</strong> {{ $service->service_address }}</p>
-                    <p><strong>Service Phone Number:</strong> {{ $service->service_phone }}</p>
+                        {{ $service->service_description ?? '-' }}</p>
+                    <p><strong>Service City:</strong> {{ $service->city->city_name ?? '-' }}</p>
+                    <p><strong>Service Address:</strong> {{ $service->service_address ?? '-' }}</p>
+                    <p><strong>Service Phone Number:</strong> {{ $service->service_phone ?? '-' }}</p>
                     <p><strong>Service Email:</strong> {{ $service->service_email ?? '-' }}</p>
                     <p><strong>Service Instagram:</strong> {{ $service->service_instagram ?? '-' }} </p>
-                    <p><strong>Service Opening Hours:</strong> {{ $service->service_opening_hours }}</p>
+                    <p><strong>Service Opening Hours:</strong> {{ $service->service_opening_hours ?? '-' }}</p>
                     <p><strong>Service Type:</strong>
                         @foreach ($service->serviceServiceType as $serviceServiceType)
                             <span class="px-2">{{ $serviceServiceType->serviceType->st_name }}</span>
@@ -58,7 +60,7 @@
             {{-- Portofolio --}}
             <div class="pt-4">
                 <div class="d-flex flex-row align-items-center mb-2">
-                    <h3>Portofolio</h3>
+                    <h3>Portfolio</h3>
                     <form action="/deactivate-portfolio" method="POST">
                         @csrf
                         @method('PUT')
@@ -76,8 +78,9 @@
                         </button>
                     </form>
                     <div class="ms-auto">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPortfolioModal">
-                            <strong>Add Portofolio</strong>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPortfolioModal"
+                            type="button" id="addPortfolioBtn">
+                            <strong>Add Portfolio</strong>
                         </button>
                     </div>
                 </div>
@@ -155,7 +158,8 @@
                         </button>
                     </form>
                     <div class="ms-auto">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPromotionModal">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPromotionModal"
+                            type="button" id="addPromotionBtn">
                             <strong>Add Promotion</strong>
                         </button>
                     </div>
@@ -236,7 +240,8 @@
                         </button>
                     </form>
                     <div class="ms-auto">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFaqModal">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFaqModal"
+                            type="button" id="addFaqBtn">
                             <strong>Add FAQ</strong>
                         </button>
                     </div>
@@ -310,12 +315,20 @@
                 const toastBody = document.getElementById('toastBody');
                 @if ($errors->first('validation_scenario') == 'portfolio')
                     toastBody.innerHTML = "Failed to add portfolio, please check the form again."
+                    const portfolioBtn = document.getElementById('addPortfolioBtn');
+                    portfolioBtn.click();
                 @elseif ($errors->first('validation_scenario') == 'profile')
+                    const editProfileBtn = document.getElementById('editProfileBtn');
+                    editProfileBtn.click();
                     toastBody.innerHTML = "Failed to update profile, please check the form again."
                 @elseif ($errors->first('validation_scenario') == 'promotion')
+                    const promotionBtn = document.getElementById('addPromotionBtn');
+                    promotionBtn.click();
                     toastBody.innerHTML = "Failed to add promotion, please check the form again."
                 @elseif ($errors->first('validation_scenario') == 'faq')
                     toastBody.innerHTML = "Failed to add FAQ, please check the form again."
+                    const faqBtn = document.getElementById('addFaqBtn');
+                    faqBtn.click();
                 @endif
                 toastBootstrap.show();
             });
@@ -329,6 +342,42 @@
                 const toastBootstrap = new bootstrap.Toast(informationToast);
                 const toastBody = document.getElementById('toastBody');
                 toastBody.innerHTML = "Service profile has been updated successfully!"
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('successCreateFaq'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "FaQ has been created successfully!"
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('successCreatePortfolio'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "Portfolio has been created successfully!"
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('successCreatePromotion'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "Promotion has been created successfully!"
                 toastBootstrap.show();
             });
         </script>
@@ -364,7 +413,7 @@
                     'informationToast')
                 const toastBootstrap = new bootstrap.Toast(informationToast);
                 const toastBody = document.getElementById('toastBody');
-                toastBody.innerHTML = "Can't activate the portfolio, at least 1 portfolio and max 10 portfolio!"
+                toastBody.innerHTML = "Can't activate the portfolio, must have at least 1 portfolio!"
                 toastBootstrap.show();
             });
         </script>
@@ -376,7 +425,7 @@
                     'informationToast')
                 const toastBootstrap = new bootstrap.Toast(informationToast);
                 const toastBody = document.getElementById('toastBody');
-                toastBody.innerHTML = "Can't activate the service, at least 1 promotion!"
+                toastBody.innerHTML = "Can't activate the promotion, must have at least 1 promotion!"
                 toastBootstrap.show();
             });
         </script>
@@ -388,7 +437,44 @@
                     'informationToast')
                 const toastBootstrap = new bootstrap.Toast(informationToast);
                 const toastBody = document.getElementById('toastBody');
-                toastBody.innerHTML = "Can't activate the service, at least 1 faq and max 10 faq!"
+                toastBody.innerHTML = "Can't activate the FaQ, must have at least 1 FaQ!"
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('errorCreateFaq'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "There are already 10 FAQs, please delete some before adding new ones."
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('errorCreatePromotion'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "There are already 10 Promotions, please delete some before adding new ones."
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('errorCreatePortfolio'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML =
+                    "There are already 10 Portfolio Images, please delete some before adding new ones."
                 toastBootstrap.show();
             });
         </script>

@@ -27,13 +27,13 @@
                             <li class="pt-2">
                                 <a href="/staff-salon-profile" class="nav-link d-flex align-items-center">
                                     <i class="bi bi-file-bar-graph me-2 fs-5" style="margin-bottom:2px;"></i>
-                                    <p class="mb-0">Salon profile</p>
+                                    <p class="mb-0">Service profile</p>
                                 </a>
                             </li>
                             <li class="pt-2">
                                 <a href="/staff-service-service-type" class="nav-link d-flex align-items-center">
                                     <i class="bi bi-file-bar-graph me-2 fs-5" style="margin-bottom:2px;"></i>
-                                    <p class="mb-0">Edit Salon Service Type</p>
+                                    <p class="mb-0">Edit Service Service Type</p>
                                 </a>
                             </li>
                             <li class="pt-2">

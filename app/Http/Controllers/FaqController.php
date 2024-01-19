@@ -38,8 +38,8 @@ class FaqController extends Controller
         }
 
         $count = Faq::where('service_id', '=', $emp->service_id)->count();
-        if ($count > 10 || $count < 1) {
-            return redirect()->back()->with('errorActivateFaq', 'There are already 10 FAQs, please delete some before adding new ones.');
+        if ($count > 10) {
+            return redirect()->back()->with('errorCreateFaq', 'There are already 10 FAQs, please delete some before adding new ones.');
         }
 
         Faq::create([
@@ -48,7 +48,7 @@ class FaqController extends Controller
             'faq_answer' => $request->answer
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('successCreateFaq', 'successCreateFaq');
     }
 
     public function deleteFAQ(Request $request)
@@ -79,7 +79,7 @@ class FaqController extends Controller
 
         $count = Faq::where('service_id', '=', $emp->service_id)->count();
         if ($count < 1) {
-            return redirect()->back()->with('error', 'There are no FAQs available. Please add some.');
+            return redirect()->back()->with('errorActivateFaq', 'There are no FAQs available. Please add some.');
         }
 
         $service = Service::find($emp->service_id);

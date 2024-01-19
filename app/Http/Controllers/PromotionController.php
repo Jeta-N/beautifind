@@ -41,7 +41,7 @@ class PromotionController extends Controller
 
         $count = Promotion::where('service_id', '=', $emp->service_id)->count();
         if ($count > 10) {
-            return redirect()->back()->with('error', 'There are already 10 Promotions, please delete some before adding new ones.');
+            return redirect()->back()->with('errorCreatePromotion', 'There are already 10 Promotions, please delete some before adding new ones.');
         }
 
         $file = $request->file('image');
@@ -55,7 +55,7 @@ class PromotionController extends Controller
             'promo_description' => $request->desc,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('successCreatePromotion', 'successCreatePromotion');
     }
 
     public function deletePromotion(Request $request)

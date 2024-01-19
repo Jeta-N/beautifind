@@ -6,7 +6,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <h2 id="addPortfolioModalHeader">Nice to see you again :)</h2>
+                    <h2 id="addPortfolioModalHeader">Add Portfolio</h2>
                     <form method="POST" id="addPortfolioForm" action="/add-portfolio" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">

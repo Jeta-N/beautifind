@@ -7,7 +7,7 @@
             <div class="text-end mb-2 ms-auto">
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addServiceServiceTypeModal"
                     type="button">
-                    <strong>Add Service Service Type</strong>
+                    <strong>Add Service Type</strong>
                 </button>
             </div>
         </div>
@@ -72,6 +72,19 @@
                 const toastBody = document.getElementById('toastBody');
                 toastBody.innerHTML =
                     'Failed to add service type. The service type already exist, Delete the existing first!'
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('needEmployee'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML =
+                    'Failed to add service type. There\'s no employee available, Add employee service type first!'
                 toastBootstrap.show();
             });
         </script>

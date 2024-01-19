@@ -24,8 +24,8 @@ class SuperAdminController extends Controller
         $service = Service::create([
             'service_name' => $request->service_name,
             'city_id' => $request->city,
-            'logo_image_path' => 'logo.jpg',
-            'service_image_path' => 'service_image.jpg',
+            'logo_image_path' => 'default.png',
+            'service_image_path' => 'default.jpg',
             'is_active' => false,
             'has_faq' => false,
             'has_portfolio' => false,
@@ -45,7 +45,7 @@ class SuperAdminController extends Controller
             'account_id' => $acc->account_id,
             'service_id' => $service->service_id,
             'sa_name' => $request->name,
-            'sa_image_path' => "saprofile.jpg"
+            'sa_image_path' => "default-user.svg"
         ]);
 
         return redirect()->back();

@@ -6,7 +6,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <h2 id="addPromotionModalHeader">Nice to see you again :)</h2>
+                    <h2 id="addPromotionModalHeader">Add Promotion</h2>
                     <form method="POST" id="addPromotionForm" action="/add-promotion" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">

@@ -30,6 +30,13 @@ class EmployeeServiceTypeSeeder extends Seeder
             ],
             [
                 'emp_id' => 2,
+                'st_id' => 4,
+                'price' => 80000,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'emp_id' => 2,
                 'st_id' => 5,
                 'price' => 170000,
                 'created_at' => now(),

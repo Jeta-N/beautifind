@@ -6,7 +6,7 @@
             <h1>Manage Service</h1>
             <div class=" ms-auto d-flex align-items-center">
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addServiceModal" type="button">
-                    <strong>Add Super Admin</strong>
+                    <strong>Add Service</strong>
                 </button>
             </div>
         </div>

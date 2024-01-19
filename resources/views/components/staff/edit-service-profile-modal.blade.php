@@ -6,7 +6,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <h2 id="editServiceModalHeader">Nice to see you again :)</h2>
+                    <h2 id="editServiceModalHeader">Edit Profile</h2>
                     <form method="POST" id="editServiceForm" action="/edit-service-profile"
                         enctype="multipart/form-data">
                         @csrf

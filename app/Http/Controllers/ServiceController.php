@@ -226,7 +226,8 @@ class ServiceController extends Controller
             'portfolioImage',
             'promotion',
             'serviceServiceType',
-            'serviceServiceType.serviceType'
+            'serviceServiceType.serviceType',
+            'city'
         ])->find($service_id)->first();
 
         return view('pages.staff.salon-profile', [
@@ -293,12 +294,13 @@ class ServiceController extends Controller
         try {
             $this->validate($request, [
                 'name' => 'required | min:5',
-                'description' => 'required',
+                'description' => 'required | min:5',
                 'opening_hours' => 'required',
                 'address' => 'required | min:5',
                 'phone' => 'required | min:9 | max:13',
                 'logo_image' => 'image',
-                'service_image' => 'image'
+                'service_image' => 'image',
+                'opening_hours' => 'required | min:5'
             ]);
         } catch (ValidationException $e) {
             $errors = $e->errors();
