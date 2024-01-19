@@ -26,6 +26,9 @@ class ServiceController extends Controller
         $rec_services = [];
         if (Auth::check()) {
             $rec_services = $this->rec_service();
+            if ($rec_services == []) {
+                $rec_services = Service::where('is_active', '=', true)->inRandomOrder()->take(8)->get();
+            }
         } else {
             $rec_services = Service::where('is_active', '=', true)->inRandomOrder()->take(8)->get();
         }
@@ -77,8 +80,10 @@ class ServiceController extends Controller
         $recommender = array_rand($service_score, $random);
         $rec_services = [];
 
-        foreach ($recommender as $rec) {
-            $rec_services[] = Service::find($rec);
+        if ($recommender == [] && count($recommender) > 1) {
+            foreach ($recommender as $rec) {
+                $rec_services[] = Service::find($rec);
+            }
         }
 
         return $rec_services;
@@ -161,7 +166,7 @@ class ServiceController extends Controller
         if ($filterRating && $filterRating != []) {
             $query->having('review_avg_rating', '>', $filterRating);
         }
-        $services = $query->get();
+        $services = $query->paginate(5);
 
         return view('pages.search')->with('services', $services);
     }
@@ -337,7 +342,7 @@ class ServiceController extends Controller
             $service->service_instagram = null;
         }
 
-        if ($request->filled('logo_image')) {
+        if ($request->logo_image) {
             $file = $request->file('logo_image');
             $logo_img_name = $emp->service_id . '_logo_image_' . time() . '.' . $file->getClientOriginalExtension();
             Storage::putFileAs('public/asset/images/services/logo', $file, $logo_img_name);
@@ -345,7 +350,7 @@ class ServiceController extends Controller
             $service->logo_image_path = $logo_img_name;
         }
 
-        if ($request->filled('service_image')) {
+        if ($request->service_image) {
             $file = $request->file('service_image');
             $service_img_name = $emp->service_id . '_service_image_' . time() . '.' . $file->getClientOriginalExtension();
             Storage::putFileAs('public/asset/images/services/thumbnail', $file, $service_img_name);
@@ -370,9 +375,13 @@ class ServiceController extends Controller
 
         if (
             is_null($service->service_name) || is_null($service->service_description) || is_null($service->service_opening_hours)
-            || is_null($service->service_address) || is_null($service->service_phone) || is_null($service->serviceServiceType) || count($service->employee) < 1
+            || is_null($service->service_address) || is_null($service->service_phone) || is_null($service->serviceServiceType)
         ) {
-            return redirect()->back()->with('errorActivate', 'Please complete the service profile.');
+            return redirect()->back()->with('errorActivate', '"Can\'t activate the service, please complete the profile first!"');
+        }
+
+        if (count($service->employee) < 1) {
+            return redirect()->back()->with('errorActivate2', 'Can\'t activate the service, please add at least one employee.');
         }
 
         $service->is_active = true;

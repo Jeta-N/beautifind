@@ -48,7 +48,7 @@
                 <form method="POST" id="editPasswordForm" action="/edit-password">
                     @csrf
                     @method('PUT')
-                    <input type="hidden" name="acc_id" id="acc_id">
+                    <input type="hidden" name="acc_id" id="acc_id" value="{{ old('acc_id') }}">
                     <div class="mb-3">
                         <label for="passwordNew" class="form-label">New Password</label>
                         <input type="password"
@@ -79,4 +79,14 @@
 @endsection
 @section('scripts')
     <script src="../js/forgotPass.js"></script>
+    @if ($errors->any())
+        {
+        <script>
+            changePassword.classList.remove('d-none');
+            securityQuestion.classList.add('d-none');
+            const checkEmailError = document.getElementById('checkEmail');
+            checkEmailError.classList.add('d-none');
+        </script>
+        }
+    @endif
 @endsection

@@ -45,13 +45,12 @@
                 </div>
                 <div class="col-5">
                     <p><strong>Service Logo:</strong></p>
-                    <img src="{{ asset('storage/asset/images/dummy-salon-logo.png') }}" alt="">
-                    {{-- <img src="{{ asset('storage/asset/images/dummy-salon-detail.png') }}" alt="" class="img-fluid"> --}}
-
+                    <img src="{{ asset('storage/asset/images/services/logo/' . $service->logo_image_path) }}"
+                        alt="" class="w-100">
                     <p><strong>Service Thumbnail:</strong></p>
                     <div class="w-100">
-                        <img src="{{ asset('storage/asset/images/dummy-salon-detail.png') }}" alt=""
-                            class="img-fluid">
+                        <img src="{{ asset('storage/asset/images/services/thumbnail/' . $service->service_image_path) }}"
+                            alt="" class="w-100">
                     </div>
                 </div>
             </div>
@@ -88,11 +87,9 @@
                         <div class="swiper-wrapper portfolio-img-container">
                             @foreach ($service->portfolioImage as $portfolio)
                                 <div class="swiper-slide">
-                                    {{-- <img src="{{ asset($portfolio->image_path) }}" alt="portfolio image"
-                                                class="img-fluid"> --}}
                                     <div class="card">
-                                        <img src="{{ asset('storage/asset/images/dummy-salon-detail.png ') }}"
-                                            class="card-img-top" alt="promo image">
+                                        <img src="{{ asset('storage/asset/images/services/portofolio/' . $portfolio->image_path) }}"
+                                            alt="portfolio image" class="img-fluid">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $portfolio->portfolio_title }}</h5>
                                             <form action="/delete-portfolio/{{ $portfolio->pi_id }}" method="POST">
@@ -117,8 +114,8 @@
                         @foreach ($service->portfolioImage as $portfolio)
                             <div class="col-3 d-flex align-items-stretch flex-column">
                                 <div class="card h-100">
-                                    <img src="{{ asset('storage/asset/images/dummy-salon-detail.png ') }}"
-                                        class="card-img-top" alt="promo image">
+                                    <img src="{{ asset('storage/asset/images/services/portofolio/' . $portfolio->image_path) }}"
+                                        alt="portfolio image" class="img-fluid">
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title">{{ $portfolio->portfolio_title }}</h5>
                                         <form action="/delete-portfolio/{{ $portfolio->pi_id }}" method="POST"
@@ -169,11 +166,9 @@
                         <div class="swiper-wrapper portfolio-img-container">
                             @foreach ($service->promotion as $promotion)
                                 <div class="swiper-slide">
-                                    {{-- <img src="{{ asset($portfolio->image_path) }}" alt="portfolio image"
-                                            class="img-fluid"> --}}
                                     <div class="card">
-                                        <img src="{{ asset('storage/asset/images/dummy-salon-detail.png ') }}"
-                                            class="card-img-top" alt="promo image">
+                                        <img src="{{ asset('storage/asset/images/services/promotion/' . $promotion->image_path) }}"
+                                            alt="portfolio image" class="img-fluid">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $promotion->promo_title }}</h5>
                                             <p class="card-text">{{ $promotion->promo_description }}</p>
@@ -199,8 +194,8 @@
                         @foreach ($service->promotion as $promotion)
                             <div class="col-3 d-flex align-items-stretch flex-column">
                                 <div class="card h-100">
-                                    <img src="{{ asset('storage/asset/images/dummy-salon-detail.png ') }}"
-                                        class="card-img-top" alt="promo image">
+                                    <img src="{{ asset('storage/asset/images/services/promotion/' . $promotion->image_path) }}"
+                                        alt="portfolio image" class="img-fluid">
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title">{{ $promotion->promo_title }}</h5>
                                         <p class="card-text">{{ $promotion->promo_description }}</p>
@@ -294,7 +289,6 @@
 @endsection
 
 @section('scripts')
-    <script src="../js/staff/bookingSlot.js"></script>
     @if ($errors->has('validation_scenario') && $errors->first('validation_scenario') == 'profile')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -347,6 +341,18 @@
                 const toastBootstrap = new bootstrap.Toast(informationToast);
                 const toastBody = document.getElementById('toastBody');
                 toastBody.innerHTML = "Can't activate the service, please complete the profile first!"
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('errorActivate2'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "Can't activate the service, please add at least one employee!"
                 toastBootstrap.show();
             });
         </script>

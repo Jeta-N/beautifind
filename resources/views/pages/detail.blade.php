@@ -5,7 +5,8 @@
         <div class="row pt-3">
             {{-- Left Part --}}
             <div class="col-8">
-                <img src="{{ asset('storage/asset/images/dummy-salon-detail.png') }}" alt="" class="img-fluid">
+                <img src="{{ asset('storage/asset/images/services/thumbnail/' . $services->service_image_path) }}"
+                    alt="" class="w-100 img-fluid">
                 <h3 class="px-3 mt-2">{{ $services->service_name }}</h3>
                 <p class="px-3 mb-0">{{ $services->service_description }}
                 </p>
@@ -76,9 +77,7 @@
                             <div class="swiper-wrapper portfolio-img-container">
                                 @foreach ($services->portfolioImage as $portfolio)
                                     <div class="swiper-slide">
-                                        {{-- <img src="{{ asset($portfolio->image_path) }}" alt="portfolio image"
-                                                class="img-fluid"> --}}
-                                        <img src="{{ asset('storage/asset/images/dummy-salon-detail.png ') }}"
+                                        <img src="{{ asset('storage/asset/images/services/portofolio/' . $portfolio->image_path) }}"
                                             alt="portfolio image" class="img-fluid">
                                         <div class="overlay-portfolio-title">
                                             {{ $portfolio->portfolio_title }}
@@ -96,10 +95,8 @@
                             @foreach ($services->portfolioImage as $portfolio)
                                 <div class="col-4">
                                     <div class="position-relative">
-                                        <img src="{{ asset('storage/asset/images/dummy-salon-detail.png ') }}"
+                                        <img src="{{ asset('storage/asset/images/services/portofolio/' . $portfolio->image_path) }}"
                                             alt="portfolio image" class="img-fluid">
-                                        {{-- <img src="{{ asset($portfolio->image_path) }}" alt="portfolio image"
-                                            class="img-fluid"> --}}
                                         <div class="overlay-portfolio-title">
                                             {{ $portfolio->portfolio_title }}
                                         </div>
@@ -121,8 +118,8 @@
                                 @foreach ($services->promotion as $promotion)
                                     <div class="swiper-slide">
                                         <div class="card">
-                                            <img src="{{ asset('storage/asset/images/dummy-salon-detail.png ') }}"
-                                                class="card-img-top" alt="promo image">
+                                            <img src="{{ asset('storage/asset/images/services/promotion/' . $promotion->image_path) }}"
+                                                alt="promo image" class="img-fluid">
                                             <div class="card-body">
                                                 <h5 class="card-title">{{ $promotion->promo_title }}</h5>
                                                 <p class="card-text">{{ $promotion->promo_description }}</p>
@@ -141,8 +138,8 @@
                             @foreach ($services->promotion as $promotion)
                                 <div class="col-4">
                                     <div class="card h-100">
-                                        <img src="{{ asset('storage/asset/images/dummy-salon-detail.png ') }}"
-                                            class="card-img-top" alt="promo image">
+                                        <img src="{{ asset('storage/asset/images/services/promotion/' . $promotion->image_path) }}"
+                                            alt="promo image" class="img-fluid">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $promotion->promo_title }}</h5>
                                             <p class="card-text">{{ $promotion->promo_description }}</p>
@@ -255,10 +252,13 @@
         <div class="col-4 sticky-top detail-info rounded">
             <div class="rounded border border-top-0">
                 <div class="salon-logo">
-                    <img src="{{ asset('storage/asset/images/dummy-salon-logo.png') }}" alt="">
+                    <img src="{{ asset('storage/asset/images/services/logo/' . $services->logo_image_path) }}"
+                        alt="" class="w-100">
                     {{-- <img src="{{ asset($services->logo_image_path) }}" alt="logo salon"> --}}
                 </div>
                 <div class="p-3 border-top border-bottom">
+                    <h3>{{ $services->service_name }}</h3>
+                    <hr>
                     <p><strong>Contact & Business Hours</strong></p>
                     <p><i class="bi bi-geo-alt me-1"></i>{{ $services->service_address }}</p>
                     <p><i class="bi bi-telephone me-1"></i>{{ $services->service_phone }}</p>

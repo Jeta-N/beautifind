@@ -6,8 +6,8 @@
         <div class="card-body position-relative d-flex flex-column border rounded p-4 w-75 align-self-center">
             <div class="d-flex flex-row">
                 <div class="logo-container-my-order me-3">
-                    <img src="../storage/asset/images/dummy-salon-logo-my-order.png" alt=""
-                        class="rounded-circle logo-my-order">
+                    <img src="{{ asset('storage/asset/images/services/logo/' . $booking->service->logo_image_path) }}"
+                        alt="" class="rounded-circle logo-my-order">
                 </div>
                 <div class="d-flex flex-column justify-content-center me-3">
                     <h5 class="card-title"> <strong>{{ $booking->service->service_name }}</strong> </h5>
@@ -58,6 +58,7 @@
                     @enderror
                 </div>
                 <div class="w-100 text-end">
+                    <a href="/profile?activeTab=myOrder" class="profile-save-btn filter-btn text-decoration-none">Cancel</a>
                     <button class="profile-save-btn filter-btn" type="submit">Submit</button>
                 </div>
             </form>

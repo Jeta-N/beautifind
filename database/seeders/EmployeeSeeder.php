@@ -21,7 +21,7 @@ class EmployeeSeeder extends Seeder
                 'emp_gender' => 'Female',
                 'emp_birthdate' => '1999-11-03',
                 'emp_phone_number' => '085688279375',
-                'emp_image_path' => 'employeeprofile1.jpg',
+                'emp_image_path' => 'default-user.svg',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -32,7 +32,7 @@ class EmployeeSeeder extends Seeder
                 'emp_gender' => 'Male',
                 'emp_birthdate' => '2000-08-25',
                 'emp_phone_number' => '085799862279',
-                'emp_image_path' => 'employeeprofile2.jpg',
+                'emp_image_path' => 'default-user.svg',
                 'created_at' => now(),
                 'updated_at' => now()
             ]

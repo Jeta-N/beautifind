@@ -28,7 +28,7 @@ class ReviewSeeder extends Seeder
                 'booking_id' => 2,
                 'service_id' => 1,
                 'rating' => 4.3,
-                'review_content' => 'Hasilnya bagus, dekat rumah,  recommended',
+                'review_content' => 'Hasilnya bagus,  recommended, harga terjangkau',
                 'created_at' => now(),
                 'updated_at' => now()
             ]

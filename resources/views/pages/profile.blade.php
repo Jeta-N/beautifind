@@ -29,4 +29,10 @@
 
 @section('scripts')
     <script src="./js/profile.js"></script>
+    @if ($errors->any() || session('errorPassword'))
+        <script>
+            const btnChangePass = document.getElementById('btnChangePassword');
+            btnChangePass.click();
+        </script>
+    @endif
 @endsection

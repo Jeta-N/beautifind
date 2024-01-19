@@ -179,7 +179,7 @@ function getOrderData(status) {
                     <div class="card-body position-relative d-flex flex-column border rounded p-4 mt-3">
                     <div class="d-flex flex-row">
                      <div class="logo-container-my-order me-3">
-                            <img src="../storage/asset/images/dummy-salon-logo-my-order.png" alt=""
+                            <img src="../storage/asset/images/services/logo/${order.service.logo_image_path}" alt=""
                                 class="rounded-circle logo-my-order">
                       </div>
                        <div class="d-flex flex-column justify-content-center me-3">

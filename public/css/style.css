@@ -278,7 +278,12 @@ body
     color: #8E8B7E;
 }
 
-/* Recommendation */
+.card-img-top-home
+{
+    height: 150px;
+}
+
+/* Search */
 .search-header
 {
     cursor: pointer;
@@ -317,6 +322,20 @@ body
 .btn-check:checked+.price-pill
 {
     background: #F4EFEC;
+}
+
+.pagination
+{
+    --bs-pagination-color: #000;
+    --bs-pagination-hover-color: #1a1b1b;
+    --bs-pagination-focus-color: #1a1b1b;
+    --bs-pagination-active-bg: #5E5946;
+    --bs-pagination-active-border-color: #5E5946;
+}
+
+.page-link:focus
+{
+    box-shadow: none
 }
 
 /* Detail */
@@ -371,23 +390,10 @@ body
     text-align: center;
 }
 
-.salon-logo::before
-{
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: url('../storage/asset/images/dummy-salon-logo.png') center/cover no-repeat;
-    filter: blur(5px);
-    /* Adjust the blur intensity as needed */
-    z-index: -1;
-}
-
 .salon-logo img
 {
-    width: 50%;
+    height: 80px;
+    object-fit: contain;
 }
 
 .swiper-wrapper.portfolio-img-container

@@ -87,7 +87,7 @@ class EmployeeController extends Controller
             'emp_gender' => $request->gender,
             'emp_birthdate' => $birthdate,
             'emp_phone_number' => $request->phone_number,
-            'emp_image_path' => "employeeprofile.jpg"
+            'emp_image_path' => "default-user.svg"
         ]);
 
         return redirect()->back()->with('successCreateEmployee', 'Successfully create employee');;

@@ -61,7 +61,8 @@
                         @foreach ($rec_services as $service)
                             <div class="swiper-slide">
                                 <div class="card h-100">
-                                    <img src="..." class="card-img-top" alt="...">
+                                    <img src="{{ asset('storage/asset/images/services/thumbnail/' . $service->service_image_path) }}"
+                                        class="card-img-top card-img-top-home" alt="service-thumbnail">
                                     <div class="card-body d-flex flex-column align-items-center">
                                         <h5 class="card-title">{{ $service->service_name }}</h5>
                                         <p class="card-text">{{ $service->service_description }}</p>
@@ -78,7 +79,8 @@
                     @foreach ($rec_services as $service)
                         <div class="col-3 d-flex align-items-stretch">
                             <div class="card h-100">
-                                <img src="..." class="card-img-top" alt="...">
+                                <img src="{{ asset('storage/asset/images/services/thumbnail/' . $service->service_image_path) }}"
+                                    class="card-img-top card-img-top-home" alt="service-thumbnail">
                                 <div class="card-body d-flex flex-column align-items-center">
                                     <h5 class="card-title">{{ $service->service_name }}</h5>
                                     <p class="card-text">{{ $service->service_description }}</p>
@@ -203,11 +205,32 @@
                             @foreach ($reviews as $review)
                                 <div class="swiper-slide">
                                     <div class="card h-100">
-                                        <img src="..." class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ $review->user->user_name }}</h5>
+                                        <div class="card-body d-flex flex-column align-items-center">
+                                            <p class="mb-0">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($review->rating < $i)
+                                                        @if (is_float($review->rating) && round($review->rating) == $i)
+                                                            <i class="bi bi-star-half"></i>
+                                                        @else
+                                                            <i class="bi bi-star"></i>
+                                                        @endif
+                                                    @else
+                                                        <i class="bi bi-star-fill"></i>
+                                                    @endif
+                                                @endfor
+                                                {{ $review->rating }}
+                                            </p>
                                             <p class="card-text">{{ $review->review_content }}</p>
-
+                                            <div class="mt-auto">
+                                                @if ($review->user->user_gender == 'Female')
+                                                    <img src="{{ asset('storage/asset/icon/female_icon.svg') }}"
+                                                        style="width:50px" alt="male-icon">
+                                                @else
+                                                    <img src="{{ asset('storage/asset/icon/male_icon.svg') }}"
+                                                        style="width:50px" alt="male-icon">
+                                                @endif
+                                                <h5 class="card-title">{{ $review->user->user_name }}</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -219,9 +242,7 @@
                         @foreach ($reviews as $review)
                             <div class="col d-flex align-items-stretch flex-column">
                                 <div class="card h-100">
-
                                     <div class="card-body d-flex flex-column align-items-center">
-
                                         <p class="mb-0">
                                             @for ($i = 1; $i <= 5; $i++)
                                                 @if ($review->rating < $i)
@@ -238,8 +259,13 @@
                                         </p>
                                         <p class="card-text">{{ $review->review_content }}</p>
                                         <div class="mt-auto">
-                                            {{-- <img src="..." class="" alt="..."> --}}
-                                            <i class="bi bi-person-circle text-secondary"></i>
+                                            @if ($review->user->user_gender == 'Female')
+                                                <img src="{{ asset('storage/asset/icon/female_icon.svg') }}"
+                                                    style="width:50px" alt="male-icon">
+                                            @else
+                                                <img src="{{ asset('storage/asset/icon/male_icon.svg') }}"
+                                                    style="width:50px" alt="male-icon">
+                                            @endif
                                             <h5 class="card-title">{{ $review->user->user_name }}</h5>
                                         </div>
                                     </div>

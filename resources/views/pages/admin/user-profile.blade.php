@@ -4,7 +4,7 @@
     <div class="container pt-4">
         <h1>User Profile</h1>
         <div class="row pt-4">
-            <div class="col-7">
+            <div class="col-8">
                 <p><strong>User Name: </strong><br>
                     {{ $user->user_name }}</p>
                 <p><strong>User Email: </strong><br>
@@ -23,10 +23,11 @@
                     @endforeach
                 </p>
             </div>
-            <div class="col-5">
+            <div class="col-4">
                 <p><strong>User Profile Picture:</strong></p>
                 <div class="w-100">
-                    <img src="{{ asset('storage/asset/images/dummy-salon-detail.png') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('storage/asset/images/profile-picture/' . $user->user_image_path) }}" alt=""
+                        class="img-fluid w-100">
                 </div>
             </div>
         </div>

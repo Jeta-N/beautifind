@@ -1,6 +1,12 @@
 <div id="editPreferencesActive" class="tab-content" style="display: none">
     <div class="border rounded p-4">
         <p class="fs-5 mb-3"><strong>My Preferences</strong></p>
+        @if (session('successEditPreference'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('successEditPreference') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <form action="/edit-preferences" method="POST">
             @csrf
             <div class="row row-cols-3 mx-0 w-75">

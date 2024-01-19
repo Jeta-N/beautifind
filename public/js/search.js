@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var currentURL = window.location.href;
         var urlParams = new URLSearchParams(window.location.search);
-
+        urlParams.set('page', '1');
         urlParams.delete('type[]');
 
         var formData = new FormData(typeFilter);
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var currentURL = window.location.href;
         var urlParams = new URLSearchParams(window.location.search);
-
+        urlParams.set('page', '1');
         urlParams.delete('sort-by');
 
         var formData = new FormData(sortService);
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var currentURL = window.location.href;
         var urlParams = new URLSearchParams(window.location.search);
-
+        urlParams.set('page', '1');
         urlParams.delete('rating');
 
         var formData = new FormData(ratingFilter);
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var urlParams = new URLSearchParams(window.location.search);
 
         urlParams.delete('city[]');
-
+        urlParams.set('page', '1');
         var formData = new FormData(cityFilter);
         formData.getAll('city[]').forEach(function (value) {
             urlParams.append('city[]', value);

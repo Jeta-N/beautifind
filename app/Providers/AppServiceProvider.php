@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\City;
 use App\Models\SecurityQuestion;
 use App\Models\ServiceType;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,7 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+
+        Paginator::useBootstrapFive();
+
         view()->composer([
             'pages.home', 'pages.detail', 'pages.search', 'pages.profile', 'pages.forgot-password',
             'pages.aboutus', 'pages.faq', 'pages.review-form', 'pages.staff.salon-profile',

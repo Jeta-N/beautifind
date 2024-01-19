@@ -76,7 +76,7 @@ class UserController extends Controller
         $user = $account->user()->create([
             'user_name' => $request->name,
             'city_id' => $request->city,
-            'user_image_path' => "userprofile.jpg"
+            'user_image_path' => "default-user.svg"
         ]);
 
         UserSecurityQuestion::create([
@@ -173,7 +173,7 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('successEditPreference', 'Successfully edit preferences');
     }
 
     public function viewUserProfile(Request $request)

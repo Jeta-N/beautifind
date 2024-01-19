@@ -12,6 +12,7 @@ use App\Models\UserSecurityQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AccountController extends Controller
 {
@@ -115,10 +116,15 @@ class AccountController extends Controller
 
     public function editPassword(Request $request)
     {
-        $this->validate($request, [
-            'new_password'  => 'required|min:8',
-            'confirm_password' => 'required|same:new_password',
-        ]);
+        try {
+            $this->validate($request, [
+                'new_password'  => 'required|min:8',
+                'confirm_password' => 'required|same:new_password',
+            ]);
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        };
+
         $account = Account::where('account_id', '=', $request->acc_id)->first();
         $account->password = bcrypt($request->new_password);
         $account->updated_at = now();
@@ -129,11 +135,15 @@ class AccountController extends Controller
 
     public function changePassword(Request $request)
     {
-        $this->validate($request, [
-            'old_password' => 'required',
-            'new_password'  => 'required|min:8',
-            'confirm_password' => 'required|same:new_password',
-        ]);
+        try {
+            $this->validate($request, [
+                'old_password' => 'required',
+                'new_password'  => 'required|min:8',
+                'confirm_password' => 'required|same:new_password',
+            ]);
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        };
 
         $user = Auth::user();
 

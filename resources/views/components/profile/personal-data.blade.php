@@ -6,7 +6,7 @@
                 <span id="accInfoText" style="color:#5E5946;">Account Information</span>
                 <div class="rectangle-active" id="accInfoActive"></div>
             </div>
-            <div class="nav-item cursor-pointer" onclick="toggleActiveProfile('passSec')">
+            <div class="nav-item cursor-pointer" onclick="toggleActiveProfile('passSec')" id="btnChangePassword">
                 <span id="passSecText">Change Password</span>
                 <div class="rectangle-active d-none" id="passSecActive"></div>
             </div>
@@ -18,24 +18,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-            @if (session('successChangePassword'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('successChangePassword') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @if (session('errorPassword'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('errorPassword') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @foreach ($errors->all() as $error)
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ $error }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endforeach
             <form action="edit-profile" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -199,6 +181,12 @@
             </form>
         </div>
         <div id="passSecContent" class="d-none py-4">
+            @if (session('successChangePassword'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('successChangePassword') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <form action="/change-password" method="POST">
                 @csrf
                 @method('PUT')
@@ -242,9 +230,6 @@
                     @enderror
                 </div>
                 <div class="text-end">
-                    <button class="profile-cancel-btn">
-                        Cancel
-                    </button>
                     <button class="profile-save-btn" type="submit">Save</button>
                 </div>
             </form>

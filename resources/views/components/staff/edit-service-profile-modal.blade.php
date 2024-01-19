@@ -109,7 +109,7 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="serviceLogo" class="form-label">Service Logo</label>
+                            <label for="serviceLogo" class="form-label">Service Logo (Recommended 350px x 80px )</label>
                             <input class="form-control" type="file" id="serviceLogo" name="logo_image">
                             @error('logo_image')
                                 <div class="invalid-feedback d-block">
@@ -118,7 +118,8 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="serviceThumbnail" class="form-label">Service Thumbnail</label>
+                            <label for="serviceThumbnail" class="form-label">Service Thumbnail (Recommended
+                                Landscape)</label>
                             <input class="form-control" type="file" id="serviceThumbnail" name="service_image">
                             @error('service_image')
                                 <div class="invalid-feedback d-block">

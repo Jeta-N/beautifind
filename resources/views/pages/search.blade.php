@@ -41,7 +41,8 @@
             <div class="card my-3 p-3 border-0 shadow-sm">
                 <div class="row g-0">
                     <div class="col-md-3 d-flex justify-content-center">
-                        <img src="{{ asset('storage/asset/images/dummy-salon.png') }}" class="w-100" alt="product-image">
+                        <img src="{{ asset('storage/asset/images/services/thumbnail/' . $service->service_image_path) }}"
+                            class="w-100" alt="product-image">
                     </div>
                     <div class="col-md-9 d-flex align-items-stretch">
                         <div class="card-body position-relative d-flex flex-column">
@@ -97,6 +98,9 @@
                 </div>
             </div>
         @endforeach
+        @if (!$services->isEmpty())
+            {{ $services->links() }}
+        @endif
     </div>
 
     @include('components.sort-search-modal')
