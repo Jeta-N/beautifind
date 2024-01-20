@@ -37,12 +37,16 @@
                     <p><strong>Service Instagram:</strong> {{ $service->service_instagram ?? '-' }} </p>
                     <p><strong>Service Opening Hours:</strong> {{ $service->service_opening_hours ?? '-' }}</p>
                     <p><strong>Service Type:</strong>
-                        @foreach ($service->serviceServiceType as $serviceServiceType)
-                            <span class="px-2">{{ $serviceServiceType->serviceType->st_name }}</span>
-                            @if (!$loop->last)
-                                &#8226; {{-- bullet --}}
-                            @endif
-                        @endforeach
+                        @if ($service->serviceServiceType->count() == 0)
+                            -
+                        @else
+                            @foreach ($service->serviceServiceType as $serviceServiceType)
+                                <span class="px-2">{{ $serviceServiceType->serviceType->st_name }}</span>
+                                @if (!$loop->last)
+                                    &#8226; {{-- bullet --}}
+                                @endif
+                            @endforeach
+                        @endif
                     </p>
                 </div>
                 <div class="col-5">

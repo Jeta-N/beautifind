@@ -48,16 +48,16 @@ Route::get('/services', [ServiceController::class, 'viewServicesList']);
 Route::get('/service/{id}', [ServiceController::class, 'viewServicesDetails']);
 
 
-
-// Guest
-Route::middleware(['isGuest'])->group(function () {
+Route::middleware(['guest'])->group(function () {
     // Login / Register
     Route::post('/login', [AccountController::class, 'login']);
     Route::post('/register', [UserController::class, 'register']);
+});
 
+// Guest
+Route::middleware(['isGuest'])->group(function () {
     // Home Page
     Route::get('/', [ServiceController::class, 'viewHomepage']);
-
     //Login Staff, Manager & Admin
     Route::get('/staff-login', [AccountController::class, 'viewLoginStaff']);
     Route::post('/staff-login', [AccountController::class, 'loginStaff']);
@@ -172,8 +172,10 @@ Route::middleware(['isWebsiteManager'])->group(function () {
 
     // WM Employee
     Route::get('/admin-employees', [EmployeeController::class, 'adminEmployees']);
-    Route::get('/admin-employee-profile/{id}', [EmployeeController::class, 'viewEmployeeProfile']);
+    Route::get('/admin-employee-profile/{id}', [EmployeeController::class, 'viewEmployeeProfileAdmin']);
     Route::put('/edit-super-admin-password', [AccountController::class, 'changeSuperAdminPassword']);
+    Route::put('/edit-employee-password-admin', [AccountController::class, 'changeEmployeePassword']);
+    Route::delete('/delete-employee-admin/{id}', [EmployeeController::class, 'deleteEmployee']);
 
     // WM Services
     Route::get('/admin-services', [ServiceController::class, 'adminServices']);
@@ -183,4 +185,5 @@ Route::middleware(['isWebsiteManager'])->group(function () {
 
     // WM Reviews
     Route::get('/admin-reviews', [ReviewController::class, 'adminReviews']);
+    Route::delete('/delete-review/{id}', [ReviewController::class, 'deleteReview']);
 });

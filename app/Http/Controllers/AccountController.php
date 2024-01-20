@@ -114,7 +114,7 @@ class AccountController extends Controller
         $acc->updated_at = now();
         $acc->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('successBlockAccount', $acc->is_blocked ? 'Successfully blocked account' : 'Successfully unblocked account');
     }
 
     public function editPassword(Request $request)
@@ -168,10 +168,20 @@ class AccountController extends Controller
 
     public function changeEmployeePassword(Request $request)
     {
-        $this->validate($request, [
-            'new_password'  => 'required|min:8',
-            'confirm_password' => 'required|same:new_password',
-        ]);
+        try {
+            $this->validate($request, [
+                'new_password'  => 'required|min:8',
+                'confirm_password' => 'required|same:new_password',
+            ]);
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            if (!($errors instanceof MessageBag)) {
+                $errors = new MessageBag($errors);
+            }
+            $errors->add('validation_scenario', 'changePassword');
+            return redirect()->back()->withErrors($errors)->withInput();
+        };
+
         $employee = Employee::where('emp_id', '=', $request->id)->first();
         $account = Account::where('account_id', '=', $employee->account_id)->first();
         $account->password = bcrypt($request->new_password);
@@ -183,10 +193,20 @@ class AccountController extends Controller
 
     public function changeSuperAdminPassword(Request $request)
     {
-        $this->validate($request, [
-            'new_password'  => 'required|min:8',
-            'confirm_password' => 'required|same:new_password',
-        ]);
+        try {
+            $this->validate($request, [
+                'new_password'  => 'required|min:8',
+                'confirm_password' => 'required|same:new_password',
+            ]);;
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            if (!($errors instanceof MessageBag)) {
+                $errors = new MessageBag($errors);
+            }
+            $errors->add('validation_scenario', 'changeAdminPassword');
+            return redirect()->back()->withErrors($errors)->withInput();
+        };
+
         $admin = SuperAdmin::where('sa_id', '=', $request->id)->first();
         $account = Account::where('account_id', '=', $admin->account_id)->first();
         $account->password = bcrypt($request->new_password);

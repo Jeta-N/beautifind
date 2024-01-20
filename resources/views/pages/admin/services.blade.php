@@ -82,8 +82,38 @@
                     'informationToast')
                 const toastBootstrap = new bootstrap.Toast(informationToast);
                 const toastBody = document.getElementById('toastBody');
-                toastBody.innerHTML = 'The employee has been deleted successfully!'
+                toastBody.innerHTML = 'The service has been deleted successfully!'
                 toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('successAddService'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = 'The service has been created successfully!'
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = 'Failed to create service, please check the form again!'
+                toastBootstrap.show();
+
+                const addModal = document.getElementById('addServiceModal');
+                if (addModal) {
+                    const modal = new bootstrap.Modal(addModal)
+                    modal.show();
+                }
             });
         </script>
     @endif

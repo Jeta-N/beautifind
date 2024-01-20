@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\MessageBag;
+use Illuminate\Validation\ValidationException;
 
 class BookingSlotController extends Controller
 {
@@ -61,15 +63,25 @@ class BookingSlotController extends Controller
 
     public function createBookingSlot(Request $request)
     {
-        $this->validate($request, [
-            'emp_id' => 'required',
-            'date' => 'required',
-            'time_start' => 'required',
-            'time_end' => 'required|after:time_start',
-            'repeat' => 'required | min:1 | max:10',
-        ]);
+        try {
+            $this->validate($request, [
+                'employee' => 'required',
+                'date' => 'required|date',
+                'time_start' => 'required|after_or_equal:' . now()->format('H:i'),
+                'time_end' => 'required|after:time_start',
+                'repeat' => 'required | min:1 | max:10',
+            ]);
+        } catch (ValidationException $e) {
+            $errors = $e->errors();
+            if (!($errors instanceof MessageBag)) {
+                $errors = new MessageBag($errors);
+            }
+            $errors->add('validation_scenario', 'createBookingSlot');
+            return redirect()->back()->withErrors($errors)->withInput();
+        };
 
-        $emp = Employee::find($request->emp_id);
+
+        $emp = Employee::find($request->employee);
         $emp_id = $emp->emp_id;
         $service_id = $emp->service_id;
         $date = $request->date;
@@ -87,7 +99,7 @@ class BookingSlotController extends Controller
                     $q->where('time_start', '<=', $req_time_start)->where('time_end', '>', $req_time_start);
                 })->orWhere(function (Builder $q) use ($req_time_end) {
                     $q->where('time_start', '<', $req_time_end)->where('time_end', '>=', $req_time_end);
-                });;
+                });
             })->count();
             if ($count == 0) {
                 BookingSlot::create([
@@ -121,7 +133,7 @@ class BookingSlotController extends Controller
             return redirect()->back()->with('errorDeleteBookingSlot', 'Booking Slot is reserved');
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('successDeleteBookingSlot', 'Booking Slot is deleted');;
     }
 
     public function getBookingSlots(Request $request)

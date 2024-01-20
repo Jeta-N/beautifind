@@ -64,7 +64,7 @@
             <div class="col-6">
                 <div class="d-flex flex-row justify-content-between align-items-center">
                     <h3>User List</h3>
-                    <a href="/admin-user" class="text-decoration-none ">Manage User</a>
+                    <a href="/admin-users" class="text-decoration-none ">Manage User</a>
                 </div>
                 <table class="table table-bordered rounded" id="usersTable">
                     <thead class="rounded-top">
@@ -95,7 +95,7 @@
             <div class="col-6">
                 <div class="d-flex flex-row justify-content-between align-items-center">
                     <h3>Service List</h3>
-                    <a href="/admin-service" class="text-decoration-none ">Manage Service</a>
+                    <a href="/admin-services" class="text-decoration-none ">Manage Service</a>
                 </div>
                 <table class="table table-bordered rounded" id="adminServicesTable">
                     <thead>

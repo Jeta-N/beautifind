@@ -69,6 +69,18 @@
             });
         </script>
     @endif
+    @if (session('successDelete'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = 'The employee service type has been deleted successfully!'
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
     @if (session('alreadyExist'))
         <script>
             document.addEventListener('DOMContentLoaded', function() {

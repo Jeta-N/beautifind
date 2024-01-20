@@ -1,5 +1,5 @@
-<div class="modal fade" id="editAdminPasswordModal{{ $superAdmin->sa_id }}" tabindex="-1"
-    aria-labelledby="editAdminPasswordModalLabel" aria-hidden="true">
+<div class="modal fade" id="editEmployeePasswordModal{{ $employee->emp_id }}" tabindex="-1"
+    aria-labelledby="editEmployeePasswordModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="position-absolute top-0 end-0 pt-3 pe-3 z-3">
@@ -7,18 +7,18 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <h2 id="editAdminPasswordModalHeader">Edit Admin Password</h2>
-                    <form method="POST" id="editAdminPasswordForm{{ $superAdmin->sa_id }}"
-                        action="/edit-super-admin-password">
+                    <h2 id="editEmployeePasswordModalHeader">Edit Employee Password</h2>
+                    <form method="POST" id="editEmployeePasswordForm{{ $employee->emp_id }}"
+                        action="/edit-employee-password-admin">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" name="id" value="{{ $superAdmin->sa_id }}">
+                        <input type="hidden" name="id" value="{{ $employee->emp_id }}">
+                        <label for="empName" class="form-label">Employee Name<br> {{ $employee->emp_name }}</label>
                         <div class="mb-3">
-                            <label for="passwordNewAdmin{{ $superAdmin->sa_id }}" class="form-label">New
-                                Password</label>
+                            <label for="passwordNew{{ $employee->emp_id }}" class="form-label">New Password</label>
                             <input type="password"
                                 class="form-control form-login py-2 @error('new_password') is-invalid  @enderror"
-                                id="passwordNewAdmin{{ $superAdmin->sa_id }}" placeholder="Min. 8 characters"
+                                id="passwordNew{{ $employee->emp_id }}" placeholder="Min. 8 characters"
                                 name="new_password" required>
                             @error('new_password')
                                 <div class="invalid-feedback">
@@ -27,11 +27,11 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="passwordReNewAdmin{{ $superAdmin->sa_id }}" class="form-label">Confirm New
+                            <label for="passwordReNew{{ $employee->emp_id }}" class="form-label">Confirm New
                                 Password</label>
                             <input type="password"
                                 class="form-control form-login py-2 @error('confirm_password') is-invalid  @enderror"
-                                id="passwordReNewAdmin{{ $superAdmin->sa_id }}" placeholder="Min. 8 characters"
+                                id="passwordReNew{{ $employee->emp_id }}" placeholder="Min. 8 characters"
                                 name="confirm_password" required>
                             @error('confirm_password')
                                 <div class="invalid-feedback">

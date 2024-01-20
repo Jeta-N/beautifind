@@ -6,7 +6,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <h2 id="filterBookingModalHeader" class="py-3">Filter Booking</h2>
+                    <h2 id="filterBookingModalHeader" class="py-3">Filter Booking Slot</h2>
                     <form action="" id="filterBookingForm">
                         @csrf
                         <div class="row row-cols-2 mx-0">

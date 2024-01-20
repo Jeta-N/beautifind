@@ -45,7 +45,7 @@
                         <td>{{ $review->rating }}</td>
                         <td>{{ $review->review_content }}</td>
                         <td>
-                            <form action="/delete-user/{{ $review->user_id }}" method="POST" class="d-inline">
+                            <form action="/delete-review/{{ $review->review_id }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button class="my-1 btn btn-danger" type="submit">
@@ -58,7 +58,7 @@
             </tbody>
         </table>
     </div>
-    @include('components.admin.filter-employee-modal')
+    @include('components.admin.filter-employee-modal', ['title' => 'Filter Review'])
     @include('components.staff.info-toast')
 @endsection
 

@@ -20,12 +20,12 @@ class BookingController extends Controller
         $acc_id = Auth::user()->account_id;
         $user = User::where('account_id', '=', $acc_id)->first();
         $bookings = Booking::join('booking_slot', 'booking_slot.bs_id', '=', 'booking.bs_id')
-                ->where('booking.user_id', $user->user_id)
-                ->with('bookingSlot')
-                ->with('bookingSlot.employee')
-                ->with('service')
-                ->with('service.city')
-                ->with('serviceType');
+            ->where('booking.user_id', $user->user_id)
+            ->with('bookingSlot')
+            ->with('bookingSlot.employee')
+            ->with('service')
+            ->with('service.city')
+            ->with('serviceType');
 
         if ($request->status !== 'All') {
             $bookings->where('booking_status', '=', $request->status);
@@ -116,7 +116,7 @@ class BookingController extends Controller
                 $q->where('time_start', '<=', $req_time_start)->where('time_end', '>', $req_time_start);
             })->orWhere(function (Builder $q) use ($req_time_end) {
                 $q->where('time_start', '<', $req_time_end)->where('time_end', '>=', $req_time_end);
-            });;;
+            });
         });
 
         $countResult = $count->count();

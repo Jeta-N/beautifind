@@ -34,6 +34,23 @@ class EmployeeController extends Controller
             'bookings' => $bookings
         ]);
     }
+    public function viewEmployeeProfileAdmin(Request $request)
+    {
+        $emp = Employee::where('emp_id', '=', $request->id)
+            ->with('employeeServiceType')
+            ->with('employeeServiceType.serviceType')
+            ->with('account')
+            ->first();
+
+        $bookings = Booking::whereHas('bookingSlot', function ($query) use ($request) {
+            $query->where('emp_id', '=', $request->id);
+        })->get();
+
+        return view('pages.admin.employee-profile', [
+            'employee' => $emp,
+            'bookings' => $bookings
+        ]);
+    }
 
     public function createEmployee(Request $request)
     {
@@ -192,8 +209,7 @@ class EmployeeController extends Controller
             'phone_number' => 'required|min:10|max:13',
             'email' => [
                 'email',
-                Rule::unique('account', 'email')->ignore(Auth::user()),
-                Rule::unique('account', 'email')->where(function ($query) {
+                Rule::unique('account', 'email')->ignore(Auth::user())->where(function ($query) {
                     return $query->whereNull('deleted_at');
                 }),
             ]
@@ -203,7 +219,6 @@ class EmployeeController extends Controller
         $employee = Employee::where('account_id', '=', $acc_id)->first();
 
         $employee->emp_name = $request->username;
-        $employee->account->email = $request->email;
         $employee->emp_phone_number = $request->phone_number;
 
         $birthdate = $request->year . '-' . $request->month . '-' . $request->date;

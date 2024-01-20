@@ -295,7 +295,6 @@ class ServiceController extends Controller
             $this->validate($request, [
                 'name' => 'required | min:5',
                 'description' => 'required | min:5',
-                'opening_hours' => 'required',
                 'address' => 'required | min:5',
                 'phone' => 'required | min:9 | max:13',
                 'logo_image' => 'image',

@@ -80,31 +80,3 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
-
-function validateForm() {
-    var timeStartInput = document.getElementById('time_start');
-    var timeEndInput = document.getElementById('time_end');
-    var timeStartError = document.getElementById('timeStartError');
-
-    // Get the current date and time
-    var now = new Date();
-    now.setHours(now.getHours() + 7);
-    var currentDateTime = now.toISOString().slice(0, 16);
-
-    // Combine the current date with the selected time
-    var selecteDate = document.getElementById('date').value;
-    var selectedDateTime = selecteDate + 'T' + timeStartInput.value;
-    var selectedDateTimeEnd = selecteDate + 'T' + timeEndInput.value;
-
-    // Check if the selected date and time are not earlier than the current date and time
-    if (selectedDateTime < currentDateTime) {
-        timeStartError.innerHTML = 'Time must not be earlier than now.';
-    } else if (selectedDateTime > selectedDateTimeEnd) {
-        timeStartError.innerHTML = 'End time must not be earlier than start time.';
-    }
-    else {
-        // Clear the error message and submit the form
-        timeStartError.innerHTML = '';
-        document.getElementById('addBookingSlotForm').submit();
-    }
-}

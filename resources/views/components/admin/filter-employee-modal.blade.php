@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <h2 id="filterEmployeeModalHeader" class="py-3">Filter Employee</h2>
+                    <h2 id="filterEmployeeModalHeader" class="py-3">{{ $title }}</h2>
                     <form action="" id="filterEmployeeForm">
                         @csrf
                         <div class="mb-3">

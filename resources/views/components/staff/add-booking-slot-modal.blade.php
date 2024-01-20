@@ -12,15 +12,16 @@
                         @csrf
                         <div class="mb-3">
                             <label for="emp_name" class="form-label">Employee Name</label>
-                            <select class="form-select form-login @error('emp_id') is-invalid  @enderror"
-                                aria-label="emp_id" name="emp_id" required>
+                            <select class="form-select form-login @error('employee') is-invalid @else  @enderror"
+                                aria-label="employee" name="employee" required>
                                 <option value="">Select Employee</option>
                                 @foreach ($employees as $employee)
-                                    <option value="{{ $employee->emp_id }}">
+                                    <option value="{{ $employee->emp_id }}"
+                                        @if (old('employee') == $employee->emp_id) selected @endif>
                                         {{ $employee->emp_name }}</option>
                                 @endforeach
                             </select>
-                            @error('emp_id')
+                            @error('employee')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -29,8 +30,8 @@
                         <div class="mb-3">
                             <label for="date" class="form-label">Date</label>
                             <input type="date" name="date" id="date"
-                                class="form-control form-login @error('date') is-invalid  @enderror"
-                                placeholder="Input Date">
+                                class="form-control form-login @error('date') is-invalid @else @enderror"
+                                placeholder="Input Date" value="{{ old('date') }}" required>
                             @error('date')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -44,7 +45,7 @@
                                     <label for="time_start" class="form-label">Time Start</label>
                                     <input type="time" name="time_start" id="time_start"
                                         class="form-control form-login @error('time_start') is-invalid  @enderror"
-                                        placeholder="Input Time Start">
+                                        placeholder="Input Time Start" value="{{ old('time_start') }}" required>
                                     @error('time_start')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -56,7 +57,7 @@
                                     <label for="time_end" class="form-label">Time End</label>
                                     <input type="time" name="time_end" id="time_end"
                                         class="form-control form-login @error('time_end') is-invalid  @enderror"
-                                        placeholder="Input Time End">
+                                        placeholder="Input Time End" value="{{ old('time_end') }}" required>
                                     @error('time_end')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -81,7 +82,7 @@
                                 </div>
                             @enderror
                         </div>
-                        <button type="button" class="form-control btn-sign-in py-2" onclick="validateForm()">Add
+                        <button type="submit" class="form-control btn-sign-in py-2">Add
                             Slot</button>
                     </form>
                 </div>

@@ -15,7 +15,7 @@ class EmployeeSeeder extends Seeder
     {
         DB::table('employee')->insert([
             [
-                'account_id' => 3,
+                'account_id' => 2,
                 'service_id' => 1,
                 'emp_name' => 'Sandi',
                 'emp_gender' => 'Female',
@@ -26,7 +26,7 @@ class EmployeeSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'account_id' => 4,
+                'account_id' => 3,
                 'service_id' => 1,
                 'emp_name' => 'Ryan',
                 'emp_gender' => 'Male',

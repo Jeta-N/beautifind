@@ -42,7 +42,7 @@
                         <td>{{ $superAdmin->account->account_role }}</td>
                         <td>
                             <button class="my-1 btn btn-info text-white" data-bs-toggle="modal"
-                                data-bs-target="#editAdminPasswordModal{{ $loop->iteration }}" type="button">
+                                data-bs-target="#editAdminPasswordModal{{ $superAdmin->sa_id }}" type="button">
                                 Edit Password
                             </button>
                         </td>
@@ -51,7 +51,7 @@
                 @endforeach
                 @foreach ($employees as $employee)
                     <tr>
-                        <td scope="row">{{ $loop->iteration }}</td>
+                        <td scope="row">{{ $loop->iteration + count($superAdmins) }}</td>
                         <td>{{ $employee->emp_name }}</td>
                         <td>{{ $employee->account->email }}</td>
                         <td>{{ $employee->service->service_name }}</td>
@@ -60,15 +60,11 @@
                             <a class="my-1 btn btn-primary" href="/admin-employee-profile/{{ $employee->emp_id }}">
                                 View Detail
                             </a>
-                            <button class="my-1 btn btn-warning text-white" data-bs-toggle="modal"
-                                data-bs-target="#editRoleModal{{ $loop->iteration }}" type="button">
-                                Edit Role
-                            </button>
                             <button class="my-1 btn btn-info text-white" data-bs-toggle="modal"
-                                data-bs-target="#editEmployeePasswordModal{{ $loop->iteration }}" type="button">
+                                data-bs-target="#editEmployeePasswordModal{{ $employee->emp_id }}" type="button">
                                 Edit Password
                             </button>
-                            <form action="/delete-employee/{{ $employee->emp_id }}" method="POST" class="d-inline">
+                            <form action="/delete-employee-admin/{{ $employee->emp_id }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button class="my-1 btn btn-danger" type="submit">
@@ -77,13 +73,12 @@
                             </form>
                         </td>
                     </tr>
-                    @include('components.staff.edit-employee-password')
-                    @include('components.staff.edit-role-modal')
+                    @include('components.admin.edit-employee-password')
                 @endforeach
             </tbody>
         </table>
     </div>
-    @include('components.admin.filter-employee-modal')
+    @include('components.admin.filter-employee-modal', ['title' => 'Filter Employee'])
     @include('components.staff.info-toast')
 @endsection
 
@@ -101,18 +96,6 @@
             });
         </script>
     @endif
-    @if (session('successChangeRole'))
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const informationToast = document.getElementById(
-                    'informationToast')
-                const toastBootstrap = new bootstrap.Toast(informationToast);
-                const toastBody = document.getElementById('toastBody');
-                toastBody.innerHTML = 'The role has been changed successfully!'
-                toastBootstrap.show();
-            });
-        </script>
-    @endif
     @if (session('successDeleteEmployee'))
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -122,6 +105,34 @@
                 const toastBody = document.getElementById('toastBody');
                 toastBody.innerHTML = 'The employee has been deleted successfully!'
                 toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if ($errors->has('validation_scenario'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = 'Failed to change password, check the form again!'
+                toastBootstrap.show();
+                @if ($errors->first('validation_scenario') == 'changeAdminPassword')
+                    const editAdminPasswordModal = document.getElementById('editAdminPasswordModal' +
+                        {{ old('id') }});
+                    if (editAdminPasswordModal) {
+                        const modal = new bootstrap.Modal(editAdminPasswordModal)
+                        modal.show();
+                    }
+                @elseif ($errors->first('validation_scenario') == 'changePassword')
+
+                    const editEmployeePasswordModal = document.getElementById('editEmployeePasswordModal' +
+                        {{ old('id') }});
+                    if (editEmployeePasswordModal) {
+                        const modal = new bootstrap.Modal(editEmployeePasswordModal)
+                        modal.show();
+                    }
+                @endif
             });
         </script>
     @endif

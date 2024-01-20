@@ -7,19 +7,25 @@ use App\Models\Service;
 use App\Models\SuperAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class SuperAdminController extends Controller
 {
     public function createSuperAdmin(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required | max:25',
-            'service_name' => 'required',
-            'city' => 'required',
-            'email' => 'required | email | unique:account,email',
-            'password' => "required | min:8 | confirmed",
-            'password_confirmation' => "required"
-        ]);
+        try {
+            $this->validate($request, [
+                'name' => 'required | max:25',
+                'service_name' => 'required',
+                'city' => 'required',
+                'email' => 'required | email | unique:account,email',
+                'password' => "required | min:8 | confirmed",
+                'password_confirmation' => "required"
+            ]);
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        };
+
 
         $service = Service::create([
             'service_name' => $request->service_name,
@@ -48,6 +54,6 @@ class SuperAdminController extends Controller
             'sa_image_path' => "default-user.svg"
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('successAddService', 'successAddService');
     }
 }

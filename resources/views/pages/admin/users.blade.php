@@ -49,7 +49,7 @@
                                 @csrf
                                 @method('PUT')
                                 <button class="my-1 btn btn-warning text-white" type="submit">
-                                    Block
+                                    {{ $user->account->is_blocked == true ? 'Unblock' : 'Block' }}
                                 </button>
                             </form>
                             <form action="/delete-user/{{ $user->user_id }}" method="POST" class="d-inline">
@@ -102,6 +102,31 @@
                 const toastBootstrap = new bootstrap.Toast(informationToast);
                 const toastBody = document.getElementById('toastBody');
                 toastBody.innerHTML = 'The employee has been deleted successfully!'
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('successDeleteUser'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = 'The user has been deleted successfully!'
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if (session('successBlockAccount'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+
+                toastBody.innerHTML = "{!! addslashes(session('successBlockAccount')) !!}";
                 toastBootstrap.show();
             });
         </script>

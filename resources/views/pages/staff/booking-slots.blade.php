@@ -91,6 +91,18 @@
             });
         </script>
     @endif
+    @if (session('successDeleteBookingSlot'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "The booking slot has been deleted successfully!"
+                toastBootstrap.show();
+            });
+        </script>
+    @endif
     @if (session('successCreateBookingSlot'))
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -112,6 +124,24 @@
                 const toastBody = document.getElementById('toastBody');
                 toastBody.innerHTML = "Failed to create all of the booking slots, some schedules is clashing!"
                 toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if ($errors->has('validation_scenario'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerHTML = "Failed to create the booking slots, please check the form again!"
+                toastBootstrap.show();
+
+                const addModal = document.getElementById('addBookingSlotModal');
+                if (addModal) {
+                    const modal = new bootstrap.Modal(addModal)
+                    modal.show();
+                }
             });
         </script>
     @endif

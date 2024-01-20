@@ -50,7 +50,7 @@
                                 </button>
                             @endif
                             <button class="btn mt-1 btn-info text-white" data-bs-toggle="modal"
-                                data-bs-target="#editEmployeePasswordModal{{ $loop->iteration }}" type="button">
+                                data-bs-target="#editEmployeePasswordModal{{ $employee->emp_id }}" type="button">
                                 Edit Password
                             </button>
                             @if (Auth::user()->account_role == 'Super Admin' ||
@@ -132,14 +132,25 @@
                     'informationToast')
                 const toastBootstrap = new bootstrap.Toast(informationToast);
                 const toastBody = document.getElementById('toastBody');
-                toastBody.innerHTML = 'Failed to create employee, check the form again!'
-                toastBootstrap.show();
+                @if ($errors->first('validation_scenario') == 'createEmployee')
+                    toastBody.innerHTML = 'Failed to create employee, check the form again!'
+                    toastBootstrap.show();
 
-                const addModal = document.getElementById('addEmployeeModal');
-                if (addModal) {
-                    const modal = new bootstrap.Modal(addModal)
-                    modal.show();
-                }
+                    const addModal = document.getElementById('addEmployeeModal');
+                    if (addModal) {
+                        const modal = new bootstrap.Modal(addModal)
+                        modal.show();
+                    }
+                @elseif ($errors->first('validation_scenario') == 'changePassword')
+                    toastBody.innerHTML = 'Failed to change password, check the form again!'
+                    toastBootstrap.show();
+                    const editEmployeePasswordModal = document.getElementById('editEmployeePasswordModal' +
+                        {{ old('id') }});
+                    if (editEmployeePasswordModal) {
+                        const modal = new bootstrap.Modal(editEmployeePasswordModal)
+                        modal.show();
+                    }
+                @endif
             });
         </script>
     @endif
