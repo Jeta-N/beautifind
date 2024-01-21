@@ -21,7 +21,7 @@
                         </div>
                         <div class="text-end">
                             <button class="profile-save-btn filter-btn bg-white text-dark border border-dark"
-                                type="button" onclick="clearFilter('city[]')">Clear</button>
+                                type="button" onclick="clearFilter('city')">Clear</button>
                             <button class="profile-save-btn filter-btn" type="submit">Save</button>
                         </div>
                     </form>

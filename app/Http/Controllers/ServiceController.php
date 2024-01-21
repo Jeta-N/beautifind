@@ -168,6 +168,14 @@ class ServiceController extends Controller
         }
         $services = $query->paginate(5);
 
+        $services->appends([
+            'service-name' => $searchName,
+            'type' => $filterType,
+            'rating' => $filterRating,
+            'city' => $filterCity,
+            'sort-by' => $sortBy,
+        ]);
+
         return view('pages.search')->with('services', $services);
     }
 

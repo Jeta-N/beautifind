@@ -77,7 +77,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     var urlParams = new URLSearchParams(window.location.search);
-    var typeParams = urlParams.getAll('type[]');
+    var typeParams = [];
+    urlParams.forEach((value, key) => {
+        if (key.startsWith('type')) {
+            typeParams.push(decodeURIComponent(value));
+        }
+    });
     if (typeParams.length > 0) {
         var checkboxes = document.querySelectorAll('input[name="type[]"]');
         checkboxes.forEach(function (checkbox) {
@@ -107,7 +112,12 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     }
 
-    var cityParams = urlParams.getAll('city[]');
+    var cityParams = [];
+    urlParams.forEach((value, key) => {
+        if (key.startsWith('city')) {
+            cityParams.push(decodeURIComponent(value));
+        }
+    });
     if (cityParams.length > 0) {
         var checkboxes = document.querySelectorAll('input[name="city[]"]');
         checkboxes.forEach(function (checkbox) {
@@ -122,7 +132,18 @@ document.addEventListener('DOMContentLoaded', function () {
 function clearFilter(param) {
     var currentURL = window.location.href;
     var urlParams = new URLSearchParams(window.location.search);
-    urlParams.delete(param);
+
+    var keysToDelete = [];
+    urlParams.forEach((value, key) => {
+        if (key.startsWith(param)) {
+            keysToDelete.push(key);
+        }
+    });
+
+    keysToDelete.forEach(key => {
+        urlParams.delete(key);
+    });
+
     var url = currentURL.split('?')[0] + '?' + urlParams.toString();
     window.location.href = url;
 }

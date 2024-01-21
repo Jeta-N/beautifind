@@ -31,7 +31,8 @@
     <script src="./js/profile.js"></script>
     @if (
         ($errors->has('validation_scenario') && $errors->first('validation_scenario') == 'changePassword') ||
-            session('errorPassword'))
+            session('errorPassword') ||
+            session('successChangePassword'))
         <script>
             const btnChangePass = document.getElementById('btnChangePassword');
             btnChangePass.click();
