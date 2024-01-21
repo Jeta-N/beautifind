@@ -20,7 +20,7 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="emailProfile" class="form-label">Email address</label>
+                        <label for="emailProfile" class="form-label">Email Address</label>
                         <input type="email" class="form-control form-login py-2  @error('email') is-invalid  @enderror"
                             id="emailProfile" placeholder="Input Your Email" value="{{ $employee->account->email }}"
                             name="email" disabled>

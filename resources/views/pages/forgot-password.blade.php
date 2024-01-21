@@ -6,7 +6,7 @@
             <h1>Forgot Password</h1>
             <div id="checkEmail">
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
+                    <label for="email" class="form-label">Email Address</label>
                     <input type="email" class="form-control form-login py-2  @error('email') is-invalid  @enderror"
                         id="email" placeholder="Your Email" name="email" value="{{ old('email') }}" required>
                     @error('email')

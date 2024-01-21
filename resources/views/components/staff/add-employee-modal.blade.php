@@ -10,7 +10,7 @@
                     <form method="POST" id="addEmployeeForm" action="/create-employee">
                         @csrf
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email address</label>
+                            <label for="email" class="form-label">Email Address</label>
                             <input type="email"
                                 class="form-control form-login py-2 @error('email') is-invalid  @enderror"
                                 id="email" placeholder="Input Employee Email" name="email"

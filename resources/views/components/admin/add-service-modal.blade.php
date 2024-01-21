@@ -50,7 +50,7 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Admin Email address</label>
+                            <label for="email" class="form-label">Admin Email Address</label>
                             <input type="email"
                                 class="form-control form-login py-2 @error('email') is-invalid  @enderror"
                                 id="email" placeholder="Input Your Email" name="email" value="{{ old('email') }}"
@@ -84,7 +84,7 @@
                                 </div>
                             @enderror
                         </div>
-                        <button type="submit" class="form-control btn-sign-in py-2">Add Admin</button>
+                        <button type="submit" class="form-control btn-sign-in py-2">Add Service</button>
                     </form>
                 </div>
             </div>

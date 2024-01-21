@@ -58,7 +58,7 @@ class AccountController extends Controller
     {
         $account = Account::where('email', '=', $request->email)->first();
 
-        if ($account == null) {
+        if ($account == null || $account->account_role != 'User') {
             return response()->json(404);
         } else {
             $securityQuestion = UserSecurityQuestion::where('user_id', '=', $account->user->user_id)
@@ -218,10 +218,14 @@ class AccountController extends Controller
 
     public function changeUserPassword(Request $request)
     {
-        $this->validate($request, [
-            'new_password'  => 'required|min:8',
-            'confirm_password' => 'required|same:new_password',
-        ]);
+        try {
+            $this->validate($request, [
+                'new_password'  => 'required|min:8',
+                'confirm_password' => 'required|same:new_password',
+            ]);
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        };
 
         $user = User::where('user_id', '=', $request->id)->first();
         $account = Account::where('account_id', '=', $user->account_id)->first();

@@ -23,7 +23,7 @@
             {{-- Mobile View Login --}}
             <div class="ms-auto w-50 d-flex d-md-none justify-content-end">
                 <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#loginModal">
-                    Login
+                    Login/Register
                 </button>
             </div>
         @endauth
@@ -64,7 +64,7 @@
             {{-- Tablet & Desktop View not yet login --}}
             <div class="ms-auto d-md-flex d-none">
                 <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#loginModal">
-                    Login
+                    Login/Register
                 </button>
             </div>
         @endauth

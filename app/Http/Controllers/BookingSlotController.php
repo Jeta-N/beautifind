@@ -63,11 +63,16 @@ class BookingSlotController extends Controller
 
     public function createBookingSlot(Request $request)
     {
+        $request->merge([
+            'datetime_start' => $request->input('date') . ' ' . $request->input('time_start'),
+        ]);
+
         try {
             $this->validate($request, [
                 'employee' => 'required',
                 'date' => 'required|date',
-                'time_start' => 'required|after_or_equal:' . now()->format('H:i'),
+                'datetime_start' => 'required|date_format:Y-m-d H:i|after_or_equal:' . now()->format('Y-m-d H:i'),
+                'time_start' => 'required',
                 'time_end' => 'required|after:time_start',
                 'repeat' => 'required | min:1 | max:10',
             ]);

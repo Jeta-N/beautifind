@@ -238,7 +238,7 @@
                             @endforeach
                         </div>
                     </div>
-                @else
+                @elseif(count($reviews) > 0)
                     <div class="row">
                         @foreach ($reviews as $review)
                             <div class="col d-flex align-items-stretch flex-column">
@@ -274,6 +274,8 @@
                             </div>
                         @endforeach
                     </div>
+                @else
+                    <p class="text-secondary lead">No review yet</p>
                 @endif
             </div>
             @if (count($reviews) > 3)

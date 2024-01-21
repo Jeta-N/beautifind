@@ -19,11 +19,11 @@
                     <form method="POST" class="d-block" id="loginForm" action="/login">
                         @csrf
                         <div class="mb-3">
-                            <label for="email-login" class="form-label">Email address</label>
+                            <label for="email-login" class="form-label">Email</label>
                             <input type="email"
                                 class="form-control form-login py-2  @error('email') is-invalid  @enderror"
-                                id="email-login" placeholder="Your Email" name="email" value="{{ old('email') }}"
-                                required>
+                                id="email-login" placeholder="Input Your Email" name="email"
+                                value="{{ old('email') }}" required>
                             @error('email')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -34,7 +34,7 @@
                             <label for="password-login" class="form-label">Password</label>
                             <input type="password"
                                 class="form-control form-login py-2 @error('password') is-invalid  @enderror"
-                                id="password-login" placeholder="Password" name="password" required>
+                                id="password-login" placeholder="Input Your Password" name="password" required>
                             @error('password')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -77,7 +77,7 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="email-register" class="form-label">Email address</label>
+                            <label for="email-register" class="form-label">Email</label>
                             <input type="email"
                                 class="form-control form-login py-2 @error('register_email') is-invalid  @enderror"
                                 id="email-register" placeholder="Input Your Email" name="register_email"

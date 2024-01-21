@@ -42,7 +42,7 @@
                                 View Detail
                             </a>
                             <button class="my-1 btn btn-info text-white" data-bs-toggle="modal"
-                                data-bs-target="#editUserPasswordModal{{ $loop->iteration }}" type="button">
+                                data-bs-target="#editUserPasswordModal{{ $user->user_id }}" type="button">
                                 Edit Password
                             </button>
                             <form action="/block-user/{{ $user->account->account_id }}" method="POST" class="d-inline">
@@ -128,6 +128,25 @@
 
                 toastBody.innerHTML = "{!! addslashes(session('successBlockAccount')) !!}";
                 toastBootstrap.show();
+            });
+        </script>
+    @endif
+    @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const informationToast = document.getElementById(
+                    'informationToast')
+                const toastBootstrap = new bootstrap.Toast(informationToast);
+                const toastBody = document.getElementById('toastBody');
+
+                toastBody.innerHTML = "Failed to edit password, please check the form again!";
+                toastBootstrap.show();
+
+                const editModal = document.getElementById('editUserPasswordModal' + {{ old('id') }});
+                if (editModal) {
+                    const modal = new bootstrap.Modal(editModal)
+                    modal.show();
+                }
             });
         </script>
     @endif

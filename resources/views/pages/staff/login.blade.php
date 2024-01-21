@@ -37,7 +37,7 @@
                         <form method="POST" class="d-block" id="loginStaffForm" action="/staff-login">
                             @csrf
                             <div class="mb-3">
-                                <label for="email-login" class="form-label">Email address</label>
+                                <label for="email-login" class="form-label">Email</label>
                                 <input type="email"
                                     class="form-control form-login py-2  @error('email') is-invalid  @enderror"
                                     id="email-login" placeholder="Your Email" name="email" value="{{ old('email') }}"

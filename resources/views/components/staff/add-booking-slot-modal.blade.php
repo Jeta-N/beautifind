@@ -44,14 +44,13 @@
                                 <div class="col">
                                     <label for="time_start" class="form-label">Time Start</label>
                                     <input type="time" name="time_start" id="time_start"
-                                        class="form-control form-login @error('time_start') is-invalid  @enderror"
+                                        class="form-control form-login @error('time_start') is-invalid  @enderror @error('datetime_start') is-invalid  @enderror"
                                         placeholder="Input Time Start" value="{{ old('time_start') }}" required>
                                     @error('time_start')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                     @enderror
-
                                 </div>
                                 <div class="col">
                                     <label for="time_end" class="form-label">Time End</label>
@@ -65,8 +64,11 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="invalid-feedback d-block" id="timeStartError">
-                            </div>
+                            @error('datetime_start')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">

@@ -6,7 +6,7 @@ use App\Models\Account;
 use App\Models\Service;
 use App\Models\SuperAdmin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class SuperAdminController extends Controller
@@ -18,7 +18,13 @@ class SuperAdminController extends Controller
                 'name' => 'required | max:25',
                 'service_name' => 'required',
                 'city' => 'required',
-                'email' => 'required | email | unique:account,email',
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('account', 'email')->where(function ($query) {
+                        return $query->whereNull('deleted_at');
+                    }),
+                ],
                 'password' => "required | min:8 | confirmed",
                 'password_confirmation' => "required"
             ]);
