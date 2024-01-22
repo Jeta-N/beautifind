@@ -41,7 +41,11 @@ class ServiceController extends Controller
             $serviceCounts[$cityId] = $count;
         }
 
-        $reviews = Review::inRandomOrder()->take(9)->get();
+        $reviews = Review::inRandomOrder()
+            ->take(9)
+            ->with('service')
+            ->with('service.city')
+            ->get();
 
         return view('pages.home', [
             'rec_services' => $rec_services,
@@ -80,10 +84,8 @@ class ServiceController extends Controller
         $recommender = array_rand($service_score, $random);
         $rec_services = [];
 
-        if ($recommender == [] && count($recommender) > 1) {
-            foreach ($recommender as $rec) {
-                $rec_services[] = Service::find($rec)->with('city');
-            }
+        if ($recommender != [] && count($recommender) > 0) {
+            $rec_services = Service::whereIn('service_id', $recommender)->with('city')->get();
         }
 
         return $rec_services;

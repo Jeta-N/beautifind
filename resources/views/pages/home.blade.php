@@ -207,6 +207,10 @@
                                 <div class="swiper-slide">
                                     <div class="card h-100">
                                         <div class="card-body d-flex flex-column align-items-center">
+                                            <h5 class="card-title mb-0">{{ $review->service->service_name }}</h5>
+                                            <p class="card-text text-secondary">
+                                                {{ $review->service->city->city_name }}
+                                            </p>
                                             <p class="mb-0">
                                                 @for ($i = 1; $i <= 5; $i++)
                                                     @if ($review->rating < $i)
@@ -244,6 +248,10 @@
                             <div class="col d-flex align-items-stretch flex-column">
                                 <div class="card h-100">
                                     <div class="card-body d-flex flex-column align-items-center">
+                                        <h5 class="card-title mb-0">{{ $review->service->service_name }}</h5>
+                                        <p class="card-text text-secondary">
+                                            {{ $review->service->city->city_name }}
+                                        </p>
                                         <p class="mb-0">
                                             @for ($i = 1; $i <= 5; $i++)
                                                 @if ($review->rating < $i)
