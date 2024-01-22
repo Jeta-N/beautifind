@@ -31,35 +31,37 @@
                                 <div class="accordion-body">
                                     <ul class="list-group list-group-flush">
                                         @foreach ($serviceType->employeeServiceType as $employeeServiceType)
-                                            <li class="list-group-item">
-                                                <div class="d-flex flex-row align-items-center">
-                                                    <span>{{ $employeeServiceType->employee->emp_name }}</span>
-                                                    <div class="ms-auto">
-                                                        <div class="d-flex flex-row align-items-center">
-                                                            <div class="flex-col text-end">
-                                                                <span>Rp.{{ number_format($employeeServiceType->price, 0, ',') }}</span><br>
-                                                                <span class="text-secondary">
-                                                                    @foreach ($services->serviceServiceType as $serviceDuration)
-                                                                        @if ($serviceDuration->st_id == $serviceType->st_id)
-                                                                            {{ $serviceDuration->duration }}
-                                                                        @break
-                                                                    @endif
-                                                                @endforeach
-                                                                Min
-                                                            </span>
-                                                        </div>
-                                                        <div class="p-3">
-                                                            <button type="submit" class=" btn btn-sign-in"
-                                                                data-bs-toggle="modal"
-                                                                @auth data-bs-target="#bookModal{{ $employeeServiceType->est_id }}"
+                                            @if ($employeeServiceType->employee->service_id == $services->service_id)
+                                                <li class="list-group-item">
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <span>{{ $employeeServiceType->employee->emp_name }}</span>
+                                                        <div class="ms-auto">
+                                                            <div class="d-flex flex-row align-items-center">
+                                                                <div class="flex-col text-end">
+                                                                    <span>Rp.{{ number_format($employeeServiceType->price, 0, ',') }}</span><br>
+                                                                    <span class="text-secondary">
+                                                                        @foreach ($services->serviceServiceType as $serviceDuration)
+                                                                            @if ($serviceDuration->st_id == $serviceType->st_id)
+                                                                                {{ $serviceDuration->duration }}
+                                                                            @break
+                                                                        @endif
+                                                                    @endforeach
+                                                                    Min
+                                                                </span>
+                                                            </div>
+                                                            <div class="p-3">
+                                                                <button type="submit" class=" btn btn-sign-in"
+                                                                    data-bs-toggle="modal"
+                                                                    @auth data-bs-target="#bookModal{{ $employeeServiceType->est_id }}"
                                                                 @else
                                                                 data-bs-target="#loginModal" @endauth>Book</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        @include('components.book-modal')
+                                            </li>
+                                            @include('components.book-modal')
+                                        @endif
                                     @endforeach
                                 </ul>
                             </div>

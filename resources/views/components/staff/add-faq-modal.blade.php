@@ -6,7 +6,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <h2 id="addFaqModalHeader">Create FAQ</h2>
+                    <h2 id="addFaqModalHeader">Add FAQ</h2>
                     <form method="POST" id="addFaqForm" action="/add-faq">
                         @csrf
                         <div class="mb-3">

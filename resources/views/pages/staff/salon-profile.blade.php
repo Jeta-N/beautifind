@@ -103,7 +103,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger" type="submit">
-                                                    <strong>Delete Portofolio</strong>
+                                                    <strong>Delete Portfolio</strong>
                                                 </button>
                                             </form>
                                         </div>
@@ -130,7 +130,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger" type="submit">
-                                                <strong>Delete Portofolio</strong>
+                                                <strong>Delete Portfolio</strong>
                                             </button>
                                         </form>
                                     </div>
@@ -357,7 +357,7 @@
                     'informationToast')
                 const toastBootstrap = new bootstrap.Toast(informationToast);
                 const toastBody = document.getElementById('toastBody');
-                toastBody.innerHTML = "FaQ has been created successfully!"
+                toastBody.innerHTML = "FAQ has been created successfully!"
                 toastBootstrap.show();
             });
         </script>
@@ -441,7 +441,7 @@
                     'informationToast')
                 const toastBootstrap = new bootstrap.Toast(informationToast);
                 const toastBody = document.getElementById('toastBody');
-                toastBody.innerHTML = "Can't activate the FaQ, must have at least 1 FaQ!"
+                toastBody.innerHTML = "Can't activate the FAQ, must have at least 1 FAQ!"
                 toastBootstrap.show();
             });
         </script>

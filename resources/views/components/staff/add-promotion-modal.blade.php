@@ -13,7 +13,7 @@
                             <label for="promotionTitle" class="form-label">Promotion Title</label>
                             <input type="Text"
                                 class="form-control form-login py-2 @error('title') is-invalid  @enderror"
-                                id="promotionTitle" placeholder="Portfolio Title" name="title"
+                                id="promotionTitle" placeholder="Promotion Title" name="title"
                                 value="{{ old('title') }}" required>
                             @error('title')
                                 <div class="invalid-feedback">
@@ -25,7 +25,7 @@
                             <label for="promotionDescription" class="form-label">Promotion Description</label>
                             <input type="Text"
                                 class="form-control form-login py-2 @error('desc') is-invalid  @enderror"
-                                id="promotionDescription" placeholder="Portfolio Description" name="desc"
+                                id="promotionDescription" placeholder="Promotion Description" name="desc"
                                 value="{{ old('desc') }}" required>
                             @error('desc')
                                 <div class="invalid-feedback">

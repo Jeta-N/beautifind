@@ -52,7 +52,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-danger" type="submit">
-                                                        <strong>Delete Portofolio</strong>
+                                                        <strong>Delete Portfolio</strong>
                                                     </button>
                                                 </form>
                                             </div>
@@ -79,7 +79,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger" type="submit">
-                                                    <strong>Delete Portofolio</strong>
+                                                    <strong>Delete Portfolio</strong>
                                                 </button>
                                             </form>
                                         </div>
