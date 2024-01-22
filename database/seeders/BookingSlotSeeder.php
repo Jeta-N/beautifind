@@ -17,7 +17,7 @@ class BookingSlotSeeder extends Seeder
             [
                 'emp_id' => 1,
                 'service_id' => 1,
-                'date' => date('Y-m-d',strtotime("-1 days")),
+                'date' => date('Y-m-d', strtotime("-1 days")),
                 'time_start' => '10:00:00',
                 'time_end' => '11:00:00',
                 'is_available' => false,
@@ -27,7 +27,7 @@ class BookingSlotSeeder extends Seeder
             [
                 'emp_id' => 1,
                 'service_id' => 1,
-                'date' => date('Y-m-d',strtotime("-1 days")),
+                'date' => date('Y-m-d', strtotime("+1 days")),
                 'time_start' => '11:00:00',
                 'time_end' => '12:00:00',
                 'is_available' => true,
@@ -37,7 +37,7 @@ class BookingSlotSeeder extends Seeder
             [
                 'emp_id' => 2,
                 'service_id' => 1,
-                'date' => date('Y-m-d',strtotime("+1 days")),
+                'date' => date('Y-m-d', strtotime("+1 days")),
                 'time_start' => '13:00:00',
                 'time_end' => '14:00:00',
                 'is_available' => false,
