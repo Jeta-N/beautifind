@@ -86,7 +86,7 @@
                                     <h5 class="card-title">{{ $service->service_name }}</h5>
                                     <p class="card-text">{{ $service->service_description }}</p>
                                     <a href="/service/{{ $service->service_id }}"
-                                        class="btn bg-btn-book text-white mt-auto">See
+                                        class="px-2 py-1 bg-btn-book text-white">See
                                         Detail</a>
                                 </div>
                             </div>
