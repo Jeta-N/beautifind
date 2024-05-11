@@ -110,6 +110,7 @@ class UserController extends Controller
         $email = $request->input('email');
         $gender = $request->input('gender');
         $phoneNumber = $request->input('phoneNumber');
+        $city = $request->input('city');
 
         $this->validate($request, [
             'email' => [
@@ -136,6 +137,7 @@ class UserController extends Controller
         $user->user_name = $username;
         $user->account->email = $email;
         $user->user_phone_number = $phoneNumber;
+        $user->city_id = $city;
         $user->updated_at = now();
         $user->account->updated_at = now();
 

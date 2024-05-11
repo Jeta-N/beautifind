@@ -33,6 +33,16 @@ class BookingSeeder extends Seeder
                 'booking_status' => 'Upcoming',
                 'created_at' => now(),
                 'updated_at' => now()
+            ],
+            [
+                'user_id' => 1,
+                'service_id' => 1,
+                'bs_id' => 4,
+                'st_id' => 1,
+                'price' => 150000,
+                'booking_status' => 'Done',
+                'created_at' => now(),
+                'updated_at' => now()
             ]
         ]);
     }

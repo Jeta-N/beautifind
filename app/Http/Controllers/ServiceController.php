@@ -26,9 +26,6 @@ class ServiceController extends Controller
         $rec_services = [];
         if (Auth::check()) {
             $rec_services = $this->rec_service();
-            if ($rec_services == []) {
-                $rec_services = Service::where('is_active', '=', true)->inRandomOrder()->take(8)->with('city')->get();
-            }
         } else {
             $rec_services = Service::where('is_active', '=', true)->inRandomOrder()->take(8)->with('city')->get();
         }
@@ -77,15 +74,21 @@ class ServiceController extends Controller
                 }
             }
         }
-        $random = 3;
-        if (count($service_score) < 5) {
+        $random = 8;
+        if (count($service_score) < 8) {
             $random = count($service_score);
         }
-        $recommender = array_rand($service_score, $random);
-        $rec_services = [];
-
-        if ($recommender != [] && count($recommender) > 0) {
-            $rec_services = Service::whereIn('service_id', $recommender)->with('city')->get();
+        if($service_score != []){
+            $recommender = array_rand($service_score, $random);
+            $rec_services = [];
+            if ($recommender != []) {
+                if(!is_array($recommender)){
+                    $recommender = array($recommender);
+                }
+                $rec_services = Service::whereIn('service_id', $recommender)->where('is_active', '=', true)->with('city')->get();
+            }
+        }else{
+            $rec_services = Service::where('is_active', '=', true)->inRandomOrder()->take(8)->with('city')->get();
         }
 
         return $rec_services;

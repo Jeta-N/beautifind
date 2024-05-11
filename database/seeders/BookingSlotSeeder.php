@@ -43,6 +43,16 @@ class BookingSlotSeeder extends Seeder
                 'is_available' => false,
                 'created_at' => now(),
                 'updated_at' => now()
+            ],
+            [
+                'emp_id' => 1,
+                'service_id' => 1,
+                'date' => date('Y-m-d', strtotime("-3 days")),
+                'time_start' => '9:00:00',
+                'time_end' => '10:00:00',
+                'is_available' => false,
+                'created_at' => now(),
+                'updated_at' => now()
             ]
         ]);
     }

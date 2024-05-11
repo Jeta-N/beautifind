@@ -4,7 +4,7 @@
     <div class="container pt-4">
         <h1>Manage Employee Service Type</h1>
         <div class="d-flex flex-row w-100 pt-4">
-            <form id="searchUsersForm" class="d-flex align-items-center mb-3 mt-3 mt-lg-0 w-75">
+            <form id="searchUsersForm" class="d-flex align-items-center mb-3 mt-3 mt-lg-0 w-75 me-3">
                 <input type="text" id="searchUsers" name="name" placeholder="Search Name" class="form-control me-2">
                 <input class="btn border border-dark" type="submit" value="SEARCH" id="button-addon2"></input>
             </form>
