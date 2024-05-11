@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('sq_id');
             $table->string('sq_question');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

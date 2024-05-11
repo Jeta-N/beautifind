@@ -37,6 +37,12 @@ class ServiceServiceTypeSeeder extends Seeder
             ],
             [
                 'service_id' => 1,
+                'st_id' => 4,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'service_id' => 1,
                 'st_id' => 5,
                 'duration' => 50,
                 'created_at' => now(),
