@@ -27,16 +27,22 @@ class Review extends Model
         'user_id',
         'booking_id',
         'rating',
+        'service_id',
         'review_content',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
     public function booking()
     {
         return $this->belongsTo(Booking::class, 'booking_id');
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id')->withTrashed();
     }
 }

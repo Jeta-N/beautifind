@@ -32,7 +32,7 @@ class EmployeeServiceType extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'emp_id');
+        return $this->belongsTo(Employee::class, 'emp_id')->withTrashed();
     }
 
     public function serviceType()

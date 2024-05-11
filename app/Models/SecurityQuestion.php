@@ -25,13 +25,11 @@ class SecurityQuestion extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
         'sq_question',
-        'sq_answer',
     ];
 
-    public function user()
+    public function userSecurityQuestion()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->hasMany(UserSecurityQuestion::class, 'sq_id');
     }
 }

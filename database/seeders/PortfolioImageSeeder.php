@@ -16,7 +16,7 @@ class PortfolioImageSeeder extends Seeder
         DB::table('portfolio_image')->insert([
             [
                 'service_id' => 1,
-                'image_path' => 'portfolioimage.jpg',
+                'image_path' => 'default.jpg',
                 'portfolio_title' => 'Layered Hairstyle',
                 'created_at' => now(),
                 'updated_at' => now()

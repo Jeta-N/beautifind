@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_price_range', function (Blueprint $table) {
-            $table->id('spr_id');
-            $table->foreignId('service_id')->constrained('service', 'service_id');
-            $table->foreignId('pr_id')->constrained('price_range', 'pr_id');
+        Schema::create('user_security_question', function (Blueprint $table) {
+            $table->id('usq_id');
+            $table->foreignId('user_id')->constrained('user', 'user_id');
+            $table->foreignId('sq_id')->constrained('security_question', 'sq_id');
+            $table->string('sq_answer');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_price_range');
+        Schema::dropIfExists('user_security_question');
     }
 };

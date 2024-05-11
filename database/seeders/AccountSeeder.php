@@ -24,14 +24,6 @@ class AccountSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'email' => 'superadmin@gmail.com',
-                'password' => Hash::make('superpass'),
-                'account_role' => 'Super Admin',
-                'is_blocked' => false,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
                 'email' => 'manager@gmail.com',
                 'password' => Hash::make('managerpass'),
                 'account_role' => 'Manager',
@@ -51,6 +43,190 @@ class AccountSeeder extends Seeder
                 'email' => 'websitemanager@gmail.com',
                 'password' => Hash::make('websitepass'),
                 'account_role' => 'Website Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'superadmin@gmail.com',
+                'password' => Hash::make('superpass'),
+                'account_role' => 'Super Admin',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'superadmin1@gmail.com',
+                'password' => Hash::make('superpass'),
+                'account_role' => 'Super Admin',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'superadmin2@gmail.com',
+                'password' => Hash::make('superpass'),
+                'account_role' => 'Super Admin',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'superadmin3@gmail.com',
+                'password' => Hash::make('superpass'),
+                'account_role' => 'Super Admin',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'superadmin4@gmail.com',
+                'password' => Hash::make('superpass'),
+                'account_role' => 'Super Admin',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'superadmin5@gmail.com',
+                'password' => Hash::make('superpass'),
+                'account_role' => 'Super Admin',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'superadmin6@gmail.com',
+                'password' => Hash::make('superpass'),
+                'account_role' => 'Super Admin',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'superadmin7@gmail.com',
+                'password' => Hash::make('superpass'),
+                'account_role' => 'Super Admin',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'superadmin8@gmail.com',
+                'password' => Hash::make('superpass'),
+                'account_role' => 'Super Admin',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'superadmin9@gmail.com',
+                'password' => Hash::make('superpass'),
+                'account_role' => 'Super Admin',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'superadmin10@gmail.com',
+                'password' => Hash::make('superpass'),
+                'account_role' => 'Super Admin',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'superadmin11@gmail.com',
+                'password' => Hash::make('superpass'),
+                'account_role' => 'Super Admin',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager1@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager2@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager3@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager4@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager5@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager6@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager7@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager8@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager9@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager10@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
+                'is_blocked' => false,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'email' => 'manager11@gmail.com',
+                'password' => Hash::make('managerpass'),
+                'account_role' => 'Manager',
                 'is_blocked' => false,
                 'created_at' => now(),
                 'updated_at' => now()

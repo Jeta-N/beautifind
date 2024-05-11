@@ -4,12 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class City extends Model
 {
     use HasFactory;
+<<<<<<<< HEAD:app/Models/City.php
 
      /**
+========
+    use SoftDeletes;
+    /**
+>>>>>>>> faac90f57afd7a51a0ccd4b218eec233fe1b533d:app/Models/ServicePriceRange.php
      * The table associated with the model.
      *
      * @var string

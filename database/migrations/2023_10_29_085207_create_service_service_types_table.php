@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('sst_id');
             $table->foreignId('service_id')->constrained('service', 'service_id');
             $table->foreignId('st_id')->constrained('service_type', 'st_id');
+            $table->integer('duration');
             $table->timestamps();
             $table->softDeletes();
         });

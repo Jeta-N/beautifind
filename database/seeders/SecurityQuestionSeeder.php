@@ -15,9 +15,17 @@ class SecurityQuestionSeeder extends Seeder
     {
         DB::table('security_question')->insert([
             [
-                'user_id' => 1,
                 'sq_question' => 'What is your favorite color?',
-                'sq_answer' => 'Yellow',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'sq_question' => 'What is your favorite animal?',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'sq_question' => 'What is your favorite food?',
                 'created_at' => now(),
                 'updated_at' => now()
             ]

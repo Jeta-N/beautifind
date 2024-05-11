@@ -1,0 +1,158 @@
+*
+{
+    font-family: 'Poppins', sans-serif;
+}
+
+.logout
+{
+    margin-right: 20px;
+}
+
+.logout:hover
+{
+    background-color: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.nav-link
+{
+    color: black;
+}
+
+.nav-link:hover
+{
+    color: black;
+}
+
+.sidebar-user
+{
+    font-weight: 600;
+}
+
+.user-icon
+{
+    font-size: 1.5rem;
+}
+
+.nav-link
+{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.sidebar
+{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.btn-check:checked+.btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check)+.btn:active
+{
+    border-color: transparent;
+}
+
+.btn-close:focus
+{
+    box-shadow: none;
+}
+
+.form-control:focus,
+.form-select:focus
+{
+    box-shadow: none;
+    border-color: black;
+}
+
+.mobile
+{
+    display: none;
+}
+
+.sidebar-sticky
+{
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* Scrollable contents if viewport is shorter than content. */
+}
+
+.sidebar .nav-link
+{
+    font-weight: 500;
+    color: #333;
+}
+
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather
+{
+    color: inherit;
+}
+
+.sidebar-heading
+{
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+
+.log-out:hover
+{
+    cursor: pointer;
+}
+
+/* Dashboard */
+.card-dashboard
+{
+    box-shadow: 0 8px 10px 2px rgba(70, 69, 69, 0.514);
+    border-radius: 15px;
+    padding: 7px;
+}
+
+/* View */
+.dropdown
+{
+    position: static;
+}
+
+.btn-confirm
+{
+    border: 1px solid black;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.sidebar
+{
+    z-index: 9999999;
+}
+
+@media (max-width: 767.98px)
+{
+    .sidebar
+    {
+        top: 4rem;
+    }
+
+    .h2
+    {
+        display: none;
+    }
+
+    .mobile
+    {
+        display: block;
+    }
+
+}

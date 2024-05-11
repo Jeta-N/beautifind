@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ServicePriceRange extends Model
+class UserSecurityQuestion extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -15,9 +15,9 @@ class ServicePriceRange extends Model
      *
      * @var string
      */
-    protected $table = 'service_price_range';
+    protected $table = 'user_security_question';
 
-    protected $primaryKey = 'spr_id';
+    protected $primaryKey = 'usq_id';
 
     /**
      * The attributes that are mass assignable.
@@ -25,17 +25,18 @@ class ServicePriceRange extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'service_id',
-        'pr_id',
+        'user_id',
+        'sq_id',
+        'sq_answer',
     ];
 
-    public function service()
+    public function securityQuestion()
     {
-        return $this->belongsTo(Service::class, 'service_id');
+        return $this->belongsTo(SecurityQuestion::class, 'sq_id');
     }
 
-    public function priceRange()
+    public function user()
     {
-        return $this->belongsTo(PriceRange::class, 'pr_id');
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 }

@@ -28,16 +28,17 @@ class BookingSlot extends Model
         'date',
         'time_start',
         'time_end',
+        'is_available',
     ];
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'emp_id');
+        return $this->belongsTo(Employee::class, 'emp_id')->withTrashed();
     }
 
     public function service()
     {
-        return $this->belongsTo(Service::class, 'service_id');
+        return $this->belongsTo(Service::class, 'service_id')->withTrashed();
     }
 
     public function booking()

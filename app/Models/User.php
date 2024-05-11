@@ -30,6 +30,7 @@ class User extends Model
         'user_birthdate',
         'user_phone_number',
         'city_id',
+        'city_id',
         'user_image_path',
     ];
 
@@ -38,14 +39,15 @@ class User extends Model
         return $this->belongsTo(Account::class, 'account_id');
     }
 
+
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id');
     }
 
-    public function securityQuestion()
+    public function userSecurityQuestion()
     {
-        return $this->hasOne(SecurityQuestion::class, 'user_id');
+        return $this->hasOne(userSecurityQuestion::class, 'user_id');
     }
 
     public function review()

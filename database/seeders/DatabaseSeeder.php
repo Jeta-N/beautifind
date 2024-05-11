@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\EmployeeServiceType;
-use App\Models\PriceRange;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,13 +16,14 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AccountSeeder::class,
             CitySeeder::class,
+            CitySeeder::class,
             UserSeeder::class,
-            PriceRangeSeeder::class,
             ServiceTypeSeeder::class,
             ServiceSeeder::class,
             EmployeeSeeder::class,
             SuperAdminSeeder::class,
             SecurityQuestionSeeder::class,
+            UserSecurityQuestionSeeder::class,
             BookingSlotSeeder::class,
             BookingSeeder::class,
             ReviewSeeder::class,
@@ -33,7 +32,6 @@ class DatabaseSeeder extends Seeder
             PromotionSeeder::class,
             FaqSeeder::class,
             PortfolioImageSeeder::class,
-            ServicePriceRangeSeeder::class,
             UserServiceTypeSeeder::class,
         ]);
     }

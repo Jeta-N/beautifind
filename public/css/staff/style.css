@@ -1,0 +1,17 @@
+*
+{
+    font-family: 'Poppins', sans-serif;
+}
+
+.logo-login
+{
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.bg-body
+{
+    background: #F4EFEC !important;
+}

@@ -16,7 +16,7 @@ class PromotionSeeder extends Seeder
         DB::table('promotion')->insert([
             [
                 'service_id' => 1,
-                'image_path' => 'promoimage.jpg',
+                'image_path' => 'default.jpg',
                 'promo_title' => 'Birthday Discount',
                 'promo_description' => 'Get 10% off for 7 days before or after your birthday.',
                 'created_at' => now(),

@@ -35,7 +35,10 @@ class Service extends Model
         'service_instagram',
         'logo_image_path',
         'service_image_path',
-        'service_status',
+        'is_active',
+        'has_faq',
+        'has_portfolio',
+        'has_promo'
     ];
 
     public function city()
@@ -83,8 +86,8 @@ class Service extends Model
         return $this->hasOne(SuperAdmin::class, 'service_id');
     }
 
-    public function servicePriceRange()
+    public function review()
     {
-        return $this->hasMany(ServicePriceRange::class, 'service_id');
+        return $this->hasMany(Review::class, 'service_id');
     }
 }

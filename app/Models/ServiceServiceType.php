@@ -26,11 +26,12 @@ class ServiceServiceType extends Model
     protected $fillable = [
         'service_id',
         'st_id',
+        'duration',
     ];
 
     public function service()
     {
-        return $this->belongsTo(Service::class, 'service_id');
+        return $this->belongsTo(Service::class, 'service_id')->withTrashed();
     }
 
     public function serviceType()

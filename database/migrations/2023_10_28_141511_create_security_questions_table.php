@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('security_question', function (Blueprint $table) {
             $table->id('sq_id');
-            $table->foreignId('user_id')->constrained('user', 'user_id');
             $table->string('sq_question');
-            $table->string('sq_answer');
             $table->timestamps();
             $table->softDeletes();
         });
